@@ -216,7 +216,7 @@
 					<p>© <?= date('Y') ?> AL</p>
 				</div>
 				<div class="col-lg-8 text-center">
-					<p>Do you enjoy NMiner? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>
+					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>
 				</div>
 				<div class="col-lg-2 text-end">
 					<p>Made with ♥️ in 🇫🇮</p>
