@@ -6,3 +6,6 @@ Apache, PHP, PHPCurl
 
 # Install 
 Add your nodes IPs in nodes.txt
+
+
+![Screenshot](screenshot.png)
