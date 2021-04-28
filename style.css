@@ -1,0 +1,53 @@
+
+body{
+	font-family: 'Lato', sans-serif;
+	color: #333;
+	background-color: #f1f2f8;
+}
+h1,h2,h3,h4,h5,h6{
+	font-family: 'Francois One', sans-serif;
+}
+
+h1{
+	color: #fff;
+}
+h4{
+	font-size: 2.5rem;
+}
+h4 small{
+	font-size: 1rem;
+}
+
+
+table.dataTable tbody tr{
+	background-color: transparent !important;
+}
+
+.border-success{
+	border-bottom: 3px solid #ACCBE1 !important;
+}
+.border-warning{
+	border-bottom: 3px solid #F4B942 !important; 
+}
+.bg-success{
+	background-color: #ACCBE1 !important;
+}
+.bg-warning{
+	background-color: #F4B942 !important;
+}
+
+.header{
+	background-image: url('core/img/nkn.svg'),linear-gradient(90.78deg,#0b163c 17.75%,#303159 84.46%);
+	background-position: left center;
+	background-repeat: no-repeat;
+	color: #fff;
+}
+
+.header p{
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.copyrights{
+	font-size: .8rem;
+}
