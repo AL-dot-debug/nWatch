@@ -149,43 +149,70 @@
 						$name 	= $data[1]; 
 						
 						$node 	= get_node_status($ip); 
-						$state 	= $node['result']['syncState']; 
 						
-						switch($state) : 
-						
-							case 'WAIT_FOR_SYNCING': 
-								$border_state_class = 'border-warning';
-								$cell_state_class 	= 'bg-warning';
-								$img 				= 'core/img/sync.svg';
-							break; 
+						if(!empty($node)) : 
 							
-							case 'SYNC_STARTED': 
-								$border_state_class = 'border-warning';
-								$cell_state_class 	= 'bg-warning';
-								$img 				= 'core/img/sync.svg';
-							break; 
+							if(isset($node['error'])):
+								
+								$border_state_class = 'border-alert';
+								$cell_state_class 	= 'bg-alert';
+								$img 				= 'core/img/warning.svg';
+								$relayperhour		= 0; 
+								
+								$node['result']['syncState'] = $node['error']['message']; 
 							
-							case 'SYNC_FINISHED': 
-								$border_state_class = 'border-warning';
-								$cell_state_class 	= 'bg-warning';
-								$img 				= 'core/img/sync.svg';
-							break; 
+							else : 
 							
-							case 'PERSIST_FINISHED': 
-								$border_state_class = 'border-success'; 
-								$cell_state_class 	= 'bg-success';
-								$img 				= 'core/img/mining.svg';
-							break; 
-						
-						endswitch; 
-						
-						$running_hours = secondsToHours($node['result']['uptime']);
-						
-						if($running_hours > 0) : 
-							$relayperhour = perso_round(($node['result']['relayMessageCount']/$running_hours), 2 ); 
+								$state 	= $node['result']['syncState']; 
+								
+								switch($state) : 
+								
+									case 'WAIT_FOR_SYNCING': 
+										$border_state_class = 'border-warning';
+										$cell_state_class 	= 'bg-warning';
+										$img 				= 'core/img/sync.svg';
+									break; 
+									
+									case 'SYNC_STARTED': 
+										$border_state_class = 'border-warning';
+										$cell_state_class 	= 'bg-warning';
+										$img 				= 'core/img/sync.svg';
+									break; 
+									
+									case 'SYNC_FINISHED': 
+										$border_state_class = 'border-warning';
+										$cell_state_class 	= 'bg-warning';
+										$img 				= 'core/img/sync.svg';
+									break; 
+									
+									case 'PERSIST_FINISHED': 
+										$border_state_class = 'border-success'; 
+										$cell_state_class 	= 'bg-success';
+										$img 				= 'core/img/mining.svg';
+									break; 
+								
+								endswitch; 
+							
+								$running_hours = secondsToHours($node['result']['uptime']);
+								
+								if($running_hours > 0) : 
+									$relayperhour = perso_round(($node['result']['relayMessageCount']/$running_hours), 2 ); 
+								else : 
+									$relayperhour = perso_round($node['result']['relayMessageCount'], 2 ); 
+								endif;
+								
+							endif; 
+							
 						else : 
-							$relayperhour = perso_round($node['result']['relayMessageCount'], 2 ); 
-						endif;
+						
+							$border_state_class = 'border-alert';
+							$cell_state_class 	= 'bg-alert';
+							$img 				= 'core/img/warning.svg';
+							$relayperhour		= 0; 
+							
+							$node['result']['syncState'] = 'OFFLINE';
+						
+						endif; 
 						
 					?>
 				

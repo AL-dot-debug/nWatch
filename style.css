@@ -29,11 +29,18 @@ table.dataTable tbody tr{
 .border-warning{
 	border-bottom: 3px solid #F4B942 !important; 
 }
+.border-alert{
+	border-bottom: 3px solid #F34213 !important; 
+}
 .bg-success{
 	background-color: #ACCBE1 !important;
 }
 .bg-warning{
 	background-color: #F4B942 !important;
+}
+.bg-alert{
+	background-color: #F34213 !important;
+	color: #fff; 
 }
 
 .header{
