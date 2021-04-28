@@ -148,6 +148,8 @@
 						$ip 	= $data[0]; 
 						$name 	= $data[1]; 
 						
+						unset($remains);
+						
 						$node 	= get_node_status($ip); 
 						
 						if(!empty($node)) : 
@@ -205,6 +207,12 @@
 									$relayperhour = perso_round($node['result']['relayMessageCount'], 2 ); 
 								endif;
 								
+								if($state == 'SYNC_STARTED'):
+									
+									$remains = perso_round(($node['result']['height']/$block['blockCount'])*100, 2);
+								
+								endif; 
+								
 							endif; 
 							
 						else : 
@@ -226,7 +234,7 @@
 						<tr class="<?= $border_state_class ?>">
 							<td scope="row"><?= $name ?></td>
 							<td><?= $ip ?></td>
-							<td class="<?= $cell_state_class ?>"> <img src="<?= $img ?>" height="25"> <?= $node['result']['syncState'] ?> </td>
+							<td class="<?= $cell_state_class ?>"> <img src="<?= $img ?>" height="25"> <?= $node['result']['syncState'] ?> <?php if($remains) : echo '<br><small>'.$remains.'%</small>'; endif; ?> </td>
 							<td><?= perso_round($node['result']['height'],0) ?></td>
 							<td><?= perso_round($node['result']['relayMessageCount'], 0) ?></td>
 							<td><?= $relayperhour ?></td>
