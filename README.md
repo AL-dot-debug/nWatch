@@ -5,7 +5,10 @@ NKN Node Monitoring interface
 Apache, PHP, PHPCurl 
 
 # Install 
-Add your nodes IPs in nodes.txt
+1. Rename nodes-examples.txt to nodes.txt
+2. Delete the example lines
+3. Add your nodes IPs and names in nodes.txt
+4. Save the file, go check your dashboard.
 
 
 ![Screenshot](screenshot.png)

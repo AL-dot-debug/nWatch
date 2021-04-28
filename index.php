@@ -160,6 +160,10 @@
 								$relayperhour		= 0; 
 								
 								$node['result']['syncState'] = $node['error']['message']; 
+								
+								$node['result']['height']				= 0;
+								$node['result']['relayMessageCount'] 	= 0; 
+								$node['result']['uptime'] 				= 0;
 							
 							else : 
 							
@@ -210,7 +214,10 @@
 							$img 				= 'core/img/warning.svg';
 							$relayperhour		= 0; 
 							
-							$node['result']['syncState'] = 'OFFLINE';
+							$node['result']['syncState'] 			= 'OFFLINE';
+							$node['result']['height']				= 0;
+							$node['result']['relayMessageCount'] 	= 0; 
+							$node['result']['uptime'] 				= 0; 
 						
 						endif; 
 						
