@@ -178,15 +178,15 @@
 									break; 
 									
 									case 'SYNC_STARTED': 
-										$border_state_class = 'border-warning';
-										$cell_state_class 	= 'bg-warning';
-										$img 				= 'core/img/sync.svg';
+										$border_state_class = 'border-start';
+										$cell_state_class 	= 'bg-start';
+										$img 				= 'core/img/start.svg';
 									break; 
 									
 									case 'SYNC_FINISHED': 
-										$border_state_class = 'border-warning';
-										$cell_state_class 	= 'bg-warning';
-										$img 				= 'core/img/sync.svg';
+										$border_state_class = 'border-success';
+										$cell_state_class 	= 'bg-success';
+										$img 				= 'core/img/finish.svg';
 									break; 
 									
 									case 'PERSIST_FINISHED': 

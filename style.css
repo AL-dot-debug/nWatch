@@ -32,6 +32,9 @@ table.dataTable tbody tr{
 .border-alert{
 	border-bottom: 3px solid #F34213 !important; 
 }
+.border-start{
+	border-bottom: 3px solid #6FD08C !important; 
+}
 .bg-success{
 	background-color: #ACCBE1 !important;
 }
@@ -41,6 +44,9 @@ table.dataTable tbody tr{
 .bg-alert{
 	background-color: #F34213 !important;
 	color: #fff; 
+}
+.bg-start{
+	background-color: #6FD08C !important;
 }
 
 .header{
