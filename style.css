@@ -18,6 +18,13 @@ h4 small{
 	font-size: 1rem;
 }
 
+table a{
+	color: #333;
+	text-decoration: none;
+	border-bottom: 1px dotted #333;
+	padding-bottom: .25rem;
+}
+
 
 table.dataTable tbody tr{
 	background-color: transparent !important;

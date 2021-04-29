@@ -12,7 +12,7 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" href="style.css" />
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css"/>
 		
 	</head>
 	
@@ -123,9 +123,9 @@
 					
 					<thead>
 						<tr>
-							<th scope="col">Node</th>
-							<th scope="col">IP</th>
-							<th scope="col">Status</th>
+							<th scope="col" data-priority="0">Node</th>
+							<th scope="col" data-priority="1">IP</th>
+							<th scope="col" data-priority="1">Status</th>
 							<th scope="col">Current block</th>
 							<th scope="col">Relayed Messages</th>
 							<th scope="col">Relay / hour</th>
@@ -268,17 +268,20 @@
 			</div>
 			
 		</footer>
-		
+			
 		
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
 		<script src="core/js/bootstrap.bundle.min"></script>
 		
 		<script>
 			$(document).ready(function() {
+				
 				$('#nodes').DataTable({
-					"paging":   false
+					"paging":   false,
+					"responsive": true
 				});
+			
 			} );
 		</script>
 		
