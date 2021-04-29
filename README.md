@@ -12,4 +12,4 @@ Apache, PHP, PHPCurl
 
 
 ![Screenshot](screenshot.png)
-![Mobile](mobile_screenshot)
+![Mobile](mobile_screenshot.png)
