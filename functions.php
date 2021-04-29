@@ -63,6 +63,8 @@ function get_nodes(){
 						$return['nodes'][$ip]['version'] 			= $node['result']['version'];
 						$return['nodes'][$ip]['proposalSubmitted'] 	= $node['result']['proposalSubmitted'];
 						$return['nodes'][$ip]['uptime'] 			= secondsToTime($node['result']['uptime']);
+						$return['nodes'][$ip]['id']					= $node['result']['id']; 
+						
 						
 						if($node['result']['proposalSubmitted'] != 0):
 							$return['total_proposals']++;

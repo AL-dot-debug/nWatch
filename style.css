@@ -88,6 +88,14 @@ table.dataTable tbody tr{
 }
 
 
+.underline{
+	display: inline-block;
+	border-bottom: 1px dotted #4A4A8C;
+	padding-bottom: .5rem;
+	cursor: help;
+}
+
+
 .copyrights{
 	font-size: .8rem;
 }

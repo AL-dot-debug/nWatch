@@ -151,7 +151,7 @@
 				
 						<tr class="<?= $node['style']['border'] ?>">
 							
-							<td scope="row"><?= $node['name'] ?></td>
+							<td scope="row"> <img src="core/img/id.svg" height="15" data-bs-toggle="tooltip" data-bs-placement="top" title="ID : <?= $node['id'] ?>"> <?= $node['name'] ?> </td>
 							<td><?= $node['ip'] ?></td>
 							
 							<td class="<?= $node['style']['cell'] ?>"> 
@@ -204,6 +204,12 @@
 					"paging":   false,
 					"responsive": true
 				});
+				
+				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+				  return new bootstrap.Tooltip(tooltipTriggerEl)
+				})
+				
 			
 			} );
 		</script>
