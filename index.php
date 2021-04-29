@@ -106,7 +106,7 @@
 								<p>Max relay</p>
 								
 								<h4 class="m-0 p-0"><?= $nodes['total_proposals'] ?></h4>
-								<p>Proposal</p>	
+								<p>Reward(s)</p>	
 									
 									
 							</div>
@@ -140,7 +140,7 @@
 							<th scope="col">Relayed Messages</th>
 							<th scope="col">Relay / hour</th>
 							<th scope="col">Version</th>
-							<th scope="col">Proposal</th>
+							<th scope="col">Reward</th>
 							<th scope="col">Uptime</th>
 						</tr>
 						</thead>
