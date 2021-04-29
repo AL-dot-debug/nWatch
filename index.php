@@ -86,10 +86,10 @@
 							
 							<div class="col-6">
 								
-								<h4 class="m-0 p-0"><?= perso_round($block['blockCount'],0) ?></h4>
+								<h4 class="m-0 p-0"><?= perso_round($block['blockCount'],0, ' ') ?></h4>
 								<p>Latest block</p>
 								
-								<h4 class="m-0 p-0"><?= perso_round($netStats['totalNodes'],0) ?></h4>
+								<h4 class="m-0 p-0"><?= perso_round($netStats['totalNodes'],0, ' ') ?></h4>
 								<p>Nodes</p>
 								
 								<h4 class="m-0 p-0"><?= $github[0]['name'] ?></h4>
@@ -102,7 +102,7 @@
 								<h4 class="m-0 p-0"><?= $nodes['total_nodes'] ?></h4>
 								<p>Nodes</p>
 								
-								<h4 class="m-0 p-0"><?=  perso_round($nodes['max_relay'],0) ?></h4>
+								<h4 class="m-0 p-0"><?=  perso_round($nodes['max_relay'],0, ' ') ?></h4>
 								<p>Max relay</p>
 								
 								<h4 class="m-0 p-0"><?= $nodes['total_proposals'] ?></h4>

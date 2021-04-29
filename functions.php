@@ -223,9 +223,9 @@ function secondsToTime($seconds) {
 
 }
 
-function perso_round($value,$float){
+function perso_round($value,$float, $separator = ''){
 	
-	$return = number_format($value, $float, ',', ''); 
+	$return = number_format($value, $float, ',', $separator); 
 	
 	return $return; 
 	
