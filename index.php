@@ -102,7 +102,7 @@
 								<h4 class="m-0 p-0"><?= $nodes['total_nodes'] ?></h4>
 								<p>Nodes</p>
 								
-								<h4 class="m-0 p-0"><?= $nodes['max_relay'] ?></h4>
+								<h4 class="m-0 p-0"><?=  perso_round($nodes['max_relay'],0) ?></h4>
 								<p>Max relay</p>
 								
 								<h4 class="m-0 p-0"><?= $nodes['total_proposals'] ?></h4>
@@ -152,24 +152,18 @@
 						<tr class="<?= $node['style']['border'] ?>">
 							
 							<td scope="row"><?= $node['name'] ?></td>
-							
 							<td><?= $node['ip'] ?></td>
 							
 							<td class="<?= $node['style']['cell'] ?>"> 
 								<img src="<?= $node['style']['img'] ?>" height="25"> 
-								<?= $node['syncState'] ?> <?php if($node['remain']) : echo '<br><small>'.$node['remain'].'%</small>'; endif; ?> 
+								<?= $node['syncState'] ?> <?php if(isset($node['remain'])) : echo '<br><small>'.$node['remain'].'%</small>'; endif; ?> 
 							</td>
 							
 							<td><?= $node['height'] ?></td>
-							
-							<td><?= $node['relayMessageCount'] ?></td>
-							
+							<td><?= perso_round($node['relayMessageCount'], 0) ?></td>
 							<td><?= $node['relayperhour'] ?></td>
-							
 							<td><?= $node['version'] ?></td>
-							
 							<td><?= $node['proposalSubmitted'] ?></td>
-							
 							<td><?= $node['uptime'] ?></td>
 						</tr>
 			

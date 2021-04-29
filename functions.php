@@ -102,19 +102,21 @@ function get_nodes(){
 						
 						$node_uptime = secondsToHours($node['result']['uptime']);
 							
-						if($return['nodes'][$ip]['uptime'] > 0) : 
-							$return['nodes'][$ip]['relayperhour'] = perso_round(($node['result']['relayMessageCount']/$node_uptime), 2 ); 
+						if($node_uptime > 0) : 
+							$return['nodes'][$ip]['relayperhour'] = perso_round(($node['result']['relayMessageCount']/$node_uptime), 0 ); 
+							$true_relay = $node['result']['relayMessageCount']/$node_uptime; 
 						else : 
-							$return['nodes'][$ip]['relayperhour'] = perso_round($node['result']['relayMessageCount'], 2 ); 
+							$return['nodes'][$ip]['relayperhour'] = perso_round($node['result']['relayMessageCount'], 0 );
+							$true_relay = $node['result']['relayMessageCount']; 
 						endif;
 						
-						if($return['nodes'][$ip]['relayperhour'] > $return['max_relay']):
-							$return['max_relay'] = $return['nodes'][$ip]['relayperhour']; 
+						if($true_relay > $return['max_relay']):
+							$return['max_relay'] = $true_relay; 
 						endif;
 						
 						// Sync state calculation 
 						
-						if($state == 'SYNC_STARTED'):
+						if($node['result']['syncState'] == 'SYNC_STARTED'):
 							$return['nodes'][$ip]['remain'] = perso_round(($node['result']['height']/$block['blockCount'])*100, 4);
 						endif; 
 						
@@ -221,7 +223,7 @@ function secondsToTime($seconds) {
 
 function perso_round($value,$float){
 	
-	$return = number_format(round($value, $float), $float, ',', ' '); 
+	$return = number_format($value, $float, ',', ''); 
 	
 	return $return; 
 	
