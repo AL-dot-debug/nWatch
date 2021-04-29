@@ -1,5 +1,159 @@
 <?php
 
+
+function get_nodes(){
+	
+	if(file_exists('nodes.txt')): 
+	
+		$nodes_file = file_get_contents('nodes.txt'); 
+		$nodes 		= explode("\n", $nodes_file);
+		
+		$return['total_nodes'] 		= 0;
+		$return['total_proposals'] 	= 0;
+		$return['max_relay'] 		= 0;
+		
+		$return['stats']						= []; 
+		$return['stats']['ERROR']				= 0; 
+		$return['stats']['WAIT_FOR_SYNCING']	= 0;
+		$return['stats']['SYNC_STARTED']		= 0;
+		$return['stats']['SYNC_FINISHED']		= 0;
+		$return['stats']['PERSIST_FINISHED']	= 0;
+		$return['stats']['OFFLINE']				= 0;
+		
+		
+		foreach($nodes as $node) :
+			
+			// Whitelines .. 
+			if(isset($node) AND !empty($node)) : 
+				
+				$data 	= explode(',', $node); 
+				$ip 	= $data[0]; 
+				$name 	= $data[1];
+				
+				$node 	= get_node_status($ip);
+				
+				if(!empty($node)) : 
+					
+					// Common 
+					
+					$return['nodes'][$ip]['ip'] 	= $ip;
+					$return['nodes'][$ip]['name'] 	= $name;
+					
+					// Error 
+						
+					if(isset($node['error'])):
+					
+						$return['nodes'][$ip]['style']['border'] 	= 'border-alert';
+						$return['nodes'][$ip]['style']['cell'] 		= 'bg-alert';
+						$return['nodes'][$ip]['style']['img'] 		= 'core/img/warning.svg';
+						
+						$return['nodes']['syncState'] = $node['error']['message']; 
+						
+						$return['nodes'][$ip]['height']				= 0;
+						$return['nodes'][$ip]['relayMessageCount'] 	= 0; 
+						$return['nodes'][$ip]['uptime'] 			= 0;
+						
+						$return['stats']['ERROR']++;
+					
+					else : 
+						
+						$return['nodes'][$ip]['syncState'] 			= str_replace('_', ' ', $node['result']['syncState']);
+						$return['nodes'][$ip]['height'] 			= $node['result']['height'];
+						$return['nodes'][$ip]['relayMessageCount'] 	= $node['result']['relayMessageCount'];
+						$return['nodes'][$ip]['version'] 			= $node['result']['version'];
+						$return['nodes'][$ip]['proposalSubmitted'] 	= $node['result']['proposalSubmitted'];
+						$return['nodes'][$ip]['uptime'] 			= secondsToTime($node['result']['uptime']);
+						
+						if($node['result']['proposalSubmitted'] != 0):
+							$return['total_proposals']++;
+						endif;
+						
+						$return['stats'][$node['result']['syncState']]++; 
+						
+						switch($node['result']['syncState']) : 
+						
+							case 'WAIT_FOR_SYNCING': 
+								$return['nodes'][$ip]['style']['border'] 	= 'border-warning';
+								$return['nodes'][$ip]['style']['cell'] 		= 'bg-warning';
+								$return['nodes'][$ip]['style']['img'] 		= 'core/img/sync.svg';
+							break; 
+							
+							case 'SYNC_STARTED': 
+								$return['nodes'][$ip]['style']['border'] 	= 'border-start';
+								$return['nodes'][$ip]['style']['cell'] 		= 'bg-start';
+								$return['nodes'][$ip]['style']['img'] 		= 'core/img/start.svg';
+							break; 
+							
+							case 'SYNC_FINISHED': 
+								$return['nodes'][$ip]['style']['border'] 	= 'border-success';
+								$return['nodes'][$ip]['style']['cell'] 		= 'bg-success';
+								$return['nodes'][$ip]['style']['img'] 		= 'core/img/finish.svg';
+							break; 
+							
+							case 'PERSIST_FINISHED': 
+								$return['nodes'][$ip]['style']['border'] 	= 'border-success';
+								$return['nodes'][$ip]['style']['cell'] 		= 'bg-success';
+								$return['nodes'][$ip]['style']['img'] 		= 'core/img/mining.svg';
+							break; 
+						
+						endswitch; 
+						
+						// Relay calculation
+						
+						$node_uptime = secondsToHours($node['result']['uptime']);
+							
+						if($return['nodes'][$ip]['uptime'] > 0) : 
+							$return['nodes'][$ip]['relayperhour'] = perso_round(($node['result']['relayMessageCount']/$node_uptime), 2 ); 
+						else : 
+							$return['nodes'][$ip]['relayperhour'] = perso_round($node['result']['relayMessageCount'], 2 ); 
+						endif;
+						
+						if($return['nodes'][$ip]['relayperhour'] > $return['max_relay']):
+							$return['max_relay'] = $return['nodes'][$ip]['relayperhour']; 
+						endif;
+						
+						// Sync state calculation 
+						
+						if($state == 'SYNC_STARTED'):
+							$return['nodes'][$ip]['remain'] = perso_round(($node['result']['height']/$block['blockCount'])*100, 4);
+						endif; 
+						
+					endif;
+				
+				else : 
+					
+					$return['nodes'][$ip]['style']['border'] 	= 'border-alert';
+					$return['nodes'][$ip]['style']['cell'] 		= 'bg-alert';
+					$return['nodes'][$ip]['style']['img'] 		= 'core/img/warning.svg';
+					
+					$return['nodes'][$ip]['syncState'] 				= 'OFFLINE';
+					$return['nodes'][$ip]['height']				= 0;
+					$return['nodes'][$ip]['relayMessageCount'] 	= 0; 
+					$return['nodes'][$ip]['uptime'] 			= 0;
+					
+					$return['stats']['OFFLINE']++; 
+					
+				endif; 
+				
+				
+				$return['total_nodes']++; 
+				
+			endif; 
+		
+		endforeach; 
+		
+		return $return; 
+	
+	else: 
+	
+		return false; 
+	
+	endif;
+	
+	
+}
+
+
 function get_json($url){
 	
 	$headers = [

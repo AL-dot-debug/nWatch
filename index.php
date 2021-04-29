@@ -42,7 +42,7 @@
 				</button>
 			
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 						
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="#">Nodes</a>
@@ -70,57 +70,53 @@
 			$block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts'); 
 			$netStats 	= get_json('https://api.nknx.org/network/stats'); 
 			$github 	= get_json('https://api.github.com/repos/nknorg/nkn/releases'); 
-			
+			$nodes 		= get_nodes(); 
 			
 			?>
 			
 			<div class="container">
-			
-				<div class="row">
+				
+				<div class="row py-5">
 					
-					<div class="col mb-5">
-						
-						<h1 class="mb-5">Network</h1>
-						
-						<div class="row">
-							
-							<div class="col">
-								<h4><?= perso_round($values['0x5cf04716ba20127f1e2297addcf4b5035000c9eb']['eur'],4) ?><small>€</small></h4>
-								<p>NKN value</p>
-							</div>
-							
-							<div class="col">
-								<h4><?= perso_round($values['0x5cf04716ba20127f1e2297addcf4b5035000c9eb']['eur_24h_change'],2) ?><small>%</small></h4>
-								<p>24h change</p>
-							</div>
-							
-							<div class="col">
-								<h4><?= perso_round($values['0x5cf04716ba20127f1e2297addcf4b5035000c9eb']['eth_market_cap'],0) ?><small>ETH</small></h4>
-								<p>Market Cap</p>
-							</div>
-							
-						</div>
+					
+					
+					<div class="col-lg-6 mb-3">
 						
 						<div class="row">
 							
-							<div class="col">
-								<h4><?= perso_round($block['blockCount'],0) ?></h4>
+							<div class="col-6">
+								
+								<h4 class="m-0 p-0"><?= perso_round($block['blockCount'],0) ?></h4>
 								<p>Latest block</p>
-							</div>
-							
-							<div class="col">
-								<h4><?= perso_round($netStats['totalNodes'],0) ?></h4>
+								
+								<h4 class="m-0 p-0"><?= perso_round($netStats['totalNodes'],0) ?></h4>
 								<p>Nodes</p>
+								
+								<h4 class="m-0 p-0"><?= $github[0]['name'] ?></h4>
+								<p>since <?= time_elapsed_string($github[0]['published_at']) ?></p>
+								
 							</div>
 							
-							<div class="col">
-								<h4><?= $github[0]['name'] ?></h4>
-								<p>since <?= time_elapsed_string($github[0]['published_at']) ?></p>
+							<div class="col-6">
+								
+								<h4 class="m-0 p-0"><?= $nodes['total_nodes'] ?></h4>
+								<p>Nodes</p>
+								
+								<h4 class="m-0 p-0"><?= $nodes['max_relay'] ?></h4>
+								<p>Max relay</p>
+								
+								<h4 class="m-0 p-0"><?= $nodes['total_proposals'] ?></h4>
+								<p>Proposal</p>	
+									
+									
 							</div>
 							
 						</div>
-							
 						
+					</div>
+					
+					<div class="col-lg-6 text-center">
+						<canvas style="margin-top:-.5rem;" class="mx-auto" id="myChart" height="105px"></canvas>
 					</div>
 					
 				</div>
@@ -151,115 +147,33 @@
 					
 					<tbody>
 		
-					<?php 
-					
-					$nodes_file = file_get_contents('nodes.txt'); 
-					$nodes 		= explode("\n", $nodes_file);
-					
-					foreach($nodes as $node) : 
-						
-						if(isset($node) AND !empty($node)) : 
-						
-							$data 	= explode(',', $node); 
-							$ip 	= $data[0]; 
-							$name 	= $data[1]; 
-							
-							unset($remains);
-							
-							$node 	= get_node_status($ip); 
-							
-							if(!empty($node)) : 
-								
-								if(isset($node['error'])):
-									
-									$border_state_class = 'border-alert';
-									$cell_state_class 	= 'bg-alert';
-									$img 				= 'core/img/warning.svg';
-									$relayperhour		= 0; 
-									
-									$node['result']['syncState'] = $node['error']['message']; 
-									
-									$node['result']['height']				= 0;
-									$node['result']['relayMessageCount'] 	= 0; 
-									$node['result']['uptime'] 				= 0;
-								
-								else : 
-								
-									$state 	= $node['result']['syncState']; 
-									
-									switch($state) : 
-									
-										case 'WAIT_FOR_SYNCING': 
-											$border_state_class = 'border-warning';
-											$cell_state_class 	= 'bg-warning';
-											$img 				= 'core/img/sync.svg';
-										break; 
-										
-										case 'SYNC_STARTED': 
-											$border_state_class = 'border-start';
-											$cell_state_class 	= 'bg-start';
-											$img 				= 'core/img/start.svg';
-										break; 
-										
-										case 'SYNC_FINISHED': 
-											$border_state_class = 'border-success';
-											$cell_state_class 	= 'bg-success';
-											$img 				= 'core/img/finish.svg';
-										break; 
-										
-										case 'PERSIST_FINISHED': 
-											$border_state_class = 'border-success'; 
-											$cell_state_class 	= 'bg-success';
-											$img 				= 'core/img/mining.svg';
-										break; 
-									
-									endswitch; 
-								
-									$running_hours = secondsToHours($node['result']['uptime']);
-									
-									if($running_hours > 0) : 
-										$relayperhour = perso_round(($node['result']['relayMessageCount']/$running_hours), 2 ); 
-									else : 
-										$relayperhour = perso_round($node['result']['relayMessageCount'], 2 ); 
-									endif;
-									
-									if($state == 'SYNC_STARTED'):
-										
-										$remains = perso_round(($node['result']['height']/$block['blockCount'])*100, 2);
-									
-									endif; 
-									
-								endif; 
-								
-							else : 
-							
-								$border_state_class = 'border-alert';
-								$cell_state_class 	= 'bg-alert';
-								$img 				= 'core/img/warning.svg';
-								$relayperhour		= 0; 
-								
-								$node['result']['syncState'] 			= 'OFFLINE';
-								$node['result']['height']				= 0;
-								$node['result']['relayMessageCount'] 	= 0; 
-								$node['result']['uptime'] 				= 0; 
-							
-							endif; 
-						
-					?>
+					<?php foreach($nodes['nodes'] as $node) : ?>
 				
-						<tr class="<?= $border_state_class ?>">
-							<td scope="row"><?= $name ?></td>
-							<td><?= $ip ?></td>
-							<td class="<?= $cell_state_class ?>"> <img src="<?= $img ?>" height="25"> <?= $node['result']['syncState'] ?> <?php if($remains) : echo '<br><small>'.$remains.'%</small>'; endif; ?> </td>
-							<td><?= perso_round($node['result']['height'],0) ?></td>
-							<td><?= perso_round($node['result']['relayMessageCount'], 0) ?></td>
-							<td><?= $relayperhour ?></td>
-							<td><?= $node['result']['version'] ?></td>
-							<td><?= $node['result']['proposalSubmitted'] ?></td>
-							<td><?= secondsToTime($node['result']['uptime']) ?></td>
+						<tr class="<?= $node['style']['border'] ?>">
+							
+							<td scope="row"><?= $node['name'] ?></td>
+							
+							<td><?= $node['ip'] ?></td>
+							
+							<td class="<?= $node['style']['cell'] ?>"> 
+								<img src="<?= $node['style']['img'] ?>" height="25"> 
+								<?= $node['syncState'] ?> <?php if($node['remain']) : echo '<br><small>'.$node['remain'].'%</small>'; endif; ?> 
+							</td>
+							
+							<td><?= $node['height'] ?></td>
+							
+							<td><?= $node['relayMessageCount'] ?></td>
+							
+							<td><?= $node['relayperhour'] ?></td>
+							
+							<td><?= $node['version'] ?></td>
+							
+							<td><?= $node['proposalSubmitted'] ?></td>
+							
+							<td><?= $node['uptime'] ?></td>
 						</tr>
 			
-					<?php endif; endforeach;  ?>
+					<?php endforeach;  ?>
 			
 				</tbody>
 				
@@ -286,6 +200,7 @@
 		
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 		<script src="core/js/bootstrap.bundle.min"></script>
 		
 		<script>
@@ -297,6 +212,61 @@
 				});
 			
 			} );
+		</script>
+		
+		<script>
+		
+		Chart.defaults.global.legend.display = false;
+		
+		var chartOptions = {
+			  legend: {
+				display: false 
+			  },
+			  elements: {
+					arc: {
+						borderWidth: 1,
+						borderColor: 'rgba(255,255,255, 0.5)'
+					}
+				}
+			};
+		
+		
+		const data = {
+			  labels: [
+				'ERROR',
+				'WAIT_FOR_SYNCING',
+				'SYNC_STARTED',
+				'SYNC_FINISHED',
+				'PERSIST_FINISHED',
+				'OFFLINE'
+			  ],
+			  datasets: [{
+				label: 'My First Dataset',
+				data: [<?= implode(', ', $nodes['stats'] ) ?>],
+				backgroundColor: [
+				  'rgb(243, 66, 19, 0.75)',
+				  'rgb(244, 185, 66, 0.75)',
+				  'rgb(111, 208, 140, 0.75)',
+				  'rgb(111, 208, 140, 0.75)',
+				  'rgb(172, 203, 225, 0.75)',
+				  'rgb(255, 255, 255, 0.75)',
+				],
+				hoverOffset: 4
+			  }]
+			};
+			
+		const config = {
+			  type: 'pie',
+			  data: data,
+			  options: chartOptions
+			};
+		
+		var myChart = new Chart(
+			document.getElementById('myChart'),
+			config
+		  );
+			
+			
 		</script>
 		
 	</body>
