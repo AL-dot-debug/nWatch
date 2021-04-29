@@ -71,3 +71,29 @@ table.dataTable tbody tr{
 .copyrights{
 	font-size: .8rem;
 }
+
+@media only screen and (max-width: 640px){
+
+	.dataTables_wrapper .dataTables_filter{
+		margin-top: 1rem !important;
+		margin-bottom: 1rem;
+	}
+	.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter {
+		text-align: initial !important;
+	}
+	.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter label{
+		width: 100%;
+		text-transform: uppercase;
+		font-weight: 700;
+		color: #D8D8D8;
+	}
+	.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter label input{
+		display: inline-block;
+		width: 100%;
+		margin-top: .5rem;
+	}
+	.my-5{
+		margin-top: 2
+	}
+
+}

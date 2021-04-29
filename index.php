@@ -11,8 +11,9 @@
 		<link rel="stylesheet" href="core/css/bootstrap.min.css" />
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet"> 
-		<link rel="stylesheet" href="style.css" />
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css"/>
+		
+		<link rel="stylesheet" href="style.css" />
 		
 	</head>
 	
@@ -256,13 +257,13 @@
 		<footer class="container-fluid">
 			
 			<div class="row copyrights">
-				<div class="col-lg-2">
+				<div class="col-6 col-lg-2 order-2 order-lg-1">
 					<p>© <?= date('Y') ?> AL</p>
 				</div>
-				<div class="col-lg-8 text-center">
+				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>
 				</div>
-				<div class="col-lg-2 text-end">
+				<div class="col-6 col-lg-2 order-3 order-lg-3 text-end">
 					<p>Made with ♥️ in 🇫🇮</p>
 				</div>
 			</div>
