@@ -56,13 +56,17 @@ table.dataTable tbody tr{
 	background-color: #6FD08C !important;
 }
 
+.bg-transparent{
+	background-color: transparent;
+}
+
 .nav-item{
 	margin-right: 1rem;
 }
 .nav-item .active{
 	font-weight: 600;
 	padding-bottom: .25rem;
-	border-bottom: 3px solid #333;
+	border-bottom: 3px solid #fff;
 }
 .nav-link{
 	font-size: 1.25rem;
@@ -74,6 +78,8 @@ table.dataTable tbody tr{
 	background-position: left center;
 	background-repeat: no-repeat;
 	color: #fff;
+	margin-top: -5rem;
+	padding-top: 5rem;
 }
 
 .header p{
