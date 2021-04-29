@@ -80,7 +80,7 @@
 					
 					<div class="col mb-5">
 						
-						<h1 class="my-5">Network</h1>
+						<h1 class="mb-5">Network</h1>
 						
 						<div class="row">
 							
