@@ -1,5 +1,5 @@
 # nWatch
-NKN Node Monitoring interface
+NKN Node Monitoring interface (desktop & mobile)
 
 # Requirements 
 Apache, PHP, PHPCurl 
@@ -12,3 +12,4 @@ Apache, PHP, PHPCurl
 
 
 ![Screenshot](screenshot.png)
+![Mobile](mobile_screenshot)
