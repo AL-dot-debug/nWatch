@@ -15,21 +15,34 @@
 		
 		<link rel="stylesheet" href="style.css" />
 		
+		<link rel="apple-touch-icon" sizes="180x180" href="core/favicons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="core/favicons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="core/favicons/favicon-16x16.png">
+		<link rel="manifest" href="core/favicons/site.webmanifest">
+		<link rel="mask-icon" href="core/favicons/safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="theme-color" content="#ffffff">
+		
+		
 	</head>
 	
 	<body>
 		
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			
 			<div class="container-fluid">
 				
-				<a class="navbar-brand" href="#">nWatch</a>
+				<a class="navbar-brand" href="/">
+					 <img src="core/img/nWatch.svg" alt="" width="30" height="30"> nWatch
+				</a>
+				
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 			
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<ul class="navbar-nav mx-auto mb-2 mb-lg-0">
 						
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="#">Nodes</a>

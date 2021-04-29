@@ -56,6 +56,19 @@ table.dataTable tbody tr{
 	background-color: #6FD08C !important;
 }
 
+.nav-item{
+	margin-right: 1rem;
+}
+.nav-item .active{
+	font-weight: 600;
+	padding-bottom: .25rem;
+	border-bottom: 3px solid #333;
+}
+.nav-link{
+	font-size: 1.25rem;
+	text-transform: uppercase
+}
+
 .header{
 	background-image: url('core/img/nkn.svg'),linear-gradient(90.78deg,#0b163c 17.75%,#303159 84.46%);
 	background-position: left center;
