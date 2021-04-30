@@ -2,6 +2,38 @@
 
 include_once('functions.php'); 
 
+
+
+// Management 
+
+if(isset($_POST['form_type'])) : 
+	
+	
+	switch($_POST['form_type']) : 
+	
+		case 'nodes':
+			
+			$node_list 		= nl2br($_POST['nodetxt']); 
+			$clean_list 	= strip_tags($node_list);
+			$node_file 		= fopen("nodes.txt", "w"); 
+			
+			fwrite($node_file, $clean_list);
+			fclose($node_file);
+			
+			exit(); 
+		break;
+		default: 
+			exit(); 
+	
+	endswitch; 
+
+endif; 
+
+
+
+
+// Table update 
+
 $block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts');
 
 $nodes 	= get_nodes($block['blockCount']); 

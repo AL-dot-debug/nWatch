@@ -33,6 +33,11 @@ table td {
 	white-space: nowrap;
 }
 
+.btn{
+	font-family: 'Francois One', sans-serif;
+	text-transform: uppercase;
+}
+
 .border-success{
 	border-bottom: 3px solid #ACCBE1 !important;
 }

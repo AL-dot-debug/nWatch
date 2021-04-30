@@ -106,7 +106,10 @@
 								<h4 class="m-0 p-0"><?= $nodes['total_proposals'] ?></h4>
 								<p>Reward(s)</p>	
 									
-									
+							</div>
+							
+							<div class="col-12">
+								<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#manager">Manage my nodes</button>
 							</div>
 							
 						</div>
@@ -166,6 +169,43 @@
 			</div>
 			
 		</footer>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="manager" tabindex="-1" aria-labelledby="manager" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+				
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Node Manager</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+				
+				<div class="modal-body">
+					
+					<form id="nodecfg">
+						
+						<div class="form-floating">
+							<textarea class="form-control" id="nodetxt" name="nodetxt" style="height: 100px"><?= file_get_contents('nodes.txt') ?></textarea>
+							<label for="floatingTextarea2">Your nodes</label>
+						</div>
+						
+						<input type="hidden" name="form_type" value="nodes" />
+
+					</form>
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary btn-nodecfg-js">Save changes</button>
+				</div>
+				
+				</div>
+			</div>
+		</div>
+
+
 			
 		
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -216,6 +256,21 @@
 				  return new bootstrap.Tooltip(tooltipTriggerEl)
 				})
 				
+				$('.btn-nodecfg-js').click(function() {
+					
+					var datastring = $("#nodecfg").serialize();
+					console.log(datastring);
+
+					$.ajax({
+						type: "POST",
+						url: "ajax.php",
+						data: datastring,
+						success: function(data) {
+							alert('Data send');
+						}
+					});
+				
+				});
 			
 			} );
 		</script>

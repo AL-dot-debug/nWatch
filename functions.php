@@ -1,6 +1,25 @@
 <?php
 
 
+function get_nodes_list(){
+	
+	if(file_exists('nodes.txt')):
+		
+		$nodes_file = file_get_contents('nodes.txt'); 
+		$nodes 		= explode("\n", $nodes_file);
+		
+		return $nodes; 
+		
+	else : 
+	
+		return false; 
+	
+	endif; 
+	
+}
+
+
+
 function get_nodes($blockCount = 1){
 	
 	if(file_exists('nodes.txt')): 
