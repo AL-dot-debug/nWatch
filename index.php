@@ -202,7 +202,8 @@
 				
 				$('#nodes').DataTable({
 					"paging":   false,
-					"responsive": true
+					"responsive": true,
+					//"ajax": 'ajax.php'
 				});
 				
 				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

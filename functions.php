@@ -30,14 +30,14 @@ function get_nodes(){
 				$ip 	= $data[0]; 
 				$name 	= $data[1];
 				
+				// Common 
+				
+				$return['nodes'][$ip]['ip'] 	= $ip;
+				$return['nodes'][$ip]['name'] 	= $name;
+				
 				$node 	= get_node_status($ip);
 				
 				if(!empty($node)) : 
-					
-					// Common 
-					
-					$return['nodes'][$ip]['ip'] 	= $ip;
-					$return['nodes'][$ip]['name'] 	= $name;
 					
 					// Error 
 						
