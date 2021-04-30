@@ -42,7 +42,13 @@ $i		= 0;
 
 foreach($nodes['nodes'] as $node): 
 	
-	$data[$i][] = '<img src="core/img/id.svg" class="d-none d-md-block" height="15" data-bs-toggle="tooltip" data-bs-placement="top" title="ID :'. $node['id'] .'"> '. $node['name']; 
+	if(!isset($node['name']) OR empty($node['name'])) : 
+		$data[$i][] = '<span data-bs-toggle="tooltip" data-bs-placement="top" title="ID :'. $node['id'] .'"> Server Doe '.$i.'</span>';
+	else : 
+		$data[$i][] = '<span data-bs-toggle="tooltip" data-bs-placement="top" title="ID :'. $node['id'] .'">'. $node['name'].'</span>';
+	endif; 
+	
+	 
 	$data[$i][] = $node['ip'];
 	
 	if(isset($node['remain'])) : 
