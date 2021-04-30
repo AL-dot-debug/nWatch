@@ -183,10 +183,17 @@
 				
 				<div class="modal-body">
 					
+					<p>
+						Add your nodes in the following box. <br> 
+						<strong>Please use the following format on each line:</strong> <code>IP, Name</code> <br> 
+						Example: <br>
+						<code><kbd class="-2">1.1.1.1, Raspberry Home <br> 2.2.2.2, Raspberry Mum</kbd></code> 
+					</p>
+					
 					<form id="nodecfg">
 						
 						<div class="form-floating">
-							<textarea class="form-control" id="nodetxt" name="nodetxt" style="height: 100px"><?= file_get_contents('nodes.txt') ?></textarea>
+							<textarea class="form-control" id="nodetxt" name="nodetxt" style="height: 400px"><?= (file_get_contents('nodes.txt') ? file_get_contents('nodes.txt') : 'Add your nodes here !')  ?></textarea>
 							<label for="floatingTextarea2">Your nodes</label>
 						</div>
 						
