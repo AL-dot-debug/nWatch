@@ -190,7 +190,7 @@
 						<code><kbd class="-2">1.1.1.1, Raspberry Home <br> 2.2.2.2, Raspberry Mum</kbd></code> 
 					</p>
 					
-					<form id="nodecfg">
+					<form id="nodecfg" autocomplete="off">
 						
 						<div class="form-floating">
 							<textarea class="form-control" id="nodetxt" name="nodetxt" style="height: 400px"><?= (file_get_contents('nodes.txt') ? file_get_contents('nodes.txt') : 'Add your nodes here !')  ?></textarea>
