@@ -78,7 +78,7 @@
 				
 				<div class="row py-5">
 					
-					<div class="col-lg-6 mb-3">
+					<div class="col-md-6 mb-3">
 						
 						<div class="row">
 							
@@ -116,7 +116,7 @@
 						
 					</div>
 					
-					<div class="col-lg-6 text-center">
+					<div class="col-md-6 d-none d-md-block text-center">
 						<canvas style="margin-top:-.5rem;" class="mx-auto" id="myChart" height="105px"></canvas>
 					</div>
 					
@@ -134,14 +134,14 @@
 					
 					<thead>
 						<tr>
-							<th scope="col" data-priority="0">Node</th>
+							<th scope="col">Node</th>
 							<th scope="col" data-priority="1">IP</th>
 							<th scope="col" data-priority="1">Status</th>
 							<th scope="col">Current block</th>
 							<th scope="col">Relayed Messages</th>
 							<th scope="col">Relay / hour</th>
 							<th scope="col">Version</th>
-							<th scope="col">Reward</th>
+							<th scope="col" data-priority="2">Reward</th>
 							<th scope="col">Uptime</th>
 						</tr>
 						</thead>

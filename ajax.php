@@ -42,13 +42,13 @@ $i		= 0;
 
 foreach($nodes['nodes'] as $node): 
 	
-	$data[$i][] = '<img src="core/img/id.svg" height="15" data-bs-toggle="tooltip" data-bs-placement="top" title="ID :'. $node['id'] .'"> '. $node['name']; 
+	$data[$i][] = '<img src="core/img/id.svg" class="d-none d-md-block" height="15" data-bs-toggle="tooltip" data-bs-placement="top" title="ID :'. $node['id'] .'"> '. $node['name']; 
 	$data[$i][] = $node['ip'];
 	
 	if(isset($node['remain'])) : 
-		$data[$i][] = '<img src="'.$node['style']['img'].'" height="25">'.$node['syncState'].'<br><small>'.$node['remain'].'%</small>';
+		$data[$i][] = '<img src="'.$node['style']['img'].'" height="25"><span class="d-none d-md-inline">'.$node['syncState'].'<br><small>'.$node['remain'].'%</small></span>';
 	else :
-		$data[$i][] = '<img src="'.$node['style']['img'].'" height="25">'.$node['syncState'];
+		$data[$i][] = '<img src="'.$node['style']['img'].'" height="25"><span class="d-none d-md-inline">'.$node['syncState'].'</span>';
 	endif; 
 	
 	$data[$i][] = $node['height']; 
