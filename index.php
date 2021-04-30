@@ -70,15 +70,13 @@
 			$block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts'); 
 			$netStats 	= get_json('https://api.nknx.org/network/stats'); 
 			$github 	= get_json('https://api.github.com/repos/nknorg/nkn/releases'); 
-			$nodes 		= get_nodes(); 
+			$nodes 		= get_nodes($block['blockCount']); 
 			
 			?>
 			
 			<div class="container">
 				
 				<div class="row py-5">
-					
-					
 					
 					<div class="col-lg-6 mb-3">
 						
@@ -146,28 +144,6 @@
 						</thead>
 					
 					<tbody>
-		
-					<?php foreach($nodes['nodes'] as $node) : ?>
-				
-						<tr class="<?= $node['style']['border'] ?>">
-							
-							<td scope="row"> <img src="core/img/id.svg" height="15" data-bs-toggle="tooltip" data-bs-placement="top" title="ID : <?= $node['id'] ?>"> <?= $node['name'] ?> </td>
-							<td><?= $node['ip'] ?></td>
-							
-							<td class="<?= $node['style']['cell'] ?>"> 
-								<img src="<?= $node['style']['img'] ?>" height="25"> 
-								<?= $node['syncState'] ?> <?php if(isset($node['remain'])) : echo '<br><small>'.$node['remain'].'%</small>'; endif; ?> 
-							</td>
-							
-							<td><?= $node['height'] ?></td>
-							<td><?= perso_round($node['relayMessageCount'], 0) ?></td>
-							<td><?= $node['relayperhour'] ?></td>
-							<td><?= $node['version'] ?></td>
-							<td><?= $node['proposalSubmitted'] ?></td>
-							<td><?= $node['uptime'] ?></td>
-						</tr>
-			
-					<?php endforeach;  ?>
 			
 				</tbody>
 				
@@ -200,11 +176,40 @@
 		<script>
 			$(document).ready(function() {
 				
-				$('#nodes').DataTable({
+				var table = $('#nodes').DataTable({
 					"paging":   false,
 					"responsive": true,
-					//"ajax": 'ajax.php'
+					"ajax": 'ajax.php',
+					
+					"aoColumnDefs": [ {
+						"aTargets": [2],
+						"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+							if ( sData.indexOf('WAIT FOR SYNCING') > -1 ) {
+								$(nTd).addClass('bg-warning');
+							}
+							else if( sData.indexOf('SYNC STARTED') > -1 ){
+								$(nTd).addClass('bg-start');
+							}
+							else if( sData.indexOf('SYNC FINISHED') > -1 ){
+								$(nTd).addClass('bg-success');	
+							}
+							else if( sData.indexOf('PERSIST FINISHED') > -1 ){
+								$(nTd).addClass('bg-success');	
+							}
+							else if( sData.indexOf('OFFLINE') > -1 ){
+								$(nTd).addClass('bg-alert');	
+							}
+							else{
+								$(nTd).addClass('bg-alert');	
+							}
+						}
+					} ]
+					
 				});
+				
+				setInterval( function () {
+					table.ajax.reload();
+				}, 60000 );
 				
 				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

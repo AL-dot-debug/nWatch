@@ -1,7 +1,7 @@
 <?php
 
 
-function get_nodes(){
+function get_nodes($blockCount = 1){
 	
 	if(file_exists('nodes.txt')): 
 	
@@ -84,6 +84,8 @@ function get_nodes(){
 								$return['nodes'][$ip]['style']['border'] 	= 'border-start';
 								$return['nodes'][$ip]['style']['cell'] 		= 'bg-start';
 								$return['nodes'][$ip]['style']['img'] 		= 'core/img/start.svg';
+								
+								$return['nodes'][$ip]['remain'] 			= perso_round(($node['result']['height']/$blockCount)*100, 4);
 							break; 
 							
 							case 'SYNC_FINISHED': 
@@ -115,12 +117,6 @@ function get_nodes(){
 						if($true_relay > $return['max_relay']):
 							$return['max_relay'] = $true_relay; 
 						endif;
-						
-						// Sync state calculation 
-						
-						if($node['result']['syncState'] == 'SYNC_STARTED'):
-							$return['nodes'][$ip]['remain'] = perso_round(($node['result']['height']/$block['blockCount'])*100, 4);
-						endif; 
 						
 					endif;
 				
@@ -219,7 +215,7 @@ function secondsToTime($seconds) {
 	$dtF = new \DateTime('@0');
 	$dtT = new \DateTime("@$seconds");
 
-	return $dtF->diff($dtT)->format('%a days, %h hours, %i minutes and %s seconds');
+	return $dtF->diff($dtT)->format('%a days, %h hours and %i minutes');
 
 }
 

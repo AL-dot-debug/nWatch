@@ -18,6 +18,7 @@ h4 small{
 	font-size: 1rem;
 }
 
+
 table a{
 	color: #333;
 	text-decoration: none;
@@ -25,9 +26,11 @@ table a{
 	padding-bottom: .25rem;
 }
 
-
 table.dataTable tbody tr{
 	background-color: transparent !important;
+}
+table td {
+	white-space: nowrap;
 }
 
 .border-success{
