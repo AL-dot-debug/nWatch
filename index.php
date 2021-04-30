@@ -273,7 +273,7 @@
 						url: "ajax.php",
 						data: datastring,
 						success: function(data) {
-							alert('Data send');
+							location.reload();
 						}
 					});
 				
