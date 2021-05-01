@@ -84,13 +84,13 @@
 							
 							<div class="col-6">
 								
-								<h4 class="m-0 p-0"><?= perso_round($block['blockCount'],0, ' ') ?></h4>
+								<h4 class="m-0 p-0 ext-stats" data-prop="blocksize"><?= perso_round($block['blockCount'],0, '') ?></h4>
 								<p>Latest block</p>
 								
-								<h4 class="m-0 p-0"><?= perso_round($netStats['totalNodes'],0, ' ') ?></h4>
+								<h4 class="m-0 p-0 ext-stats" data-prop="netstats"><?= perso_round($netStats['totalNodes'],0, '') ?></h4>
 								<p>Nodes</p>
 								
-								<h4 class="m-0 p-0"><?= $github[0]['name'] ?></h4>
+								<h4 class="m-0 p-0 ext-stats" data-prop="github"><?= $github[0]['name'] ?></h4>
 								<p>since <?= time_elapsed_string($github[0]['published_at']) ?></p>
 								
 							</div>
@@ -100,10 +100,10 @@
 								<h4 class="m-0 p-0"><?= $nodes['total_nodes'] ?></h4>
 								<p>Nodes</p>
 								
-								<h4 class="m-0 p-0"><?=  perso_round($nodes['max_relay'],0, ' ') ?></h4>
+								<h4 class="m-0 p-0 nodes-stats" data-prop="relay"><?=  perso_round($nodes['max_relay'],0, '') ?></h4>
 								<p>Max relay</p>
 								
-								<h4 class="m-0 p-0"><?= $nodes['total_proposals'] ?></h4>
+								<h4 class="m-0 p-0 nodes-stats" data-prop="proposals"><?= $nodes['total_proposals'] ?></h4>
 								<p>Reward(s)</p>	
 									
 							</div>
@@ -126,7 +126,7 @@
 		
 		</div>
 		
-		<div class="container">
+		<div class="container-fluid">
 			
 			<div class="row my-5">
 			
@@ -158,7 +158,7 @@
 			
 			<div class="row copyrights">
 				<div class="col-6 col-lg-2 order-2 order-lg-1">
-					<p>© <?= date('Y') ?> AL - v1.0.0</p>
+					<p>© <?= date('Y') ?> AL - v1.0.1</p>
 				</div>
 				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>
@@ -254,9 +254,82 @@
 					
 				});
 				
-				setInterval( function () {
+				// Refresh every minutes 
+				setInterval( function () {				
 					table.ajax.reload();
+					refresh_value('ext_stats','ext'); 
 				}, 60000 );
+				
+				// To differ the requests from the table 
+				setInterval( function () {				
+					refresh_value('nodes_stats','nodes'); 
+				}, 50000 );
+				
+				
+				function refresh_value(DashElement,UpdateType){
+					
+					$.ajax({
+						url:"ajax.php",
+						method:"POST",
+						data:{form_type:DashElement},
+						success:function(data){
+							
+							data = $.parseJSON(data);
+								
+							switch(UpdateType) {
+								
+								case 'nodes':
+									
+									$('.nodes-stats').each(function() {
+										
+										const prop = $(this).data("prop"); 
+										
+										$(this).prop('Counter', $(this).html()).animate(
+											{
+												Counter: data[prop]
+											}, {
+												duration: 10000,
+												easing: 'swing',
+												step: function(now) {
+													$(this).text(Math.ceil(now));
+												}
+											}
+										);
+											
+									
+									});
+									
+								break; 
+								
+								case 'ext':
+									
+									$('.ext-stats').each(function() {
+										
+										const prop = $(this).data("prop"); 
+										
+										$(this).prop('Counter', $(this).html()).animate(
+											{
+												Counter: data[prop]
+											}, {
+												duration: 10000,
+												easing: 'swing',
+												step: function(now) {
+													$(this).text(Math.ceil(now));
+												}
+											}
+										);
+											
+									});
+									
+								break; 
+								
+							}
+
+							
+						}
+					});
+					
+				}
 				
 				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 				var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
