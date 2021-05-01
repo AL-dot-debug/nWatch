@@ -84,10 +84,10 @@
 							
 							<div class="col-6">
 								
-								<h4 class="m-0 p-0 ext-stats" data-prop="blocksize"><?= perso_round($block['blockCount'],0, '') ?></h4>
+								<h4 class="m-0 p-0 ext-stats" data-prop="blocksize"><?= perso_round($block['blockCount'],0, ' ') ?></h4>
 								<p>Latest block</p>
 								
-								<h4 class="m-0 p-0 ext-stats" data-prop="netstats"><?= perso_round($netStats['totalNodes'],0, '') ?></h4>
+								<h4 class="m-0 p-0 ext-stats" data-prop="netstats"><?= perso_round($netStats['totalNodes'],0, ' ') ?></h4>
 								<p>Nodes</p>
 								
 								<h4 class="m-0 p-0 ext-stats" data-prop="github"><?= $github[0]['name'] ?></h4>
@@ -100,7 +100,7 @@
 								<h4 class="m-0 p-0"><?= $nodes['total_nodes'] ?></h4>
 								<p>Nodes</p>
 								
-								<h4 class="m-0 p-0 nodes-stats" data-prop="relay"><?=  perso_round($nodes['max_relay'],0, '') ?></h4>
+								<h4 class="m-0 p-0 nodes-stats" data-prop="relay"><?=  perso_round($nodes['max_relay'],0, ' ') ?></h4>
 								<p>Max relay</p>
 								
 								<h4 class="m-0 p-0 nodes-stats" data-prop="proposals"><?= $nodes['total_proposals'] ?></h4>
@@ -282,16 +282,17 @@
 									
 									$('.nodes-stats').each(function() {
 										
-										const prop = $(this).data("prop"); 
-										
-										$(this).prop('Counter', $(this).html()).animate(
+										const prop 	= $(this).data("prop"); 
+										const Start = $(this).text().replace(/\s/g,'');
+											
+										$(this).prop('Counter', Start).animate(
 											{
 												Counter: data[prop]
 											}, {
 												duration: 10000,
 												easing: 'swing',
 												step: function(now) {
-													$(this).text(Math.ceil(now));
+													$(this).text(toFrench(Math.ceil(now)));
 												}
 											}
 										);
@@ -305,16 +306,17 @@
 									
 									$('.ext-stats').each(function() {
 										
-										const prop = $(this).data("prop"); 
+										const prop 	= $(this).data("prop"); 
+										const Start = $(this).text().replace(/\s/g,'');
 										
-										$(this).prop('Counter', $(this).html()).animate(
+										$(this).prop('Counter', Start).animate(
 											{
 												Counter: data[prop]
 											}, {
 												duration: 10000,
 												easing: 'swing',
 												step: function(now) {
-													$(this).text(Math.ceil(now));
+													$(this).text(toFrench(Math.ceil(now)));
 												}
 											}
 										);
@@ -329,6 +331,10 @@
 						}
 					});
 					
+				}
+				
+				function toFrench(x) {
+					return x.toLocaleString('FR-fr');
 				}
 				
 				var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
