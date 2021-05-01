@@ -1,6 +1,60 @@
 <?php
 
 
+function get_wallets(){
+	
+	if(file_exists('wallets.txt')):
+		
+		$wallet_file 	= file_get_contents('wallets.txt'); 
+		$wallets 		= explode("\n", $wallet_file);
+		
+		$i=0; 
+		
+		$wallet_data['stats']['total_nkn'] 			= 0; 
+		$wallet_data['stats']['last_transaction'] 	= date('U', strtotime('2008-01-08 00:00:00'));
+			
+		foreach($wallets as $wallet): 
+		
+			$data 		= explode(',', $wallet); 
+			$address 	= $data[0]; 
+			$name 		= @$data[1];
+			$ip			= @$data[2]; 
+			
+			$wallet_data['wallets'][$i]['nw']['address'] 	= $address; 
+			$wallet_data['wallets'][$i]['nw']['name'] 		= $name;
+			$wallet_data['wallets'][$i]['nw']['ip'] 		= $ip;
+			
+			$url = 'https://openapi.nkn.org/api/v1/addresses/'.$address; 
+			$wallet_data['wallets'][$i]['nkn'] = get_json($url);  
+			
+			// Total wallets 
+			$wallet_data['stats']['total_nkn'] = $wallet_data['stats']['total_nkn'] + $wallet_data['wallets'][$i]['nkn']['balance']; 
+			
+			// Last transaction 
+			$last_transaction_date = date('U',strtotime($wallet_data['wallets'][$i]['nkn']['last_transaction'])); 
+				
+			if($wallet_data['stats']['last_transaction'] < $last_transaction_date): 
+				$wallet_data['stats']['last_transaction'] = $last_transaction_date; 
+			endif; 
+			
+			
+			$i++; 
+		endforeach; 
+		
+		$wallet_data['stats']['last_transaction'] = date('d-m-Y H:i:s', $wallet_data['stats']['last_transaction']);
+		
+		return $wallet_data; 
+	
+	else : 
+	
+		return false; 
+		
+	endif; 
+	
+	
+}
+
+
 function get_nodes_list(){
 	
 	if(file_exists('nodes.txt')):
@@ -17,8 +71,6 @@ function get_nodes_list(){
 	endif; 
 	
 }
-
-
 
 function get_nodes($blockCount = 1){
 	
@@ -277,6 +329,12 @@ function time_elapsed_string($datetime, $full = false) {
 	
 	return $string ? implode(', ', $string) . ' ago' : 'just now';
 	
+}
+
+
+function nknValue($nkn){
+	$nkn = substr_replace($nkn,'.',-8,0); 
+	return $nkn; 
 }
 
 ?>
