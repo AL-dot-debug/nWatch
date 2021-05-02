@@ -92,12 +92,12 @@ function get_nodes($blockCount = 1){
 		$return['stats']['OFFLINE']				= 0;
 		
 		
-		foreach($nodes as $node) :
-			
-			// Whitelines .. 
-			if(isset($node) AND !empty($node)) : 
+		foreach($nodes as $nodel) :
 				
-				$data 	= explode(',', $node); 
+			// Whitelines .. 
+			if(isset($nodel) AND !empty($nodel)) : 
+				
+				$data 	= explode(',', $nodel); 
 				$ip 	= $data[0]; 
 				
 				if(!isset($data[1])) : 
@@ -112,7 +112,7 @@ function get_nodes($blockCount = 1){
 				$return['nodes'][$ip]['name'] 	= $name;
 				
 				$node 	= get_node_status(preg_replace("/\s+/", "",$ip));
-				
+					
 				if(!empty($node)) : 
 					
 					// Error 
@@ -123,7 +123,7 @@ function get_nodes($blockCount = 1){
 						$return['nodes'][$ip]['style']['cell'] 		= 'bg-alert';
 						$return['nodes'][$ip]['style']['img'] 		= 'core/img/warning.svg';
 						
-						$return['nodes']['syncState'] = $node['error']['message']; 
+						$return['nodes'][$ip]['syncState'] 			= $node['error']['message']; 
 						
 						$return['nodes'][$ip]['height']				= 0;
 						$return['nodes'][$ip]['relayMessageCount'] 	= 0; 
@@ -208,7 +208,7 @@ function get_nodes($blockCount = 1){
 					$return['nodes'][$ip]['style']['cell'] 		= 'bg-alert';
 					$return['nodes'][$ip]['style']['img'] 		= 'core/img/warning.svg';
 					
-					$return['nodes'][$ip]['syncState'] 				= 'OFFLINE';
+					$return['nodes'][$ip]['syncState'] 			= 'OFFLINE';
 					$return['nodes'][$ip]['height']				= 0;
 					$return['nodes'][$ip]['relayMessageCount'] 	= 0; 
 					$return['nodes'][$ip]['uptime'] 			= 0;
