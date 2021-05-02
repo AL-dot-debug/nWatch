@@ -62,10 +62,10 @@ else :
 	// Table update 
 	
 	$block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts');
-	
-	$nodes 	= get_nodes($block['blockCount']); 
-	$data 	= [];
-	$i		= 0; 
+	$nodes 		= get_nodes($block['blockCount']); 
+		
+	$data 		= [];
+	$i			= 0; 
 	
 	foreach($nodes['nodes'] as $node): 
 		

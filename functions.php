@@ -99,14 +99,20 @@ function get_nodes($blockCount = 1){
 				
 				$data 	= explode(',', $node); 
 				$ip 	= $data[0]; 
-				$name 	= $data[1];
+				
+				if(!isset($data[1])) : 
+					$name = "Server Doe"; 
+				else : 
+					$name = $data[1];
+				endif; 
 				
 				// Common 
 				
 				$return['nodes'][$ip]['ip'] 	= $ip;
 				$return['nodes'][$ip]['name'] 	= $name;
 				
-				$node 	= get_node_status($ip);
+				$node 	= get_node_status(preg_replace("/\s+/", "",$ip));
+				
 				
 				if(!empty($node)) : 
 					
