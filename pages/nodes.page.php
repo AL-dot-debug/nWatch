@@ -43,10 +43,6 @@
 							
 					</div>
 					
-					<div class="col-12">
-						<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#manager">Manage my nodes</button>
-					</div>
-					
 				</div>
 				
 			</div>
@@ -89,46 +85,4 @@
 	
 	</div>
 		
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="manager" tabindex="-1" aria-labelledby="manager" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-		
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Node Manager</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-		
-		<div class="modal-body">
-			
-			<p>
-				Add your nodes in the following box. <br> 
-				<strong>Please use the following format on each line:</strong> <code>IP, Name</code> <br> 
-				Example: <br>
-				<code><kbd class="-2">1.1.1.1, Raspberry Home <br> 2.2.2.2, Raspberry Mum</kbd></code> 
-			</p>
-			
-			<form id="nodecfg" autocomplete="off">
-				
-				<div class="form-floating">
-					<textarea class="form-control" id="nodetxt" name="nodetxt" style="height: 400px"><?= (file_get_contents('nodes.txt') ? file_get_contents('nodes.txt') : 'Add your nodes here !')  ?></textarea>
-					<label for="floatingTextarea2">Your nodes</label>
-				</div>
-				
-				<input type="hidden" name="form_type" value="nodes" />
-
-			</form>
-			
-		</div>
-		
-		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary btn-nodecfg-js">Save changes</button>
-		</div>
-		
-		</div>
-	</div>
 </div>

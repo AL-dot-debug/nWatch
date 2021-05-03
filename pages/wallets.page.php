@@ -44,10 +44,6 @@
 							
 					</div>
 					
-					<div class="col-12">
-						<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#manager">Manage my wallets</button>
-					</div>
-					
 				</div>
 				
 			</div>
