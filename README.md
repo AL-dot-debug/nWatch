@@ -6,6 +6,7 @@ nWatch is a NKN nodes and wallets dashboard allowing you to monitor the activiti
 
 ## Features 
 
+- Desktop AND mobile compatible
 - Nodes status 
 - Network stats 
 - Auto update
