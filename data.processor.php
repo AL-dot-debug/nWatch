@@ -68,6 +68,28 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 		
 		break;
 		
+		case 'nodes':
+		
+			$node_list 		= nl2br($_POST['nodetxt']); 
+			$clean_list 	= strip_tags($node_list);			
+			$node_file 		= fopen("nodes.txt", "w+");
+			
+			fwrite($node_file, $clean_list);
+			fclose($node_file);
+		
+		break; 
+		
+		case 'wallets':
+	
+			$wallet_list 	= nl2br($_POST['walletstxt']); 
+			$clean_list 	= strip_tags($wallet_list);			
+			$node_file 		= fopen("wallets.txt", "w+");
+			
+			fwrite($node_file, $clean_list);
+			fclose($node_file);
+		
+		break; 
+		
 	
 	endswitch; 
 		
