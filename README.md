@@ -1,30 +1,48 @@
-# nWatch
-NKN Node Monitoring interface (desktop & mobile)
+# nWatch - All in one NKN Crypto currency Miner & wallets monitoring
 
-# Requirements 
-Apache, PHP, PHPCurl 
+NKN network is based on miners cheap and easy to deploy (from VPS to Raspberry Pi) . You can deploy easily your own node and participate the network. 
 
-# Install
+nWatch is a NKN nodes and wallets dashboard allowing you to monitor the activities of your miners. 
 
-## Hardcore mode
+## Features 
 
-1. Rename nodes-examples.txt to nodes.txt
-2. Delete the example lines
-3. Add your nodes IPs and names in nodes.txt
-4. Save the file, go check your dashboard.
+- Nodes status 
+- Network stats 
+- Auto update
+- Password protected 
+- Wallets balance
+- Wallets stats 
 
-## Easy mode (but still hardcore)
+## How to use nWatch ?
 
-1. Go to your dashboard
-2. Click the "Manage my nodes" button
-3. Add your nodes. 
+There's 2 ways of deploying nWatch : 
 
-⚠️ DO NOT CREATE THE "nodes.txt" file if you follow the easy mode. 
-If you already had a nodes.txt file please change it rights : 
+1. ALLinOne deploy
+2. Custom deploy
 
-` chown www-data:www-data /var/www/html/nodes.txt ` 
+### ALLinOne deploy
 
-...or just copy the content, delete the file and use the button. 
+nWatch is available in the [ALL-in-ONE-nknnode](https://github.com/no112358/ALLinONE-nknnode) created by no112358. To deploy a nWatch instance follow the instructions provided in the repository. 
+
+### Custom deploy
+
+You can deploy nWatch on any server like a raspberry Pi. Still it required some knowledge about WebServer. We highly recommand you to deploy nWatch using the [ALLinOne deploy script](https://github.com/no112358/ALLinONE-nknnode). 
+
+#### Requirements 
+Apache/Nginx, PHP, PHP-Curl 
+
+#### Install (Apache - Debian / Ubuntu)
+
+	sudo su - 
+	apt install apache php php-curl git-client -y 
+	cd /var/www/html
+	rm -fr * 
+	gh repo clone AL-dot-debug/nWatch
+	chown -R www-data:www-data /var/www/html
+
+Browse to http://YOUR_IP your nWatch dashboard should be activated. 
+
+## Screenshots
 
 ![Screenshot](screenshot.png)
 ![Mobile](mobile_screenshot.png)
