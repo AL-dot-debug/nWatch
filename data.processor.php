@@ -31,7 +31,9 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 		
 			$pwd_file = fopen($path.''.$file, "w"); 
 			
-			fwrite($pwd_file, $_POST['nwatch_password']);
+			$hash = password_hash($_POST['nwatch_password'], PASSWORD_DEFAULT);
+			
+			fwrite($pwd_file, $hash);
 			fclose($pwd_file);
 		
 		break; 
@@ -47,7 +49,7 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 					
 					$pwd = file_get_contents($path.''.$file); 
 					
-					if($pwd == $_POST['password']) : 
+					if (password_verify($_POST['password'], $pwd)) : 
 						
 						$_SESSION['user'] = true; 
 						header('Location:/'); 

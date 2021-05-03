@@ -14,8 +14,8 @@ if(isset($_POST['form_type'])) :
 		case 'nodes':
 			
 			$node_list 		= nl2br($_POST['nodetxt']); 
-			$clean_list 	= strip_tags($node_list);
-			$node_file 		= fopen("nodes.txt", "w"); 
+			$clean_list 	= strip_tags($node_list);			
+			$node_file 		= fopen("nodes.txt", "w+");
 			
 			fwrite($node_file, $clean_list);
 			fclose($node_file);
