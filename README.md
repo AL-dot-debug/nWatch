@@ -45,5 +45,5 @@ Browse to http://YOUR_IP your nWatch dashboard should be activated.
 
 ## Screenshots
 
-![Screenshot](screenshot.png)
+![Screenshot](desktop_screenshot.png)
 ![Mobile](mobile_screenshot.png)
