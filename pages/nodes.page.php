@@ -3,7 +3,7 @@
 	<?php  
 	
 	$block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts'); 
-	$netStats 	= get_json('https://api.nknx.org/network/stats'); 
+	$netStats 	= nkn_GeoStat(); 
 	$github 	= get_json('https://api.github.com/repos/nknorg/nkn/releases'); 
 	$nodes 		= get_nodes($block['blockCount']); 
 	
@@ -22,7 +22,7 @@
 						<h4 class="m-0 p-0 ext-stats" data-prop="blocksize"><?= perso_round($block['blockCount'],0, ' ') ?></h4>
 						<p>Latest block</p>
 						
-						<h4 class="m-0 p-0 ext-stats" data-prop="netstats"><?= perso_round($netStats['totalNodes'],0, ' ') ?></h4>
+						<h4 class="m-0 p-0 ext-stats" data-prop="netstats"><?= perso_round($netStats['stats']['total'],0, ' ') ?></h4>
 						<p>Nodes</p>
 						
 						<h4 class="m-0 p-0 ext-stats" data-prop="github"><?= $github[0]['name'] ?></h4>

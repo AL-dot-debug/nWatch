@@ -283,6 +283,34 @@ function get_node_status($ip){
 	
 }
 
+
+function nkn_GeoStat(){
+	
+	$geoStats						= get_json('https://api.nkn.org/v1/geo/summary'); 
+	$countries['stats']['total'] 	= 0; 
+	
+	if(isset($geoStats['Payload']['summary']) AND !empty($geoStats['Payload']['summary'])) : 
+		
+		foreach($geoStats['Payload']['summary'] as $country): 
+			
+			$countries['stats']['total'] 					= $countries['stats']['total'] + $country['Count']; 
+			$countries['countries'][$country['Country']] 	= $country['Count']; 
+		
+		endforeach; 
+		
+		arsort($countries['countries']);
+		
+		return $countries; 
+		
+	else : 
+	
+		return false; 
+		
+	endif; 
+	
+}
+
+
 function secondsToHours($seconds){
 	
 	$minutes 	= $seconds/60; 

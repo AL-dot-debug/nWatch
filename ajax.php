@@ -27,10 +27,10 @@ if(isset($_POST['form_type'])) :
 		case 'ext_stats': 
 			
 			$block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts'); 
-			$netStats 	= get_json('https://api.nknx.org/network/stats'); 
+			$netStats 	= nkn_GeoStat(); 
 			
 			$json['blocksize'] 	= $block['blockCount'];
-			$json['netstats'] 	= $netStats['totalNodes']; 
+			$json['netstats'] 	= $netStats['stats']['total']; 
 			
 			echo json_encode($json);
 			
@@ -80,7 +80,7 @@ else :
 		$data[$i][] = $node['ip'];
 		
 		if(isset($node['remain'])) : 
-			$data[$i][] = '<img src="'.$node['style']['img'].'" class="float-start me-1" height="25"><span class="d-none d-md-inline">'.$node['syncState'].'<br><small>'.$node['remain'].'%</small></span>';
+			$data[$i][] = '<img src="'.$node['style']['img'].'" class="float-start me-1" height="25"><span class="d-none d-md-inline">'.$node['syncState'].' <small>('.$node['remain'].'%)</small></span>';
 		else :
 			$data[$i][] = '<img src="'.$node['style']['img'].'" class="me-1" height="25"><span class="d-none d-md-inline">'.$node['syncState'].'</span>';
 		endif; 

@@ -51,6 +51,10 @@
 						<li class="nav-item">
 							<a class="<?php echo ($_GET['page'] == 'wallets' ? 'nav-link active' : 'nav-link') ?>" href="?page=wallets">Wallets</a>
 						</li>
+						
+						<!-- <li class="nav-item">
+							<a class="<?php echo ($_GET['page'] == 'settings' ? 'nav-link active' : 'nav-link') ?>" href="?page=settings"><img src="/core/img/settings.svg" height="20" /></a>
+						</li> -->
 					
 					</ul>
 			
@@ -83,7 +87,7 @@
 			
 			<div class="row copyrights">
 				<div class="col-6 col-lg-2 order-2 order-lg-1">
-					<p>© <?= date('Y') ?> AL - v2.0.2</p>
+					<p>© <?= date('Y') ?> AL - v2.0.3</p>
 				</div>
 				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>
