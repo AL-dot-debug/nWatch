@@ -1,4 +1,28 @@
-<?php include_once('functions.php'); ?>
+<?php 
+
+session_start(); 
+include_once('functions.php');
+include_once('data.processor.php');
+
+if(check_security() == 1):
+
+	$warning = true; 
+
+else : 
+	
+	if(!isset($_SESSION['user']) AND $_GET['page'] != 'login'){
+		header('Location:/?page=login'); 
+	}
+	
+endif;
+
+if(isset($_GET['logout'])):
+	session_destroy(); 
+	header('Location:/');
+	exit(); 
+endif; 
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +52,6 @@
 	
 	<body>
 		
-
 		<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
 			
 			<div class="container-fluid">
@@ -52,9 +75,9 @@
 							<a class="<?php echo ($_GET['page'] == 'wallets' ? 'nav-link active' : 'nav-link') ?>" href="?page=wallets">Wallets</a>
 						</li>
 						
-						<!-- <li class="nav-item">
+						<li class="nav-item">
 							<a class="<?php echo ($_GET['page'] == 'settings' ? 'nav-link active' : 'nav-link') ?>" href="?page=settings"><img src="/core/img/settings.svg" height="20" /></a>
-						</li> -->
+						</li>
 					
 					</ul>
 			
@@ -63,6 +86,15 @@
 				
 			</div>
 		</nav>
+		
+		<?php if(isset($warning)) : ?>
+		
+		<div class="alert alert-danger text-center" role="alert">
+			Your nWatch instance is not secure ! <strong><a href="?page=settings">Please define a password</a></strong>
+		</div>
+		
+		<?php endif; ?>
+		
 		
 		<?php
 		
@@ -87,7 +119,7 @@
 			
 			<div class="row copyrights">
 				<div class="col-6 col-lg-2 order-2 order-lg-1">
-					<p>© <?= date('Y') ?> AL - v2.0.3</p>
+					<p>© <?= date('Y') ?> AL - v2.1.0</p>
 				</div>
 				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>

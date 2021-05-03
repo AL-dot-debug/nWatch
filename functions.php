@@ -376,4 +376,27 @@ function nknValue($nkn){
 	return $nkn; 
 }
 
+
+function check_security(){
+	
+	$path    	= 'admin/';
+	$files 		= scandir($path);
+	$pwd 		= 0; 
+	
+	foreach($files as $file):
+	
+		if($file != '.' AND $file != '..'): 
+			
+			$pwd++;  
+			
+		endif; 
+	
+	endforeach;
+	
+	return $pwd;
+	
+	
+}
+
+
 ?>
