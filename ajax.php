@@ -10,19 +10,6 @@ if(isset($_POST['form_type'])) :
 	
 	
 	switch($_POST['form_type']) : 
-	
-		case 'nodes':
-			
-			$node_list 		= nl2br($_POST['nodetxt']); 
-			$clean_list 	= strip_tags($node_list);			
-			$node_file 		= fopen("nodes.txt", "w+");
-			
-			fwrite($node_file, $clean_list);
-			fclose($node_file);
-			
-			exit(); 
-		break;
-		
 		
 		case 'ext_stats': 
 			
@@ -44,6 +31,12 @@ if(isset($_POST['form_type'])) :
 			$json['proposals'] 	= $nodes['total_proposals']; 
 			$json['relay']		= $nodes['max_relay']; 
 			
+			foreach($nodes['stats'] as $value):
+				$stats[] = $value; 
+			endforeach; 
+			
+			$json['stats']		= $stats; 
+				
 			echo json_encode($json); 
 			
 			exit(); 

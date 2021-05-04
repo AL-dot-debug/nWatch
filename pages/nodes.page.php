@@ -48,7 +48,9 @@
 			</div>
 			
 			<div class="col-md-6 d-none d-md-block text-center">
-				<canvas style="margin-top:-.5rem;" class="mx-auto" id="myChart" height="105px"></canvas>
+				<div class="mx-auto" style="width:240px">
+					<canvas id="myChart"></canvas>
+				</div>
 			</div>
 			
 		</div>

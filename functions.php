@@ -246,6 +246,8 @@ function get_json($url){
 	$ch = curl_init($url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 200); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, 400);
 	
 	$server_output = curl_exec($ch);
 		

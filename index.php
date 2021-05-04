@@ -119,7 +119,7 @@ endif;
 			
 			<div class="row copyrights">
 				<div class="col-6 col-lg-2 order-2 order-lg-1">
-					<p>© <?= date('Y') ?> AL - v2.2.0</p>
+					<p>© <?= date('Y') ?> AL - v2.2.1</p>
 				</div>
 				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>
@@ -134,7 +134,7 @@ endif;
 		
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous"></script>
 		<script src="core/js/bootstrap.bundle.min.js"></script>
 		
 		<?php 
