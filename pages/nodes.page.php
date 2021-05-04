@@ -6,7 +6,7 @@
 	$netStats 	= nkn_GeoStat(); 
 	$github 	= get_json('https://api.github.com/repos/nknorg/nkn/releases'); 
 	$nodes 		= get_nodes($block['blockCount']); 
-	
+		
 	?>
 	
 	<div class="container">
@@ -15,7 +15,7 @@
 			
 			<div class="col-md-6 mb-3">
 				
-				<div class="row">
+				<div class="row pt-4">
 					
 					<div class="col-6">
 						
@@ -47,9 +47,31 @@
 				
 			</div>
 			
-			<div class="col-md-6 d-none d-md-block text-center">
-				<div class="mx-auto" style="width:240px">
-					<canvas id="myChart"></canvas>
+			<div class="col-md-6 d-none d-md-block">
+				<div class="table-responsive">
+					<table class="table">
+					
+						<thead>
+							<tr>
+								<th scope="col">Status</th>
+								<th scope="col">Nodes</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							
+							<?php foreach($nodes['stats'] as $key => $value) : ?>
+							
+							<tr>
+								<th scope="row"><?= $key ?></th>
+								<td><?= $value ?></td>
+							</tr>
+							
+							<?php endforeach; ?>
+							
+						</tbody>
+					
+					</table>
 				</div>
 			</div>
 			

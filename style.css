@@ -94,6 +94,9 @@ table td {
 	font-weight: 700;
 	text-transform: uppercase;
 }
+.header table{
+	color: #fff; 
+}
 
 
 .underline{

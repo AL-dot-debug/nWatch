@@ -59,14 +59,12 @@ $(document).ready(function() {
 				
 				data = $.parseJSON(data);
 				
-				console.log(data);
-					
 				switch(UpdateType) {
 					
 					case 'nodes':
 						
 						// Update the graph 
-						node_graph_create(data['stats']);
+						//node_graph_create(data['stats']);
 						
 						
 						// Update the dash numbers 
@@ -130,71 +128,52 @@ $(document).ready(function() {
 	
 	
 	// Create Graph 
-	function node_graph_create(GraphValues){
-		
-		const data = {
-			  labels: [
-				'ERROR',
-				'WAIT_FOR_SYNCING',
-				'SYNC_STARTED',
-				'SYNC_FINISHED',
-				'PERSIST_FINISHED',
-				'OFFLINE'
-			  ],
-			  datasets: [{
-				label: 'Nodes status',
-				data: GraphValues,
-				backgroundColor: [
-				  'rgb(243, 66, 19)',
-				  'rgb(244, 185, 66)',
-				  'rgb(111, 208, 140)',
-				  'rgb(111, 208, 140)',
-				  'rgb(172, 203, 225',
-				  'rgb(11, 22, 60)',
-				],
-				hoverOffset: 4
-			  }]
-			};
-		
-		$('#myChart').replaceWith('<canvas id="myChart"></canvas>');
-		
-		var ctx = document.getElementById('myChart');
-		var myChart = new Chart(ctx, {
-			type: 'doughnut',
-			data: data,
-			options: {
-				plugins: {
-					legend: {
-						display: false
-					}
-				},
-				layout: {
-					padding: 20
-				}
-			}
-		});
-		
-		
-	}
-	
-	
-	init();
-	
-	function init(){
-		
-		$.ajax({
-			url:"ajax.php",
-			method:"POST",
-			data:{form_type:'nodes_stats'},
-			success:function(data){
-				
-				// Create the graph 
-				node_graph_create(data['stats']);
-				
-			}
-		});
-		
-	}
+	// function node_graph_create(GraphValues){
+	// 	
+	// 	const data = {
+	// 		  labels: [
+	// 			'ERROR',
+	// 			'WAIT_FOR_SYNCING',
+	// 			'SYNC_STARTED',
+	// 			'SYNC_FINISHED',
+	// 			'PERSIST_FINISHED',
+	// 			'OFFLINE'
+	// 		  ],
+	// 		  datasets: [{
+	// 			label: 'Nodes status',
+	// 			data: GraphValues,
+	// 			backgroundColor: [
+	// 			  'rgb(243, 66, 19)',
+	// 			  'rgb(244, 185, 66)',
+	// 			  'rgb(111, 208, 140)',
+	// 			  'rgb(111, 208, 140)',
+	// 			  'rgb(172, 203, 225',
+	// 			  'rgb(11, 22, 60)',
+	// 			],
+	// 			hoverOffset: 4
+	// 		  }]
+	// 		};
+	// 	
+	// 	$('#myChart').replaceWith('<canvas id="myChart"></canvas>');
+	// 	
+	// 	var ctx = document.getElementById('myChart');
+	// 	var myChart = new Chart(ctx, {
+	// 		type: 'doughnut',
+	// 		data: data,
+	// 		options: {
+	// 			plugins: {
+	// 				legend: {
+	// 					display: false
+	// 				}
+	// 			},
+	// 			layout: {
+	// 				padding: 20
+	// 			}
+	// 		}
+	// 	});
+	// 	
+	// 	
+	// }
 	
 	
 	// Activate BS tooltip 
