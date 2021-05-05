@@ -10,6 +10,14 @@ endif;
 include_once('functions.php'); 
 
 
+// Locale definition 
+if(!isset($_COOKIE['nW_locale'])):
+	setcookie("nW_locale", 'fr-FR',  time() + (10 * 365 * 24 * 60 * 60) );
+endif; 
+
+$locale = ( isset($_COOKIE['nW_locale']) ) ? str_replace('-', '_', $_COOKIE['nW_locale'] ) : 'fr_FR';
+setlocale(LC_ALL, $locale);
+
 
 // Management 
 
@@ -85,9 +93,9 @@ else :
 			$data[$i][] = '<img src="'.$node['style']['img'].'" class="me-1" height="25"><span class="d-none d-md-inline">'.$node['syncState'].'</span>';
 		endif; 
 		
-		$data[$i][] = $node['height']; 
-		$data[$i][] = perso_round($node['relayMessageCount'], 0); 
-		$data[$i][] = $node['relayperhour']; 
+		$data[$i][] = number_format_locale($node['height'], 0); 
+		$data[$i][] = number_format_locale($node['relayMessageCount'], 0); 
+		$data[$i][] = number_format_locale($node['relayperhour'], 0); 
 		$data[$i][] = $node['version']; 
 		$data[$i][] = $node['proposalSubmitted']; 
 		$data[$i][] = $node['uptime']; 
