@@ -1,6 +1,17 @@
 <?php
 
 
+function canIWriteHere(){
+	
+	$dir = dirname(__FILE__);
+	if(is_writable($dir.'/index.php')):
+		return true; 
+	else :
+		return false; 
+	endif; 
+	
+}
+
 function get_wallets(){
 	
 	if(file_exists('wallets.txt')):

@@ -8,6 +8,7 @@ session_start();
 include_once('functions.php');
 include_once('data.processor.php');
 
+
 // Locale definition 
 if(!isset($_COOKIE['nW_locale'])):
 	setcookie("nW_locale", 'fr-FR',  time() + (10 * 365 * 24 * 60 * 60) );
@@ -29,6 +30,12 @@ else :
 	}
 	
 endif;
+
+if(!canIWriteHere()):
+	$config_error = true; 
+endif; 
+
+
 
 // Logout 
 if(isset($_GET['logout'])):
@@ -112,6 +119,14 @@ endif;
 		
 		<?php endif; ?>
 		
+		<?php if(isset($config_error)) : ?>
+		
+		<div class="alert alert-warning text-center" role="alert">
+			Your nWatch instance doesn't have the rights to write in <?= dirname(__FILE__) ?> ! <strong>Please set the correct rights</strong>
+		</div>
+		
+		<?php endif; ?>
+		
 		
 		<?php
 		
@@ -136,7 +151,7 @@ endif;
 			
 			<div class="row copyrights">
 				<div class="col-6 col-lg-2 order-2 order-lg-1">
-					<p>© <?= date('Y') ?> AL - v2.2.2</p>
+					<p>© <?= date('Y') ?> AL - v2.2.3</p>
 				</div>
 				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>
