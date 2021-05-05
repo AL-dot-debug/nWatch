@@ -1,5 +1,12 @@
 <?php 
 
+session_start(); 
+
+if(!isset($_SESSION['user'])):
+	echo 'Auth required';
+	exit(); 
+endif; 
+
 include_once('functions.php'); 
 
 
