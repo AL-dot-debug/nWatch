@@ -16,7 +16,7 @@ function get_wallets(){
 	
 	if(file_exists('wallets.txt')):
 		
-		$wallet_file 	= file_get_contents('wallets.txt'); 
+		$wallet_file 	= file_get_contents(dirname(__FILE__).'/wallets.txt'); 
 		$wallets 		= explode("\n", $wallet_file);
 		
 		$i=0; 
@@ -70,7 +70,7 @@ function get_nodes_list(){
 	
 	if(file_exists('nodes.txt')):
 		
-		$nodes_file = file_get_contents('nodes.txt'); 
+		$nodes_file = file_get_contents(dirname(__FILE__).'/nodes.txt'); 
 		$nodes 		= explode("\n", $nodes_file);
 		
 		return $nodes; 
@@ -87,7 +87,7 @@ function get_nodes($blockCount = 1){
 	
 	if(file_exists('nodes.txt')): 
 	
-		$nodes_file = file_get_contents('nodes.txt'); 
+		$nodes_file = file_get_contents(dirname(__FILE__).'/nodes.txt'); 
 		$nodes 		= explode("\n", $nodes_file);
 		
 		$return['total_nodes'] 		= 0;
@@ -402,7 +402,7 @@ function nknValue($nkn){
 
 function check_security(){
 	
-	$path    	= 'admin/';
+	$path    	= dirname(__FILE__).'/admin/';
 	$files 		= scandir($path);
 	$pwd 		= 0; 
 	

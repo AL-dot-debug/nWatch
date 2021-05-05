@@ -10,7 +10,7 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 			if(isset($_POST['nwatch_password']) AND !empty($_POST['nwatch_password'])) : 
 			
 				// Locate the old password file 
-				$path    	= 'admin/';
+				$path    	= dirname(__FILE__).'/admin/';
 				$files 		= scandir($path);
 				
 				foreach($files as $file):
@@ -56,7 +56,7 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 		
 		case 'login':
 	
-			$path    	= 'admin/';
+			$path    	= dirname(__FILE__).'admin/';
 			$files 		= scandir($path);
 			
 			foreach($files as $file):
@@ -88,7 +88,7 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 		
 			$node_list 		= nl2br($_POST['nodetxt']); 
 			$clean_list 	= strip_tags($node_list);			
-			$node_file 		= fopen("nodes.txt", "w+");
+			$node_file 		= fopen(dirname(__FILE__)."/nodes.txt", "w+");
 			
 			fwrite($node_file, $clean_list);
 			fclose($node_file);
@@ -99,7 +99,7 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 	
 			$wallet_list 	= nl2br($_POST['walletstxt']); 
 			$clean_list 	= strip_tags($wallet_list);			
-			$node_file 		= fopen("wallets.txt", "w+");
+			$node_file 		= fopen(dirname(__FILE__)."/wallets.txt", "w+");
 			
 			fwrite($node_file, $clean_list);
 			fclose($node_file);
