@@ -56,7 +56,7 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 		
 		case 'login':
 	
-			$path    	= dirname(__FILE__).'admin/';
+			$path    	= dirname(__FILE__).'/admin/';
 			$files 		= scandir($path);
 			
 			foreach($files as $file):
@@ -64,7 +64,7 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 				if($file != '.' AND $file != '..'):
 					
 					$pwd = file_get_contents($path.''.$file); 
-					
+						
 					if (password_verify($_POST['password'], $pwd)) : 
 						
 						$_SESSION['user'] = true; 
