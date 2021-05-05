@@ -13,6 +13,7 @@ nWatch is a NKN nodes and wallets dashboard allowing you to monitor the activiti
 - Password protected 
 - Wallets balance
 - Wallets stats 
+- Values displayed in EUR or USD
 
 ## How to use nWatch ?
 
