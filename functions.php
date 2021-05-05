@@ -31,9 +31,9 @@ function get_wallets(){
 			$name 		= @$data[1];
 			$ip			= @$data[2]; 
 			
-			$wallet_data['wallets'][$i]['nw']['address'] 	= $address; 
-			$wallet_data['wallets'][$i]['nw']['name'] 		= $name;
-			$wallet_data['wallets'][$i]['nw']['ip'] 		= $ip;
+			$wallet_data['wallets'][$i]['nw']['address'] 	= strip_tags($address); 
+			$wallet_data['wallets'][$i]['nw']['name'] 		= strip_tags($name);
+			$wallet_data['wallets'][$i]['nw']['ip'] 		= strip_tags($ip);
 			
 			$url = 'https://openapi.nkn.org/api/v1/addresses/'.$address; 
 			$wallet_data['wallets'][$i]['nkn'] = get_json($url);  
@@ -114,7 +114,7 @@ function get_nodes($blockCount = 1){
 				if(!isset($data[1])) : 
 					$name = "Server Doe"; 
 				else : 
-					$name = $data[1];
+					$name = strip_tags($data[1]);
 				endif; 
 				
 				// Common 
@@ -134,7 +134,7 @@ function get_nodes($blockCount = 1){
 						$return['nodes'][$ip]['style']['cell'] 		= 'bg-alert';
 						$return['nodes'][$ip]['style']['img'] 		= 'core/img/warning.svg';
 						
-						$return['nodes'][$ip]['syncState'] 			= $node['error']['message']; 
+						$return['nodes'][$ip]['syncState'] 			= strip_tags($node['error']['message']); 
 						
 						$return['nodes'][$ip]['height']				= 0;
 						$return['nodes'][$ip]['relayMessageCount'] 	= 0; 
@@ -144,13 +144,13 @@ function get_nodes($blockCount = 1){
 					
 					else : 
 						
-						$return['nodes'][$ip]['syncState'] 			= str_replace('_', ' ', $node['result']['syncState']);
-						$return['nodes'][$ip]['height'] 			= $node['result']['height'];
-						$return['nodes'][$ip]['relayMessageCount'] 	= $node['result']['relayMessageCount'];
-						$return['nodes'][$ip]['version'] 			= $node['result']['version'];
-						$return['nodes'][$ip]['proposalSubmitted'] 	= $node['result']['proposalSubmitted'];
+						$return['nodes'][$ip]['syncState'] 			= strip_tags(str_replace('_', ' ', $node['result']['syncState']));
+						$return['nodes'][$ip]['height'] 			= strip_tags($node['result']['height']);
+						$return['nodes'][$ip]['relayMessageCount'] 	= strip_tags($node['result']['relayMessageCount']);
+						$return['nodes'][$ip]['version'] 			= strip_tags($node['result']['version']);
+						$return['nodes'][$ip]['proposalSubmitted'] 	= strip_tags($node['result']['proposalSubmitted']);
 						$return['nodes'][$ip]['uptime'] 			= secondsToTime($node['result']['uptime']);
-						$return['nodes'][$ip]['id']					= $node['result']['id']; 
+						$return['nodes'][$ip]['id']					= strip_tags($node['result']['id']); 
 						
 						
 						if($node['result']['proposalSubmitted'] != 0):

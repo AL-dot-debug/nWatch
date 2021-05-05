@@ -32,7 +32,7 @@
 					
 					<div class="col-6">
 						
-						<h4 class="m-0 p-0"><?= $nodes['total_nodes'] ?></h4>
+						<h4 class="m-0 p-0"><?= number_format_locale($nodes['total_nodes'],0) ?></h4>
 						<p>Nodes</p>
 						
 						<h4 class="m-0 p-0 nodes-stats" data-prop="relay"><?=  number_format_locale($nodes['max_relay'],0) ?></h4>
