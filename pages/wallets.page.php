@@ -6,9 +6,13 @@
 			
 			<?php
 			
-			$coingecko 	= get_json('https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0x5cf04716ba20127f1e2297addcf4b5035000c9eb&vs_currencies=eur,eth&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=false'); 
+			$locale 				= localeconv();
+			$currency_symbol 		= preg_replace("/\s+/", "",$locale['currency_symbol']); 
+			$currency_int_symbol 	= preg_replace("/\s+/", "",$locale['int_curr_symbol']); 
 			
-			$values 	= $coingecko['0x5cf04716ba20127f1e2297addcf4b5035000c9eb']; 
+			$coingecko 	= get_json('https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=0x5cf04716ba20127f1e2297addcf4b5035000c9eb&vs_currencies='.$currency_int_symbol.'&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=false'); 
+			
+			$values 	= $coingecko['0x5cf04716ba20127f1e2297addcf4b5035000c9eb']; 			
 			$wallets 	= get_wallets();
 			
 			
@@ -20,23 +24,23 @@
 					
 					<div class="col-6">
 						
-						<h4 class="m-0 p-0"><?= perso_round($values['eur'],4, ' ') ?>€</h4>
+						<h4 class="m-0 p-0"><?= number_format_locale($values[strtolower($currency_int_symbol)],4) ?> <?= $currency_symbol ?></h4>
 						<p>for 1NKN</p>
 						
-						<h4 class="m-0 p-0"><?= perso_round($values['eur_market_cap'],0, ' ') ?>€</h4>
+						<h4 class="m-0 p-0"><?= number_format_locale($values[strtolower($currency_int_symbol).'_market_cap'],0) ?> <?= $currency_symbol ?></h4>
 						<p>Market cap</p>
 						
-						<h4 class="m-0 p-0"><?= perso_round($values['eur_24h_change'],2, ' ') ?>%</h4>
+						<h4 class="m-0 p-0"><?= number_format_locale($values[strtolower($currency_int_symbol).'_24h_change'],2) ?>%</h4>
 						<p>Value change <small>last 24h</small></p>
 						
 					</div>
 					
 					<div class="col-6">
 						
-						<h4 class="m-0 p-0"><?= perso_round(nknValue($wallets['stats']['total_nkn']), 4, ' ') ?></h4>
+						<h4 class="m-0 p-0"><?= number_format_locale(nknValue($wallets['stats']['total_nkn']), 4) ?></h4>
 						<p>NKN in your wallets</p>
 						
-						<h4 class="m-0 p-0" ><?= perso_round(nknValue($wallets['stats']['total_nkn'])*$values['eur'], 2, ' ') ?>€</h4>
+						<h4 class="m-0 p-0" ><?= number_format_locale(nknValue($wallets['stats']['total_nkn'])*$values[strtolower($currency_int_symbol)], 2) ?> <?= $currency_symbol ?></h4>
 						<p>Value total</p>
 						
 						<h4 class="m-0 p-0"><?= time_elapsed_string($wallets['stats']['last_transaction']) ?></h4>
@@ -99,7 +103,7 @@
 					</h6>
 					
 					<p class="card-text">
-						Balance : <strong><?= perso_round(nknValue($wallet['nkn']['balance']),4,' ') ?> NKN</strong> <br />
+						Balance : <strong><?= number_format_locale(nknValue($wallet['nkn']['balance']),4) ?> NKN</strong> <br />
 						Last transaction : <strong><?= time_elapsed_string($wallet['nkn']['last_transaction']) ?></strong>
 					</p>
 					

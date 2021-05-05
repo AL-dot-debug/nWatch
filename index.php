@@ -1,9 +1,23 @@
 <?php 
 
+// session 
 session_start(); 
+
+
+// includes 
 include_once('functions.php');
 include_once('data.processor.php');
 
+// Locale definition 
+if(!isset($_COOKIE['nW_locale'])):
+	setcookie("nW_locale", 'fr-FR',  time() + (10 * 365 * 24 * 60 * 60) );
+endif; 
+
+$locale = ( isset($_COOKIE['nW_locale']) ) ? str_replace('-', '_', $_COOKIE['nW_locale'] ) : 'fr_FR';
+setlocale(LC_ALL, $locale);
+
+
+// "Security"
 if(check_security() == 1):
 
 	$warning = true; 
@@ -16,11 +30,14 @@ else :
 	
 endif;
 
+// Logout 
 if(isset($_GET['logout'])):
 	session_destroy(); 
 	header('Location:/');
 	exit(); 
 endif; 
+
+
 
 ?>
 
@@ -119,7 +136,7 @@ endif;
 			
 			<div class="row copyrights">
 				<div class="col-6 col-lg-2 order-2 order-lg-1">
-					<p>© <?= date('Y') ?> AL - v2.2.1</p>
+					<p>© <?= date('Y') ?> AL - v2.2.2</p>
 				</div>
 				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>

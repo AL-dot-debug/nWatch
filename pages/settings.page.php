@@ -36,6 +36,15 @@
 								<div id="nwatch_password_help" class="form-text">Update your nWatch password instance.</div>
 							</div>
 							
+							<div class="mb-3">
+								<label for="locales" class="form-label">Format display</label>
+								<select class="form-select" name="locale" aria-label="nWatch format display">
+									<option value="fr-FR" <?php echo ($_COOKIE['nW_locale'] == 'fr-FR') ? 'selected' : '';  ?> >European - values in € and space separator eg: 1 000€</option>
+									<option value="en-US" <?php echo ($_COOKIE['nW_locale'] == 'en-US') ? 'selected' : '';  ?> >US - values in $ and , separator eg : 1,000$</option>
+								</select>								
+								<div id="locales" class="form-text">Pick the format and currency to display.</div>
+							</div>
+							
 							<input type="hidden" name="form_type" value="nwatch" />
 							<button type="submit" class="btn btn-primary">Save</button>
 							

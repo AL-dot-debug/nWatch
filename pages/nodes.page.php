@@ -19,10 +19,10 @@
 					
 					<div class="col-6">
 						
-						<h4 class="m-0 p-0 ext-stats" data-prop="blocksize"><?= perso_round($block['blockCount'],0, ' ') ?></h4>
+						<h4 class="m-0 p-0 ext-stats" data-prop="blocksize"><?= number_format_locale($block['blockCount'],0) ?></h4>
 						<p>Latest block</p>
 						
-						<h4 class="m-0 p-0 ext-stats" data-prop="netstats"><?= perso_round($netStats['stats']['total'],0, ' ') ?></h4>
+						<h4 class="m-0 p-0 ext-stats" data-prop="netstats"><?= number_format_locale($netStats['stats']['total'],0) ?></h4>
 						<p>Nodes</p>
 						
 						<h4 class="m-0 p-0 ext-stats" data-prop="github"><?= $github[0]['name'] ?></h4>
@@ -35,12 +35,12 @@
 						<h4 class="m-0 p-0"><?= $nodes['total_nodes'] ?></h4>
 						<p>Nodes</p>
 						
-						<h4 class="m-0 p-0 nodes-stats" data-prop="relay"><?=  perso_round($nodes['max_relay'],0, ' ') ?></h4>
+						<h4 class="m-0 p-0 nodes-stats" data-prop="relay"><?=  number_format_locale($nodes['max_relay'],0) ?></h4>
 						<p>Max relay</p>
 						
 						<h4 class="m-0 p-0 nodes-stats" data-prop="proposals"><?= $nodes['total_proposals'] ?></h4>
 						<p>Reward(s)</p>	
-							
+													
 					</div>
 					
 				</div>

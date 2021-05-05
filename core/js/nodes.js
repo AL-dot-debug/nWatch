@@ -71,7 +71,7 @@ $(document).ready(function() {
 						$('.nodes-stats').each(function() {
 							
 							const prop 	= $(this).data("prop"); 
-							const Start = $(this).text().replace(/\s/g,'');
+							const Start = $(this).text().replace(/\s/g,'').replace(/,/g,'');
 								
 							$(this).prop('Counter', Start).animate(
 								{
@@ -80,7 +80,7 @@ $(document).ready(function() {
 									duration: 10000,
 									easing: 'swing',
 									step: function(now) {
-										$(this).text(toFrench(Math.ceil(now)));
+										$(this).text(toLocale(Math.ceil(now)));
 									}
 								}
 							);
@@ -95,7 +95,7 @@ $(document).ready(function() {
 						$('.ext-stats').each(function() {
 							
 							const prop 	= $(this).data("prop"); 
-							const Start = $(this).text().replace(/\s/g,'');
+							const Start = $(this).text().replace(/\s/g,'').replace(/,/g,'');
 							
 							$(this).prop('Counter', Start).animate(
 								{
@@ -104,7 +104,7 @@ $(document).ready(function() {
 									duration: 60000,
 									easing: 'swing',
 									step: function(now) {
-										$(this).text(toFrench(Math.ceil(now)));
+										$(this).text(toLocale(Math.ceil(now)));
 									}
 								}
 							);
@@ -122,9 +122,30 @@ $(document).ready(function() {
 	}
 	
 	// Nice display 
-	function toFrench(x) {
-		return x.toLocaleString('FR-fr');
+	function toLocale(x) {
+		
+		var locale = readCookie('nW_locale'); 
+		
+		if(locale){
+			return x.toLocaleString(locale);
+		}else{
+			return x.toLocaleString('FR-fr');
+		}
+		
 	}
+	
+	function readCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+		}
+		return null;
+	}
+	
+	
 	
 	
 	// Create Graph 
@@ -183,13 +204,3 @@ $(document).ready(function() {
 	})
 	
 } );
-
-
-
-
-
-
-
-
-
-
