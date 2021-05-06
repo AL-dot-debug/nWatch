@@ -30,13 +30,19 @@ nWatch is available in the [ALL-in-ONE-nknnode](https://github.com/no112358/ALLi
 
 You can deploy nWatch on any server like a raspberry Pi. Still it required some knowledge about WebServer. We highly recommand you to deploy nWatch using the [ALLinOne deploy script](https://github.com/no112358/ALLinONE-nknnode). 
 
+
 #### Requirements 
 Apache/Nginx, PHP, PHP-Curl 
+⚠️ en_US and fr_FR UTF8 locales must be available 
 
 #### Install (Apache - Debian / Ubuntu)
 
 	sudo su - 
-	apt install apache php php-curl git-client -y 
+	apt-get install git-client apache2 php php-curl language-pack-en language-pack-fr -y
+	locale-gen "en_US.utf8"
+	locale-gen "fr_FR.utf8"
+	dpkg-reconfigure locales
+	apt-get autoremove -y 
 	cd /var/www/html
 	rm -fr * 
 	gh repo clone AL-dot-debug/nWatch
