@@ -22,8 +22,13 @@ setlocale(LC_ALL, $locale);
 if(check_security() == 1):
 
 	$warning = true; 
-	header('Location:/?page=settings');
-	exit();
+	
+	if(!isset($_GET['page']) OR $_GET['page'] != 'settings' ) : 
+	
+		header('Location:/?page=settings');
+		exit();
+	
+	endif; 
 
 else : 
 	
@@ -154,7 +159,7 @@ endif;
 			
 			<div class="row copyrights">
 				<div class="col-6 col-lg-2 order-2 order-lg-1">
-					<p>© <?= date('Y') ?> AL - v2.2.9</p>
+					<p>© <?= date('Y') ?> AL - v2.2.10</p>
 				</div>
 				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>
