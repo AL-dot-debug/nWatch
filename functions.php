@@ -285,6 +285,8 @@ function get_node_status($ip){
 		
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS,'{"jsonrpc":"2.0","method":"getnodestate","params":{},"id":1}');
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 200); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, 400);
 	
 	$server_output = curl_exec($ch);
 	
@@ -307,7 +309,7 @@ function nkn_GeoStat(){
 		foreach($geoStats['Payload']['summary'] as $country): 
 			
 			$countries['stats']['total'] 					= $countries['stats']['total'] + $country['Count']; 
-			$countries['countries'][$country['Country']] 	= $country['Count']; 
+			$countries['countries'][$country['Country']] 	= strip_tags($country['Count']); 
 		
 		endforeach; 
 		
