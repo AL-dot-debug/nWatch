@@ -12,7 +12,7 @@ h1{
 	color: #fff;
 }
 h4{
-	font-size: 2.5rem;
+	font-size: clamp(1.25rem, 5vw, 2.5rem); ;
 }
 h4 small{
 	font-size: 1rem;
@@ -89,6 +89,7 @@ table td {
 	padding-top: 3rem;
 
 }
+
 
 .header p{
 	font-weight: 700;
