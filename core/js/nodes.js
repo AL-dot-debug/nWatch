@@ -51,8 +51,11 @@ $(document).ready(function() {
 	// Refresh dashboard values 
 	function refresh_value(DashElement,UpdateType){
 		
+		var time_stamp = new Date().getTime();
+		var myurl = "ajax.php?timestamp=" + time_stamp;
+		
 		$.ajax({
-			url:"ajax.php",
+			url:myurl,
 			method:"POST",
 			data:{form_type:DashElement},
 			success:function(data){
@@ -63,16 +66,13 @@ $(document).ready(function() {
 					
 					case 'nodes':
 						
-						// Update the graph 
-						//node_graph_create(data['stats']);
-						
 						
 						// Update the dash numbers 
 						$('.nodes-stats').each(function() {
 							
 							const prop 	= $(this).data("prop"); 
 							const Start = $(this).text().replace(/\s/g,'').replace(/,/g,'');
-								
+															
 							$(this).prop('Counter', Start).animate(
 								{
 									Counter: data[prop]

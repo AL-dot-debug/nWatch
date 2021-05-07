@@ -45,12 +45,13 @@ if(isset($_POST['form_type'])) :
 			$nodes 	= get_nodes(1);
 			$json['proposals'] 	= $nodes['total_proposals']; 
 			$json['relay']		= $nodes['max_relay']; 
+			$json['stats']		= $nodes['stats']; 
 			
-			foreach($nodes['stats'] as $value):
-				$stats[] = $value; 
+			foreach($nodes['stats'] as $key => $value):
+				$json['stats.'.$key] 	= $value; 
 			endforeach; 
 			
-			$json['stats']		= $stats; 
+			//$json['stats']		= $stats; 
 				
 			echo json_encode($json); 
 			

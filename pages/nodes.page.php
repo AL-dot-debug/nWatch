@@ -64,7 +64,7 @@
 							
 							<tr>
 								<th scope="row"><?= $key ?></th>
-								<td><?= $value ?></td>
+								<td class="nodes-stats" data-prop="stats.<?= $key ?>"><?= $value ?></td>
 							</tr>
 							
 							<?php endforeach; ?>

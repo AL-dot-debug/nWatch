@@ -257,8 +257,8 @@ function get_json($url){
 	$ch = curl_init($url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 200); 
-	curl_setopt($ch, CURLOPT_TIMEOUT, 400);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, 4);
 	
 	$server_output = curl_exec($ch);
 		
@@ -285,8 +285,8 @@ function get_node_status($ip){
 		
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS,'{"jsonrpc":"2.0","method":"getnodestate","params":{},"id":1}');
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 200); 
-	curl_setopt($ch, CURLOPT_TIMEOUT, 400);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, 2);
 	
 	$server_output = curl_exec($ch);
 	
