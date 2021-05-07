@@ -3,6 +3,8 @@
 // session 
 session_start(); 
 
+$nWatch_version = '2.3.2'; 
+
 
 // includes 
 include_once('functions.php');
@@ -69,7 +71,7 @@ endif;
 		<link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css"/>
 		
-		<link rel="stylesheet" href="style.css?v=2.2.8" />
+		<link rel="stylesheet" href="style.css?v=<?= $nWatch_version ?>" />
 		
 		<link rel="apple-touch-icon" sizes="180x180" href="core/favicons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="core/favicons/favicon-32x32.png">
@@ -162,7 +164,7 @@ endif;
 			
 			<div class="row copyrights">
 				<div class="col-6 col-lg-2 order-2 order-lg-1">
-					<p>© <?= date('Y') ?> AL - v2.3.2</p>
+					<p>© <?= date('Y') ?> AL - v<?= $nWatch_version ?></p>
 				</div>
 				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>
@@ -183,11 +185,10 @@ endif;
 		<?php 
 		
 		if (!isset($_GET['page'])) :
-			echo '<script src="core/js/nodes.js"></script>'; 
+			echo '<script src="core/js/nodes.js?v='.$nWatch_version.'"></script>'; 
 		else : 
-			echo '<script src="core/js/'.$_GET['page'].'.js"></script>'; 
+			echo '<script src="core/js/'.$_GET['page'].'.js?v='.$nWatch_version.'"></script>'; 
 		endif; 
-		
 		
 		?>
 		
