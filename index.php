@@ -25,7 +25,7 @@ if(check_security() == 1):
 	
 	if(!isset($_GET['page']) OR $_GET['page'] != 'settings' ) : 
 	
-		header('Location:/?page=settings');
+		header('Location:'.HOST_URL.'/?page=settings');
 		exit();
 	
 	endif; 
@@ -33,7 +33,7 @@ if(check_security() == 1):
 else : 
 	
 	if(!isset($_SESSION['user']) AND $_GET['page'] != 'login'){
-		header('Location:/?page=login');
+		header('Location:'.HOST_URL.'/?page=login');
 		exit(); 
 	}
 	
@@ -48,7 +48,7 @@ endif;
 // Logout 
 if(isset($_GET['logout'])):
 	session_destroy(); 
-	header('Location:/');
+	header('Location:'.HOST_URL);
 	exit(); 
 endif; 
 
@@ -78,6 +78,9 @@ endif;
 		<link rel="mask-icon" href="core/favicons/safari-pinned-tab.svg" color="#5bbad5">
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="theme-color" content="#ffffff">
+		
+		<base href="<?= HOST_URL; ?>">
+		<meta name="robots" content="noindex">
 		
 		
 	</head>
@@ -159,7 +162,7 @@ endif;
 			
 			<div class="row copyrights">
 				<div class="col-6 col-lg-2 order-2 order-lg-1">
-					<p>© <?= date('Y') ?> AL - v2.2.11</p>
+					<p>© <?= date('Y') ?> AL - v2.2.12</p>
 				</div>
 				<div class="col-12 col-lg-8 order-1 order-lg-2 text-center">
 					<p>Do you enjoy nWatch? Feed the dev! Donate to <code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2</code> </p>

@@ -420,8 +420,35 @@ function check_security(){
 	
 	return $pwd;
 	
-	
 }
+
+
+if ('' != directory()) {
+	$subdirectory = '/'.directory().'/';
+} else {
+	$subdirectory = '/';
+}
+
+if (isset($_SERVER['HTTP_HOST'])) {
+	if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+		define('HOST_URL', $_SERVER['HTTP_X_FORWARDED_PROTO'].'://'.$_SERVER['HTTP_HOST'].$subdirectory);
+	} elseif (isset($_SERVER['REQUEST_SCHEME'])) {
+		define('HOST_URL', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$subdirectory);
+	} else {
+		if (isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) {
+			define('HOST_URL', 'https://'.$_SERVER['HTTP_HOST'].$subdirectory);
+		} else {
+			define('HOST_URL', 'http://'.$_SERVER['HTTP_HOST'].$subdirectory);
+		}
+	}
+}
+
+//# Subdirectory trick
+function directory()
+{
+	return substr(str_replace('\\', '/', realpath(dirname(__FILE__))), strlen(str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT']))) + 1);
+}
+
 
 
 ?>

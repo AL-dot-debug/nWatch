@@ -68,7 +68,7 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 					if (password_verify($_POST['password'], $pwd)) : 
 						
 						$_SESSION['user'] = true; 
-						header('Location:/'); 
+						header('Location:'.HOST_URL.'/'); 
 						exit(); 
 						
 					else : 
