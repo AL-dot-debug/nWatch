@@ -142,19 +142,19 @@
 						<p class="mb-2">Node mining current block</p>
 						
 						<h5 class="m-0 p-0">id</h5>
-						<p class="mb-2">Unique identifiant of your node</p>
+						<p class="mb-2">Unique identifier of your node</p>
 						
 						<h5 class="m-0 p-0">jsonRpcPort</h5>
-						<p class="mb-2">External port used by your node</p>
+						<p class="mb-2">Port used by your node</p>
 						
 						<h5 class="m-0 p-0">proposalSubmitted</h5>
 						<p class="mb-2">Amount of reward generated since last restart</p>
 						
 						<h5 class="m-0 p-0">protocolVersion</h5>
-						<p class="mb-2">NKN protocol version</p>
+						<p class="mb-2">NKN Protocol the node currently uses to communicate with others - should be default to 1</p>
 						
 						<h5 class="m-0 p-0">publicKey</h5>
-						<p class="mb-2">Public key of your local node wallet</p>
+						<p class="mb-2">The node's public key which is used to sign sigchain transactions</p>
 						
 						<h5 class="m-0 p-0">relayMessageCount</h5>
 						<p class="mb-2">Amount of relayed messages by your node</p>
@@ -163,16 +163,16 @@
 						<p class="mb-2">Node status</p>
 						
 						<h5 class="m-0 p-0">tlsJsonRpcDomain</h5>
-						<p class="mb-2">Transport Layer Security Json domain for Remote procedure call</p>
+						<p class="mb-2">HTTPS domain name where the node is reachable through regular RPC-Requests</p>
 						
 						<h5 class="m-0 p-0">tlsJsonRpcPort</h5>
-						<p class="mb-2">Transport Layer Security Json port for Remote procedure call</p>
+						<p class="mb-2">Port which is used for regular RPC-Requests to communicate through HTTPS</p>
 						
 						<h5 class="m-0 p-0">tlsWebsocketDomain</h5>
-						<p class="mb-2">Transport Layer Security Websocket domain</p>
+						<p class="mb-2">HTTPS domain name where the node is reachable through websocket connections</p>
 						
 						<h5 class="m-0 p-0">tlsWebsocketPort</h5>
-						<p class="mb-2">Transport Layer Security Websocket port</p>
+						<p class="mb-2">Port which is used for regular websocket-Requests to communicate through HTTPS</p>
 						
 						<h5 class="m-0 p-0">uptime</h5>
 						<p class="mb-2">Server uptime (in sec)</p>
@@ -181,7 +181,7 @@
 						<p class="mb-2">Actual version of your node</p>
 						
 						<h5 class="m-0 p-0">websocketPort</h5>
-						<p class="mb-2">Port used for by the local WebServer</p>
+						<p class="mb-2">Port used for websocket communication</p>
 						
 					</div>
 					
