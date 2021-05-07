@@ -147,6 +147,65 @@ $(document).ready(function() {
 	
 	
 	
+	var BSModal = document.getElementById('node')
+	
+	BSModal.addEventListener('show.bs.modal', function (event) {
+		var button 		= event.relatedTarget
+		var NodeIP 		= button.getAttribute('data-bs-ip')
+		var modalTitle 	= BSModal.querySelector('.modal-title')
+		var modalBody 	= BSModal.querySelector('.modal-body pre')
+	    
+		var time_stamp 	= new Date().getTime();
+		var myurl 		= "ajax.php?timestamp=" + time_stamp;
+		
+		$.ajax({
+			url:myurl,
+			method:"POST",
+			data:{form_type:'node_infos', ip: NodeIP},
+			success:function(data){
+				
+				//var str = JSON.stringify(data, undefined, 4);
+				
+				modalTitle.textContent 	= 'Node ' + NodeIP
+				
+				obj 		= JSON.parse(data);
+				jsonData 	= JSON.stringify(obj, undefined, 2);
+				
+				HTMLContent = nl2br(syntaxHighlight(jsonData))
+				
+				$(modalBody).html(HTMLContent); 
+				
+			}
+		});
+	
+	})
+	
+	function nl2br (str, is_xhtml) {   
+		var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
+		return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
+	}
+	
+	function syntaxHighlight(json) {
+		json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+			var cls = 'number';
+			if (/^"/.test(match)) {
+				if (/:$/.test(match)) {
+					cls = 'key';
+				} else {
+					cls = 'string';
+				}
+			} else if (/true|false/.test(match)) {
+				cls = 'boolean';
+			} else if (/null/.test(match)) {
+				cls = 'null';
+			}
+			return '<span class="' + cls + '">' + match + '</span>';
+		});
+	}
+	
+	
+	
 	
 	// Create Graph 
 	// function node_graph_create(GraphValues){

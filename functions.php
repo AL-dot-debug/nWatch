@@ -134,7 +134,24 @@ function get_nodes($blockCount = 1){
 						$return['nodes'][$ip]['style']['cell'] 		= 'bg-alert';
 						$return['nodes'][$ip]['style']['img'] 		= 'core/img/warning.svg';
 						
-						$return['nodes'][$ip]['syncState'] 			= strip_tags($node['error']['message']); 
+						switch($node['error']['code']): 
+						
+							case '-45022':
+								$return['nodes'][$ip]['syncState'] = "Generation fees needs to be paid to :"; 
+							break;
+							
+							case '-45023':
+								$return['nodes'][$ip]['syncState'] = "ID generation in process"; 
+							break;
+						
+							case '-45024':
+								$return['nodes'][$ip]['syncState'] = "Database is unavailable <br> (lighten might be in progress)"; 
+							break;
+							
+							default : 
+								$return['nodes'][$ip]['syncState'] 	= strip_tags($node['error']['message']); 
+						
+						endswitch; 
 						
 						$return['nodes'][$ip]['height']				= 0;
 						$return['nodes'][$ip]['relayMessageCount'] 	= 0; 

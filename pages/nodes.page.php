@@ -110,3 +110,92 @@
 	</div>
 		
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="node" tabindex="-1" aria-labelledby="node" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			
+			<div class="modal-body">
+				
+				<div class="row">
+					
+					<div class="col-lg-8">
+						<pre></pre>
+					</div>
+					
+					<div class="col-lg-4 explain">
+						<h2>What are you looking at ?</h2>
+						
+						<h5 class="m-0 p-0">addr</h5>
+						<p class="mb-2">TCP connexion address of your node</p>
+						
+						<h5 class="m-0 p-0">currTimeStamp</h5>
+						<p class="mb-2">Server date (in sec)</p>
+						
+						<h5 class="m-0 p-0">height</h5>
+						<p class="mb-2">Node mining current block</p>
+						
+						<h5 class="m-0 p-0">id</h5>
+						<p class="mb-2">Unique identifiant of your node</p>
+						
+						<h5 class="m-0 p-0">jsonRpcPort</h5>
+						<p class="mb-2">External port used by your node</p>
+						
+						<h5 class="m-0 p-0">proposalSubmitted</h5>
+						<p class="mb-2">Amount of reward generated since last restart</p>
+						
+						<h5 class="m-0 p-0">protocolVersion</h5>
+						<p class="mb-2">NKN protocol version</p>
+						
+						<h5 class="m-0 p-0">publicKey</h5>
+						<p class="mb-2">Public key of your node in the NKN network</p>
+						
+						<h5 class="m-0 p-0">relayMessageCount</h5>
+						<p class="mb-2">Amount of relayed message by your node</p>
+						
+						<h5 class="m-0 p-0">syncState</h5>
+						<p class="mb-2">Server status</p>
+						
+						<h5 class="m-0 p-0">tlsJsonRpcDomain</h5>
+						<p class="mb-2">Transport Layer Security Json domain for Remote procedure call</p>
+						
+						<h5 class="m-0 p-0">tlsJsonRpcPort</h5>
+						<p class="mb-2">Transport Layer Security Json port for Remote procedure call</p>
+						
+						<h5 class="m-0 p-0">tlsWebsocketDomain</h5>
+						<p class="mb-2">Transport Layer Security Websocket domain</p>
+						
+						<h5 class="m-0 p-0">tlsWebsocketPort</h5>
+						<p class="mb-2">Transport Layer Security Websocket port</p>
+						
+						<h5 class="m-0 p-0">uptime</h5>
+						<p class="mb-2">Server uptime (in sec)</p>
+						
+						<h5 class="m-0 p-0">version</h5>
+						<p class="mb-2">Actual version of your node</p>
+						
+						<h5 class="m-0 p-0">websocketPort</h5>
+						<p class="mb-2">Port used for by the local WebServer</p>
+						
+					</div>
+					
+					
+				</div>
+				
+				
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+			
+		</div>
+	</div>
+</div>

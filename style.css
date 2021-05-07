@@ -33,6 +33,14 @@ table td {
 	white-space: nowrap;
 }
 
+pre{ line-height: .75rem; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+
+
 .btn{
 	font-family: 'Francois One', sans-serif;
 	text-transform: uppercase;
@@ -112,7 +120,14 @@ table td {
 	font-size: .8rem;
 }
 
-
+.modal .explain h5{
+	font-size: 1rem; 
+}
+.modal .explain p{
+	color: #4E4E4E;
+	font-style: italic;
+	font-weight: .9rem;
+}
 
 
 

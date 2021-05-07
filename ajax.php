@@ -58,6 +58,15 @@ if(isset($_POST['form_type'])) :
 			exit(); 
 		break; 
 		
+		case 'node_infos': 
+			
+			$node = get_node_status($_POST['ip']); 
+			echo json_encode($node, JSON_PRETTY_PRINT); 
+			
+			exit(); 
+			
+		break;
+		
 		
 		default: 
 			exit(); 
@@ -86,7 +95,7 @@ else :
 		endif; 
 		
 		 
-		$data[$i][] = $node['ip'];
+		$data[$i][] = '<a data-bs-toggle="modal" data-bs-target="#node" data-bs-ip="'.$node['ip'].'">'.$node['ip'].'</a>';
 		
 		if(isset($node['remain'])) : 
 			$data[$i][] = '<img src="'.$node['style']['img'].'" class="float-start me-1" height="25"><span class="d-none d-md-inline">'.$node['syncState'].' <small>('.$node['remain'].'%)</small></span>';
