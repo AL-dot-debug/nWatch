@@ -155,7 +155,7 @@
 						<p class="mb-2">NKN protocol version</p>
 						
 						<h5 class="m-0 p-0">publicKey</h5>
-						<p class="mb-2">Public key of your node in the NKN network</p>
+						<p class="mb-2">Public key of your local node wallet</p>
 						
 						<h5 class="m-0 p-0">relayMessageCount</h5>
 						<p class="mb-2">Amount of relayed message by your node</p>
