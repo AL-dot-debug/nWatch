@@ -68,10 +68,11 @@ function get_wallets(){
 
 function get_transactions($wallet){
 	
-	$url 			= 'https://openapi.nkn.org/api/v1/addresses/'.$wallet.'/transactions?per_page=10';
-	$transactions 	= get_json($url);
+	$url 	= 'https://openapi.nkn.org/api/v1/addresses/'.preg_replace("/\s+/", "",$wallet).'/transactions';
+	$data 	= get_json($url);
 	
-	return $transactions['data']; 
+		
+	return $data['data']; 
 		
 }
 
@@ -82,7 +83,7 @@ function display_transaction($transaction, $wallet){
 	switch($transaction['txType']) : 
 	
 		case 'COINBASE_TYPE':
-			$return .= '<strong>Mining reward</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
+			$return .= '<img src="core/img/mining.svg" height="15" class="me-2"> <strong>Mining reward</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
 			<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>'; 
 		break;
 		
@@ -90,17 +91,23 @@ function display_transaction($transaction, $wallet){
 		
 			if($transaction['payload']['senderWallet'] == $wallet):
 				
-				$return .= '<strong>Funds sent</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
+				$return .= '<img src="core/img/send_funds.svg" height="15" class="me-2"> <strong>Funds sent</strong> ( - '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
 				<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>'; 
 			
 			else : 
 			
-				$return .= '<strong>Funds received</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
+				$return .= '<img src="core/img/receive_funds.svg" height="15" class="me-2">  <strong>Funds received</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
 				<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>';  
 				
 			endif; 
 			
 		break;
+		
+		default  : 
+			$return .= '<strong>'.$transaction['txType'].'</strong> ( '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
+			<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>';
+			
+		
 		
 	endswitch;
 	

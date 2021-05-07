@@ -130,10 +130,16 @@ pre{ line-height: .75rem; }
 }
 
 
-ul.transactions{
-	columns: 2;
-	-webkit-columns: 2;
-	-moz-columns: 2;
+ul.transactions{}
+ul.transactions li{
+	background-color: rgba(255,255,255,.75);
+	border-radius: .25rem;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	color: #333; 
+}
+ul.transactions li .text-muted{
+	font-size: .8rem;
 }
 
 

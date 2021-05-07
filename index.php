@@ -3,7 +3,7 @@
 // session 
 session_start(); 
 
-$nWatch_version = '2.3.2'; 
+$nWatch_version = '2.3.3'; 
 
 
 // includes 
@@ -113,7 +113,7 @@ endif;
 						</li>
 						
 						<li class="nav-item">
-							<a class="<?php echo ($_GET['page'] == 'settings' ? 'nav-link active' : 'nav-link') ?>" href="?page=settings"><img src="/core/img/settings.svg" height="20" /></a>
+							<a class="<?php echo ($_GET['page'] == 'settings' ? 'nav-link active' : 'nav-link') ?>" href="?page=settings"><img src="core/img/settings.svg" height="20" /></a>
 						</li>
 					
 					</ul>

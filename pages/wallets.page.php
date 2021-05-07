@@ -54,23 +54,27 @@
 			
 			<div class="col-md-6">
 				
-				<h5 class="border-bottom pb-1 mb-2">Last 10 operations</h5>
+				<h5 class="border-bottom pb-1 mb-2">Last operations for <?= $wallets['wallets'][0]['nw']['address'] ?></h5>
 				
-				<ul class="list-unstyled transactions">
+				<div style="height:200px;overflow:scroll">
 				
-				<?php 
-				
-				$transactions = get_transactions($wallets['wallets'][0]['nw']['address']); 
-								
-				foreach($transactions as $transaction) : 
+					<ul class="list-unstyled transactions">
 					
-					echo '<li>'.display_transaction($transaction, $wallets['wallets'][0]['nw']['address']).'</li>';
+					<?php 
+					
+					$transactions = get_transactions($wallets['wallets'][0]['nw']['address']); 
+						
+					foreach($transactions as $transaction) : 
+						
+						echo '<li>'.display_transaction($transaction, $wallets['wallets'][0]['nw']['address']).'</li>';
+					
+					endforeach; 
+					
+					?>
+					
+					</ul>
 				
-				endforeach; 
-				
-				?>
-				
-				</ul>
+				</div>
 				
 			</div>
 			
