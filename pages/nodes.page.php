@@ -131,7 +131,6 @@
 					</div>
 					
 					<div class="col-lg-4 explain">
-						<h2>What are you looking at ?</h2>
 						
 						<h5 class="m-0 p-0">addr</h5>
 						<p class="mb-2">TCP connexion address of your node</p>
