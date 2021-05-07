@@ -66,6 +66,49 @@ function get_wallets(){
 }
 
 
+function get_transactions($wallet){
+	
+	$url 			= 'https://openapi.nkn.org/api/v1/addresses/'.$wallet.'/transactions?per_page=10';
+	$transactions 	= get_json($url);
+	
+	return $transactions['data']; 
+		
+}
+
+function display_transaction($transaction, $wallet){
+	
+	$return = ''; 
+	
+	switch($transaction['txType']) : 
+	
+		case 'COINBASE_TYPE':
+			$return .= '<strong>Mining reward</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
+			<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>'; 
+		break;
+		
+		case 'TRANSFER_ASSET_TYPE':
+		
+			if($transaction['payload']['senderWallet'] == $wallet):
+				
+				$return .= '<strong>Funds sent</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
+				<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>'; 
+			
+			else : 
+			
+				$return .= '<strong>Funds received</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
+				<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>';  
+				
+			endif; 
+			
+		break;
+		
+	endswitch;
+	
+	return $return;  
+	
+}
+
+
 function get_nodes_list(){
 	
 	if(file_exists('nodes.txt')):

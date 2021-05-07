@@ -157,10 +157,10 @@
 						<p class="mb-2">Public key of your local node wallet</p>
 						
 						<h5 class="m-0 p-0">relayMessageCount</h5>
-						<p class="mb-2">Amount of relayed message by your node</p>
+						<p class="mb-2">Amount of relayed messages by your node</p>
 						
 						<h5 class="m-0 p-0">syncState</h5>
-						<p class="mb-2">Server status</p>
+						<p class="mb-2">Node status</p>
 						
 						<h5 class="m-0 p-0">tlsJsonRpcDomain</h5>
 						<p class="mb-2">Transport Layer Security Json domain for Remote procedure call</p>

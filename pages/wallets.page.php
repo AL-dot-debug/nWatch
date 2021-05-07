@@ -54,7 +54,23 @@
 			
 			<div class="col-md-6">
 				
-				<canvas class="mx-auto" id="myChart" height="105px"></canvas>
+				<h5 class="border-bottom pb-1 mb-2">Last 10 operations</h5>
+				
+				<ul class="list-unstyled transactions">
+				
+				<?php 
+				
+				$transactions = get_transactions($wallets['wallets'][0]['nw']['address']); 
+								
+				foreach($transactions as $transaction) : 
+					
+					echo '<li>'.display_transaction($transaction, $wallets['wallets'][0]['nw']['address']).'</li>';
+				
+				endforeach; 
+				
+				?>
+				
+				</ul>
 				
 			</div>
 			

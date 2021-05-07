@@ -130,7 +130,11 @@ pre{ line-height: .75rem; }
 }
 
 
-
+ul.transactions{
+	columns: 2;
+	-webkit-columns: 2;
+	-moz-columns: 2;
+}
 
 
 .form-signin {
