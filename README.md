@@ -38,17 +38,32 @@ Apache/Nginx, PHP, PHP-Curl
 #### Install (Apache - Debian / Ubuntu)
 
 	sudo su - 
-	apt-get install git-client apache2 php php-curl language-pack-en language-pack-fr -y
-	locale-gen "en_US.utf8"
-	locale-gen "fr_FR.utf8"
-	dpkg-reconfigure locales
-	apt-get autoremove -y 
-	cd /var/www/html
-	rm -fr * 
-	gh repo clone AL-dot-debug/nWatch
-	chown -R www-data:www-data /var/www/html
+	
+	apt update && apt upgrade -y && apt install apache2 php php-curl git -y  && apt autoremove -y 
+	
+	rm -fr /var/www/html/index.html 
+	
+	git clone https://github.com/AL-dot-debug/nWatch.git /var/www/html/
+	
+	chown -R www-data:www-data /var/www/html/
+	
+	dpkg-reconfigure -f noninteractive tzdata && \
+	sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+	sed -i -e 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen && \
+	echo 'LANG="en_US.UTF-8"'>/etc/default/locale && \
+	dpkg-reconfigure --frontend=noninteractive locales && \
+	update-locale LANG=en_US.UTF-8
+	
+	service apache2 restart 
 
 Browse to http://YOUR_IP your nWatch dashboard should be activated. 
+
+
+### Update 
+
+	sudo su - 
+	cd /var/www/html
+	git pull 
 
 ## Screenshots
 
