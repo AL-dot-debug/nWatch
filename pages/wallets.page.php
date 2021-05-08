@@ -57,8 +57,6 @@
 				<h5 class="border-bottom pb-1 mb-2">Last operations for <?= $wallets['wallets'][0]['nw']['address'] ?></h5>
 				
 				<div style="height:200px;overflow:scroll">
-				
-					<ul class="list-unstyled transactions">
 					
 					<?php 
 					
@@ -66,15 +64,14 @@
 						
 					foreach($transactions as $transaction) : 
 						
-						echo '<li>'.display_transaction($transaction, $wallets['wallets'][0]['nw']['address']).'</li>';
+						echo display_transaction($transaction, $wallets['wallets'][0]['nw']['address']);
 					
 					endforeach; 
 					
 					?>
-					
-					</ul>
-				
+									
 				</div>
+				
 				
 			</div>
 			
@@ -86,49 +83,45 @@
 
 <div class="container my-5">
 	
-	<div class="row row-cols-1 row-cols-md-4 g-4">
+	<div class="row">
 		
 		<?php foreach($wallets['wallets'] as $wallet) : ?>
 		
-		<div class="col">
-			<div class="card">
-				<div class="card-body">
-					
-					<div class="position-absolute top-0 end-0">
-					<button onclick="copyToClipboard('#<?= $wallet['nw']['address'] ?>')" class="btn btn-secondary btn-sm"><img src="core/img/copy.svg" height="15" alt="Copy wallet address" /></button>
-					</div>
-					
-					<h5 class="card-title">
-						
-						<?php 
-						
-						if(!empty($wallet['nw']['name']) AND !empty($wallet['nw']['ip'])):
-							$title = $wallet['nw']['name'].'<br><small>('.$wallet['nw']['ip'].')</small>';
-						elseif(!empty($wallet['nw']['name'])):
-							$title = $wallet['nw']['name']; 
-						elseif(!empty($wallet['nw']['ip'])):
-							$title = $wallet['nw']['ip']; 
-						else :
-							$title = 'No title'; 
-						endif; 
-						
-						echo $title; 
-						
-						?>
-						
-					</h5>
-					
-					<h6 class="card-subtitle mb-2 text-muted">
-						<span id="<?= $wallet['nw']['address'] ?>"><?= $wallet['nw']['address'] ?></span> 
-					</h6>
-					
-					<p class="card-text">
-						Balance : <strong><?= number_format_locale(nknValue($wallet['nkn']['balance']),4) ?> NKN</strong> <br />
-						Last transaction : <strong><?= time_elapsed_string($wallet['nkn']['last_transaction']) ?></strong>
-					</p>
-					
+		<div class="col-lg-4 mb-3">
+			
+			<div class="nkn-card">
+				<figure class="card__figure">
+					<img src="core/img/nkn.svg" class="card__figure--logo"></img>
+				</figure>
+				
+				<div class="card__reader">
+					<div class="card__reader--risk card__reader--risk-one"></div>
+					<div class="card__reader--risk card__reader--risk-two"></div>
+					<div class="card__reader--risk card__reader--risk-three"></div>
+					<div class="card__reader--risk card__reader--risk-four"></div>
 				</div>
+				
+				<p class="card__number"><a data-bs-toggle="modal" data-bs-target="#wallet" data-bs-id="<?= $wallet['nw']['address'] ?>"><?= $wallet['nw']['address'] ?></a></p>
+				
+				<?php 
+				
+				if(!empty($wallet['nw']['name']) AND !empty($wallet['nw']['ip'])):
+					$title = $wallet['nw']['name'].'<br><small>('.$wallet['nw']['ip'].')</small>';
+				elseif(!empty($wallet['nw']['name'])):
+					$title = $wallet['nw']['name']; 
+				elseif(!empty($wallet['nw']['ip'])):
+					$title = $wallet['nw']['ip']; 
+				else :
+					$title = 'No title'; 
+				endif; 
+				
+				?>
+				
+				<p class="card__name"><?= $title ?> - <strong><?= number_format_locale(nknValue($wallet['nkn']['balance']),0) ?> NKN</strong> <p>
+				
 			</div>
+			
+			
 		</div>
 			
 		<?php endforeach; ?>
@@ -138,3 +131,28 @@
 	</div>
 	
 </div>
+
+
+<!-- Modal -->
+	<div class="modal fade" id="wallet" tabindex="-1" aria-labelledby="wallet" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Loading your wallet</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				
+				<div class="modal-body">
+					
+					
+					
+					
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+				
+			</div>
+		</div>
+	</div>

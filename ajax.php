@@ -66,6 +66,22 @@ if(isset($_POST['form_type'])) :
 			
 		break;
 		
+		case 'wallet_transactions':
+		
+			$transactions = get_transactions($_POST['wallet']); 
+			
+			if(!empty($transactions)): 
+			
+				foreach($transactions as $transaction) : 
+					echo display_transaction($transaction, $_POST['wallet']);  
+				endforeach; 
+			
+			endif; 
+			
+			exit(); 
+		
+		break; 
+		
 		
 		default: 
 			exit(); 

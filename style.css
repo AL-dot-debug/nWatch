@@ -130,15 +130,14 @@ pre{ line-height: .75rem; }
 }
 
 
-ul.transactions{}
-ul.transactions li{
+.single-transaction{
 	background-color: rgba(255,255,255,.75);
 	border-radius: .25rem;
 	padding: 1rem;
 	margin-bottom: 1rem;
 	color: #333; 
 }
-ul.transactions li .text-muted{
+.single-transaction .text-muted{
 	font-size: .8rem;
 }
 
@@ -196,4 +195,112 @@ ul.transactions li .text-muted{
 		margin-top: 2
 	}
 
+}
+
+
+:root {
+	  --white: #f6d3fd;
+	  --height: 250px;
+	  --width: 100%;
+	  --font: "Overpass Mono", monospaced;
+	  --masterFont: "Raleway", sans-serif;
+	}
+
+.nkn-card {
+  --heightCalc: - calc((var(--height) / 2) - 10px);
+  --widthCalc: calc(var(--width) / 2);
+  height: var(--height);
+  width: var(--width);
+  min-width: var(--width);
+  background: linear-gradient(90deg, #253A7E, #131D3F);
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.6));
+}
+
+.card__figure {
+  position: relative;
+  height: 40px;
+  margin: 0;
+}
+
+.card__figure::after {
+  content: "NKN Mainet";
+  font-size: 0.75em;
+  letter-spacing: 4px;
+  color: var(--white);
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: calc(-100% - 15px);
+}
+
+.card__figure--logo {
+  --widthLogo: 130px;
+  width: var(--widthLogo);
+  position: absolute;
+  right: 50%;
+  transform: translate(calc(var(--widthLogo) / 2), 20px);
+}
+
+.card__reader {
+  width: 50px;
+  height: 40px;
+  background: radial-gradient(#d9a56c, #b18457);
+  border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  transform: translate(33px, -40px);
+  overflow: hidden;
+}
+
+.card__reader--risk {
+  width: 50px;
+  height: 40px;
+  border-radius: 13px;
+  background: transparent;
+  border: 1px solid #666;
+  position: absolute;
+  z-index: 0;
+}
+
+.card__reader--risk-one {
+  transform: translate(37px, 15px);
+}
+
+.card__reader--risk-two {
+  transform: translate(15px, 30px);
+}
+
+.card__reader--risk-three {
+  transform: translate(-37px, -15px);
+}
+
+.card__reader--risk-four {
+  transform: translate(-15px, -30px);
+}
+
+.card__number {
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--white);
+  letter-spacing: 1.5px;
+  margin-left: 33px;
+  margin-top: 115px;
+  z-index: 1;
+  position: relative;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.card__name {
+  font-family: var(--font);
+  font-size: .9em;
+  font-weight: normal;
+  color: var(--white);
+  letter-spacing: 2.5px;
+  transform: translate(33px, -10px);
+  position: relative;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
 }

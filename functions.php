@@ -78,28 +78,61 @@ function get_transactions($wallet){
 
 function display_transaction($transaction, $wallet){
 	
-	$return = ''; 
+	$return = '<div class="single-transaction mb-3">'; 
 	
 	switch($transaction['txType']) : 
 	
 		case 'COINBASE_TYPE':
-			$return .= '<img src="core/img/mining.svg" height="15" class="me-2"> <strong>Mining reward</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
-			<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>'; 
+			
+			$return .= '<div class="d-flex align-items-center">';
+			
+				$return .= '<div class="flex-shrink-0">';
+					$return .= '<img src="core/img/mining.svg" height="40" class="me-2">';
+				$return .= '</div>';
+				
+				$return .= ' <div class="flex-grow-1 ms-3">';
+		
+					$return .= '<strong>Mining reward</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
+					<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>'; 
+			
+				$return .= '</div>';
+				
+			$return .= '</div>';
+			
 		break;
 		
 		case 'TRANSFER_ASSET_TYPE':
 		
 			if($transaction['payload']['senderWallet'] == $wallet):
 				
-				$return .= '<img src="core/img/send_funds.svg" height="15" class="me-2"> <strong>Funds sent</strong> ( - '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
-				<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>'; 
+				$img 	= '<img src="core/img/send_funds.svg" height="40" class="me-2">'; 
+				$type 	= '<strong>Funds sent </strong>';
+				$value 	= '-'.nknValue($transaction['payload']['amount'] + $transaction['fee']);
 			
 			else : 
-			
-				$return .= '<img src="core/img/receive_funds.svg" height="15" class="me-2">  <strong>Funds received</strong> ( + '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
-				<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>';  
+				
+				$img 	= '<img src="core/img/receive_funds.svg" height="40" class="me-2">'; 
+				$type 	= '<strong>Funds received</strong>';
+				$value 	= '+'.nknValue($transaction['payload']['amount']);
 				
 			endif; 
+			
+			
+			$return .= '<div class="d-flex align-items-center">';
+		
+				$return .= '<div class="flex-shrink-0">';
+					$return .= $img;
+				$return .= '</div>';
+				
+				$return .= ' <div class="flex-grow-1 ms-3">';
+		
+					$return .= $type.' ( '.$value.' NKN ) <br> 
+					<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>'; 
+			
+				$return .= '</div>';
+				
+			$return .= '</div>';
+			
 			
 		break;
 		
@@ -107,9 +140,9 @@ function display_transaction($transaction, $wallet){
 			$return .= '<strong>'.$transaction['txType'].'</strong> ( '.nknValue($transaction['payload']['amount']).' NKN ) <br> 
 			<span class="text-muted">'.time_elapsed_string($transaction['payload']['added_at']).'</span>';
 			
-		
-		
 	endswitch;
+	
+	$return .= '</div>'; 
 	
 	return $return;  
 	

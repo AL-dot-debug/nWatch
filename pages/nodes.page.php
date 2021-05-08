@@ -118,7 +118,7 @@
 	<div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Loading your node</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			
@@ -151,10 +151,10 @@
 						<p class="mb-2">Amount of reward generated since last restart</p>
 						
 						<h5 class="m-0 p-0">protocolVersion</h5>
-						<p class="mb-2">NKN Protocol the node currently uses to communicate with others - should be default to 1</p>
+						<p class="mb-2">The version of the NKN consensus protocol  - should be default to 1</p>
 						
 						<h5 class="m-0 p-0">publicKey</h5>
-						<p class="mb-2">The node's public key which is used to sign sigchain transactions</p>
+						<p class="mb-2">The node's public key from the node wallet which is used to sign sigchain transactions</p>
 						
 						<h5 class="m-0 p-0">relayMessageCount</h5>
 						<p class="mb-2">Amount of relayed messages by your node</p>
@@ -163,13 +163,13 @@
 						<p class="mb-2">Node status</p>
 						
 						<h5 class="m-0 p-0">tlsJsonRpcDomain</h5>
-						<p class="mb-2">HTTPS domain name where the node is reachable through regular RPC-Requests</p>
+						<p class="mb-2">HTTPS domain name where the node is reachable through secure RPC-Requests</p>
 						
 						<h5 class="m-0 p-0">tlsJsonRpcPort</h5>
-						<p class="mb-2">Port which is used for regular RPC-Requests to communicate through HTTPS</p>
+						<p class="mb-2">Port which is used for secure RPC-Requests to communicate through HTTPS</p>
 						
 						<h5 class="m-0 p-0">tlsWebsocketDomain</h5>
-						<p class="mb-2">HTTPS domain name where the node is reachable through websocket connections</p>
+						<p class="mb-2">HTTPS domain name where the node is reachable through secure websocket connections</p>
 						
 						<h5 class="m-0 p-0">tlsWebsocketPort</h5>
 						<p class="mb-2">Port which is used for regular websocket-Requests to communicate through HTTPS</p>
