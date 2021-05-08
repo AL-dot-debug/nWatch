@@ -9,14 +9,13 @@ endif;
 
 include_once('functions.php'); 
 
-
 // Locale definition 
 if(!isset($_COOKIE['nW_locale'])):
 	setcookie("nW_locale", 'fr-FR',  time() + (10 * 365 * 24 * 60 * 60) );
 endif; 
 
 $locale = ( isset($_COOKIE['nW_locale']) ) ? str_replace('-', '_', $_COOKIE['nW_locale'] ) : 'fr_FR';
-setlocale(LC_ALL, $locale);
+setlocale(LC_ALL, $locale.'.utf8');
 
 
 // Management 

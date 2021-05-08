@@ -424,7 +424,7 @@ function number_format_locale($number,$decimals=2) {
 	
 	$locale = localeconv();
 	
-	return utf8_encode(number_format($number,$decimals,$locale['decimal_point'],$locale['thousands_sep']));
+	return number_format($number,$decimals,$locale['decimal_point'],$locale['thousands_sep']);
 
 }
 

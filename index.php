@@ -3,7 +3,7 @@
 // session 
 session_start(); 
 
-$nWatch_version = '2.3.4'; 
+$nWatch_version = '2.3.5'; 
 
 
 // includes 
@@ -17,7 +17,7 @@ if(!isset($_COOKIE['nW_locale'])):
 endif; 
 
 $locale = ( isset($_COOKIE['nW_locale']) ) ? str_replace('-', '_', $_COOKIE['nW_locale'] ) : 'fr_FR';
-setlocale(LC_ALL, $locale);
+setlocale(LC_ALL, $locale.'.utf8');
 
 
 // "Security"
@@ -61,7 +61,7 @@ endif;
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="UTF-8" />
 		<meta http-equiv="x-ua-compatible" content="ie=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
