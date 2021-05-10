@@ -114,6 +114,7 @@ table td {
 	text-transform: uppercase;
 }
 
+
 /* Login */ 
 
 .form-signin {
@@ -202,6 +203,21 @@ table.dataTable tbody tr{
 
 
 
+#loading {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 100vw;
+	height: 100vh;
+	background-image: url('core/img/nWatch.svg'),linear-gradient(90.78deg,#0b163c 17.75%,#303159 84.46%);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+
+
 /* Modal */ 
 
 .modal .explain h5{
@@ -238,6 +254,7 @@ pre{ line-height: .75rem; }
 	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 	margin: auto;
 	filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.6));
+	position: relative;
 }
 
 .card__figure {
