@@ -15,32 +15,32 @@
 			
 			<div class="row mt-2 p-3 nodes_status">
 				
-				<div class="col-4 p-3 mb-3 border-bottom">
+				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Your nodes</h6>
 					<span class="ext-stats" data-prop="blocksizeD"><?= number_format_locale($nodes['total_nodes'],0) ?></span>
 				</div>
 				
-				<div class="col-4 p-3 mb-3 border-bottom">
+				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Max relay</h6>
 					<span class="ext-stats" data-prop="blocksizeD"><?= number_format_locale($nodes['max_relay'],0) ?></span>
 				</div>
 				
-				<div class="col-4 p-3 mb-3 border-bottom">
+				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Rewards</h6>
 					<span class="ext-stats" data-prop="blocksizeD"><?= $nodes['total_proposals'] ?></span>
 				</div>
 				
-				<div class="col-4 p-3 mb-3 border-bottom">
+				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Latest block</h6>
 					<span class="ext-stats" data-prop="blocksizeD"><?= number_format_locale($block['blockCount'],0) ?></span>
 				</div>
 				
-				<div class="col-4 p-3 mb-3 border-bottom">
+				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Total nodes</h6>
 					<span class="ext-stats" data-prop="netstats"><?= number_format_locale($netStats['stats']['total'],0) ?></span>
 				</div>
 				
-				<div class="col-4 p-3 mb-3 border-bottom">
+				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Stable version</h6>
 					<span class="ext-stats"><?= $github[0]['name'] ?></span> 
 				</div>

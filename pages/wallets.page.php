@@ -33,7 +33,7 @@
 					</div>
 					
 					<div class="col-6 p-3 mb-3 border-bottom">
-						<h6>Value change <small>(last 24h)</small></h6>
+						<h6>Variation <small>(last 24h)</small></h6>
 						<span class="stats <?= $change_class ?>"><?= number_format_locale($values[strtolower($currency_int_symbol).'_24h_change'],2) ?>%</span>
 					</div>
 					
@@ -47,12 +47,12 @@
 						<span class="stats"><?= number_format_locale(nknValue($wallets['stats']['total_nkn'])*$values[strtolower($currency_int_symbol)], 2) ?> <?= $currency_symbol ?></span>
 					</div>
 					
-					<div class="col-6 p-3 mb-3 border-bottom">
+					<div class="col-lg-6 p-3 mb-3 border-bottom">
 						<h6>Market cap</h6>
 						<span class="stats"><?= number_format_locale($values[strtolower($currency_int_symbol).'_market_cap'],0) ?> <?= $currency_symbol ?></span>
 					</div>
 					
-					<div class="col-6 p-3 mb-3 border-bottom">
+					<div class="col-lg-6 p-3 mb-3 border-bottom">
 						<h6>Last transaction</h6>
 						<span class="stats"><?= date('d M Y H:i', strtotime($wallets['stats']['last_transaction'])) ?></span>
 					</div>
