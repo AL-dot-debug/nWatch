@@ -15,8 +15,15 @@ if(!isset($_COOKIE['nW_locale'])):
 endif; 
 
 $locale = ( isset($_COOKIE['nW_locale']) ) ? str_replace('-', '_', $_COOKIE['nW_locale'] ) : 'fr_FR';
-setlocale(LC_ALL, $locale.'.utf8');
 
+// Locale definition 
+$loc = setlocale(LC_ALL, $locale.'.utf8');
+if($loc == false): 
+	$loc = setlocale(LC_ALL, $locale.'.UTF-8');
+endif; 
+if($loc == false): 
+	$loc = setlocale(LC_ALL, $locale);
+endif; 
 
 // Management 
 

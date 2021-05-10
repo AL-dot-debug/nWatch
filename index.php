@@ -3,7 +3,7 @@
 // session 
 session_start(); 
 
-$nWatch_version = '2.4.0'; 
+$nWatch_version = '2.4.1'; 
 
 
 // includes 
@@ -17,7 +17,13 @@ if(!isset($_COOKIE['nW_locale'])):
 endif; 
 
 $locale = ( isset($_COOKIE['nW_locale']) ) ? str_replace('-', '_', $_COOKIE['nW_locale'] ) : 'fr_FR';
-setlocale(LC_ALL, $locale.'.utf8');
+$loc = setlocale(LC_ALL, $locale.'.utf8');
+if($loc == false): 
+	$loc = setlocale(LC_ALL, $locale.'.UTF-8');
+endif; 
+if($loc == false): 
+	$loc = setlocale(LC_ALL, $locale);
+endif; 
 
 
 // "Security"

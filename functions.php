@@ -220,7 +220,7 @@ function get_nodes($blockCount = 1){
 						switch($node['error']['code']): 
 						
 							case '-45022':
-								$return['nodes'][$ip]['syncState'] = "Generation fees needs to be paid to :"; 
+								$return['nodes'][$ip]['syncState'] = "Generation fees needs to be paid to : ".$node['error']['walletAddress']; 
 							break;
 							
 							case '-45023':

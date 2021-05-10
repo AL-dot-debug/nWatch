@@ -151,10 +151,10 @@
 						<p class="mb-2">Amount of reward generated since last restart</p>
 						
 						<h5 class="m-0 p-0">protocolVersion</h5>
-						<p class="mb-2">The version of the NKN consensus protocol  - should be default to 1</p>
+						<p class="mb-2">Current version of the NKN consensus protocol</p>
 						
 						<h5 class="m-0 p-0">publicKey</h5>
-						<p class="mb-2">The node's public key from the node wallet which is used to sign sigchain transactions</p>
+						<p class="mb-2">Node's public key from the node wallet which is used to sign sigchain transactions</p>
 						
 						<h5 class="m-0 p-0">relayMessageCount</h5>
 						<p class="mb-2">Amount of relayed messages by your node</p>
