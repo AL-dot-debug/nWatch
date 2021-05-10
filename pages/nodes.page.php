@@ -8,77 +8,89 @@
 	$nodes 		= get_nodes($block['blockCount']); 
 		
 	?>
-	
-	<div class="container">
 		
-		<div class="row py-5">
+	<div class="row pb-5">
+		
+		<div class="col-md-6 mb-3">
 			
-			<div class="col-md-6 mb-3">
+			<div class="row mt-2 p-3 nodes_status">
 				
-				<div class="row pt-4">
-					
-					<div class="col-6">
-						
-						<h4 class="m-0 p-0 ext-stats" data-prop="blocksize"><?= number_format_locale($block['blockCount'],0) ?></h4>
-						<p>Latest block</p>
-						
-						<h4 class="m-0 p-0 ext-stats" data-prop="netstats"><?= number_format_locale($netStats['stats']['total'],0) ?></h4>
-						<p>Nodes</p>
-						
-						<h4 class="m-0 p-0 ext-stats" data-prop="github"><?= $github[0]['name'] ?></h4>
-						<p>since <?= time_elapsed_string($github[0]['published_at']) ?></p>
-						
-					</div>
-					
-					<div class="col-6">
-						
-						<h4 class="m-0 p-0"><?= number_format_locale($nodes['total_nodes'],0) ?></h4>
-						<p>Nodes</p>
-						
-						<h4 class="m-0 p-0 nodes-stats" data-prop="relay"><?=  number_format_locale($nodes['max_relay'],0) ?></h4>
-						<p>Max relay</p>
-						
-						<h4 class="m-0 p-0 nodes-stats" data-prop="proposals"><?= $nodes['total_proposals'] ?></h4>
-						<p>Reward(s)</p>	
-													
-					</div>
-					
+				<div class="col-4 p-3 mb-3 border-bottom">
+					<h6>Your nodes</h6>
+					<span class="ext-stats" data-prop="blocksizeD"><?= number_format_locale($nodes['total_nodes'],0) ?></span>
 				</div>
 				
-			</div>
-			
-			<div class="col-md-6 d-none d-md-block">
-				<div class="table-responsive">
-					<table class="table">
-					
-						<thead>
-							<tr>
-								<th scope="col">Status</th>
-								<th scope="col">Nodes</th>
-							</tr>
-						</thead>
-						
-						<tbody>
-							
-							<?php foreach($nodes['stats'] as $key => $value) : ?>
-							
-							<tr>
-								<th scope="row"><?= $key ?></th>
-								<td class="nodes-stats" data-prop="stats.<?= $key ?>"><?= $value ?></td>
-							</tr>
-							
-							<?php endforeach; ?>
-							
-						</tbody>
-					
-					</table>
+				<div class="col-4 p-3 mb-3 border-bottom">
+					<h6>Max relay</h6>
+					<span class="ext-stats" data-prop="blocksizeD"><?= number_format_locale($nodes['max_relay'],0) ?></span>
 				</div>
+				
+				<div class="col-4 p-3 mb-3 border-bottom">
+					<h6>Rewards</h6>
+					<span class="ext-stats" data-prop="blocksizeD"><?= $nodes['total_proposals'] ?></span>
+				</div>
+				
+				<div class="col-4 p-3 mb-3 border-bottom">
+					<h6>Latest block</h6>
+					<span class="ext-stats" data-prop="blocksizeD"><?= number_format_locale($block['blockCount'],0) ?></span>
+				</div>
+				
+				<div class="col-4 p-3 mb-3 border-bottom">
+					<h6>Total nodes</h6>
+					<span class="ext-stats" data-prop="netstats"><?= number_format_locale($netStats['stats']['total'],0) ?></span>
+				</div>
+				
+				<div class="col-4 p-3 mb-3 border-bottom">
+					<h6>Stable version</h6>
+					<span class="ext-stats"><?= $github[0]['name'] ?></span> 
+				</div>
+				
 			</div>
 			
 		</div>
-	
+		
+		<div class="col-md-6 d-none d-md-block">
+			
+			<div class="row mt-2 p-3 nodes_status">
+				
+				<div class="col-4 p-3 mb-3 border-success">
+					<h6>Mining</h6>
+					<span class="nodes-stats" data-prop="stats.PERSIST_FINISHED"><?= $nodes['stats']['PERSIST_FINISHED']  ?></span>
+				</div>
+				
+				<div class="col-4 p-3 mb-3 border-start">
+					<h6>Sync started</h6>
+					<span class="nodes-stats" data-prop="stats.SYNC_STARTED"><?= $nodes['stats']['SYNC_STARTED']  ?></span>
+				</div>
+				
+				<div class="col-4 p-3 mb-3 border-start">
+					<h6>Sync finished</h6>
+					<span class="nodes-stats" data-prop="stats.SYNC_FINISHED"><?= $nodes['stats']['SYNC_FINISHED']  ?></span>
+				</div>
+				
+				<div class="col-4 p-3 mb-3 border-warning">
+					<h6>Waiting for sync</h6>
+					<span class="nodes-stats" data-prop="stats.WAIT_FOR_SYNCING"><?= $nodes['stats']['WAIT_FOR_SYNCING']  ?></span>
+				</div>
+				
+				<div class="col-4 p-3 mb-3 border-alert">
+					<h6>Error</h6>
+					<span class="nodes-stats" data-prop="stats.ERROR"><?= $nodes['stats']['ERROR']  ?></span>
+				</div>
+				
+				<div class="col-4 p-3 mb-3 border-alert">
+					<h6>Offline</h6>
+					<span class="nodes-stats" data-prop="stats.OFFLINE"><?= $nodes['stats']['OFFLINE']  ?></span>
+				</div>
+				
+			</div>
+			
+			
+			
+		</div>
+		
 	</div>
-
+	
 </div>
 
 <div class="container-fluid">

@@ -3,7 +3,7 @@
 // session 
 session_start(); 
 
-$nWatch_version = '2.4.1'; 
+$nWatch_version = '2.4.2'; 
 
 
 // includes 
@@ -74,7 +74,7 @@ endif;
 		<title>nWatch - NKN Node Monitoring</title>
 		<link rel="stylesheet" href="core/css/bootstrap.min.css" />
 		<link rel="preconnect" href="https://fonts.gstatic.com">
-		<link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;600;700&display=swap" rel="stylesheet"> 
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/r-2.2.7/datatables.min.css"/>
 		
 		<link rel="stylesheet" href="style.css?v=<?= $nWatch_version ?>" />

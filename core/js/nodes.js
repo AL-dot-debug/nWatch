@@ -6,6 +6,7 @@ $(document).ready(function() {
 	var table = $('#nodes').DataTable({
 		"paging":   false,
 		"responsive": true,
+		"searching": false,
 		"ajax": 'ajax.php',
 		
 		"aoColumnDefs": [ {

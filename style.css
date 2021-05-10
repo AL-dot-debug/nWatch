@@ -1,13 +1,21 @@
+:root {
+	--white: #f6d3fd;
+	--nkn-card-height: 250px;
+	--nkn-card-width: 100%;
+	--font: "Overpass Mono", monospaced;
+	--masterFont: 'Poppins', sans-serif;
+}
+
+
 
 body{
-	font-family: 'Lato', sans-serif;
+	font-family: 'Poppins', sans-serif;
 	color: #333;
 	background-color: #f1f2f8;
 }
-h1,h2,h3,h4,h5,h6{
-	font-family: 'Francois One', sans-serif;
-}
 
+
+/* HTML */ 
 h1{
 	color: #fff;
 }
@@ -17,45 +25,40 @@ h4{
 h4 small{
 	font-size: 1rem;
 }
-
-
 table a{
 	color: #333;
 	text-decoration: none;
 	border-bottom: 1px dotted #333;
 	padding-bottom: .25rem;
 }
-
-table.dataTable tbody tr{
-	background-color: transparent !important;
-}
 table td {
 	white-space: nowrap;
 }
 
-pre{ line-height: .75rem; }
-.string { color: green; }
-.number { color: darkorange; }
-.boolean { color: blue; }
-.null { color: magenta; }
-.key { color: red; }
-
-
+/* Bootstrap elements */ 
 .btn{
-	font-family: 'Francois One', sans-serif;
 	text-transform: uppercase;
 }
+.border-bottom{
+	border-bottom: 3px solid #dee2e6 !important;
+}
+
+/* Custom elements */ 
 
 .border-success{
+	border: none !important;
 	border-bottom: 3px solid #ACCBE1 !important;
 }
 .border-warning{
+	border: none !important;;
 	border-bottom: 3px solid #F4B942 !important; 
 }
 .border-alert{
+	border: none !important;;
 	border-bottom: 3px solid #F34213 !important; 
 }
 .border-start{
+	border: none !important;;
 	border-bottom: 3px solid #6FD08C !important; 
 }
 .bg-success{
@@ -71,11 +74,18 @@ pre{ line-height: .75rem; }
 .bg-start{
 	background-color: #6FD08C !important;
 }
-
 .bg-transparent{
 	background-image: linear-gradient(90.78deg,#0b163c 17.75%,#303159 84.46%) !important;
 }
 
+.underline{
+	display: inline-block;
+	border-bottom: 1px dotted #4A4A8C;
+	padding-bottom: .5rem;
+	cursor: help;
+}
+
+/* Nav */ 
 .nav-item{
 	margin-right: 1rem;
 }
@@ -89,6 +99,8 @@ pre{ line-height: .75rem; }
 	text-transform: uppercase
 }
 
+/* Common : Header */ 
+
 .header{
 	background-image: url('core/img/nkn.svg'),linear-gradient(90.78deg,#0b163c 17.75%,#303159 84.46%);
 	background-position: left center;
@@ -97,50 +109,12 @@ pre{ line-height: .75rem; }
 	padding-top: 3rem;
 
 }
-
-
 .header p{
 	font-weight: 700;
 	text-transform: uppercase;
 }
-.header table{
-	color: #fff; 
-}
 
-
-.underline{
-	display: inline-block;
-	border-bottom: 1px dotted #4A4A8C;
-	padding-bottom: .5rem;
-	cursor: help;
-}
-
-
-.copyrights{
-	font-size: .8rem;
-}
-
-.modal .explain h5{
-	font-size: 1rem; 
-}
-.modal .explain p{
-	color: #4E4E4E;
-	font-style: italic;
-	font-weight: .9rem;
-}
-
-
-.single-transaction{
-	background-color: rgba(255,255,255,.75);
-	border-radius: .25rem;
-	padding: 1rem;
-	margin-bottom: 1rem;
-	color: #333; 
-}
-.single-transaction .text-muted{
-	font-size: .8rem;
-}
-
+/* Login */ 
 
 .form-signin {
 	width: 100%;
@@ -167,9 +141,179 @@ pre{ line-height: .75rem; }
 }
 
 
+/* Nodes page */ 
+
+.nodes_status{}
+.nodes_status span.nodes-stats, .nodes_status span.ext-stats{
+	font-size: 2rem; 
+}
+
+/* Datatable */ 
+
+table.dataTable tbody tr{
+	background-color: transparent !important;
+}
+
+#nodes thead th{
+	color: #6A6A6A; 
+	font-size: 1.1rem;
+	font-weight: 400;
+}
+#nodes thead th.sorting_asc, #nodes thead th.sorting_desc{
+	color: #253A7E; 
+}
 
 
 
+/* Wallet */ 
+
+.single-transaction{
+	background-color: rgba(255,255,255,.75);
+	border-radius: .25rem;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	color: #333; 
+}
+.single-transaction .text-muted{
+	font-size: .8rem;
+}
+
+
+/* Footer */ 
+
+.copyrights{
+	font-size: .8rem;
+}
+
+
+
+/* Modal */ 
+
+.modal .explain h5{
+	font-size: 1rem; 
+}
+.modal .explain p{
+	color: #4E4E4E;
+	font-style: italic;
+	font-weight: .9rem;
+}
+
+
+
+/* Json Beautifer */ 
+
+pre{ line-height: .75rem; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+
+
+/* NKN Card CSS */ 
+
+.nkn-card {
+	--heightCalc: - calc((var(--nkn-card-height) / 2) - 10px);
+	--widthCalc: calc(var(--nkn-card-width) / 2);
+	height: var(--nkn-card-height);
+	width: var(--nkn-card-width);
+	min-width: var(--nkn-card-width);
+	background: linear-gradient(90deg, #253A7E, #131D3F);
+	border-radius: 10px;
+	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+	margin: auto;
+	filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.6));
+}
+
+.card__figure {
+	position: relative;
+	height: 40px;
+	margin: 0;
+}
+
+.card__figure::after {
+	content: "NKN Mainet";
+	font-size: 0.75em;
+	letter-spacing: 4px;
+	color: var(--white);
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: calc(-100% - 15px);
+}
+
+.card__figure--logo {
+	--widthLogo: 130px;
+	width: var(--widthLogo);
+	position: absolute;
+	right: 50%;
+	transform: translate(calc(var(--widthLogo) / 2), 20px);
+}
+
+.card__reader {
+	width: 50px;
+	height: 40px;
+	background: radial-gradient(#d9a56c, #b18457);
+	border-radius: 5px;
+	position: absolute;
+	top: 50%;
+	transform: translate(33px, -40px);
+	overflow: hidden;
+}
+
+.card__reader--risk {
+	width: 50px;
+	height: 40px;
+	border-radius: 13px;
+	background: transparent;
+	border: 1px solid #666;
+	position: absolute;
+	z-index: 0;
+}
+
+.card__reader--risk-one {
+	transform: translate(37px, 15px);
+}
+
+.card__reader--risk-two {
+	transform: translate(15px, 30px);
+}
+
+.card__reader--risk-three {
+	transform: translate(-37px, -15px);
+}
+
+.card__reader--risk-four {
+	transform: translate(-15px, -30px);
+}
+
+.card__number {
+	font-family: var(--font);
+	font-size: 1rem;
+	font-weight: normal;
+	color: var(--white);
+	letter-spacing: 1.5px;
+	margin-left: 33px;
+	margin-top: 115px;
+	z-index: 1;
+	position: relative;
+	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.card__name {
+	font-family: var(--font);
+	font-size: .9em;
+	font-weight: normal;
+	color: var(--white);
+	letter-spacing: 2.5px;
+	transform: translate(33px, -10px);
+	position: relative;
+	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+
+
+/* Query */ 
 
 @media only screen and (max-width: 640px){
 
@@ -195,112 +339,4 @@ pre{ line-height: .75rem; }
 		margin-top: 2
 	}
 
-}
-
-
-:root {
-	  --white: #f6d3fd;
-	  --height: 250px;
-	  --width: 100%;
-	  --font: "Overpass Mono", monospaced;
-	  --masterFont: "Raleway", sans-serif;
-	}
-
-.nkn-card {
-  --heightCalc: - calc((var(--height) / 2) - 10px);
-  --widthCalc: calc(var(--width) / 2);
-  height: var(--height);
-  width: var(--width);
-  min-width: var(--width);
-  background: linear-gradient(90deg, #253A7E, #131D3F);
-  border-radius: 10px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
-  margin: auto;
-  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.6));
-}
-
-.card__figure {
-  position: relative;
-  height: 40px;
-  margin: 0;
-}
-
-.card__figure::after {
-  content: "NKN Mainet";
-  font-size: 0.75em;
-  letter-spacing: 4px;
-  color: var(--white);
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  bottom: calc(-100% - 15px);
-}
-
-.card__figure--logo {
-  --widthLogo: 130px;
-  width: var(--widthLogo);
-  position: absolute;
-  right: 50%;
-  transform: translate(calc(var(--widthLogo) / 2), 20px);
-}
-
-.card__reader {
-  width: 50px;
-  height: 40px;
-  background: radial-gradient(#d9a56c, #b18457);
-  border-radius: 5px;
-  position: absolute;
-  top: 50%;
-  transform: translate(33px, -40px);
-  overflow: hidden;
-}
-
-.card__reader--risk {
-  width: 50px;
-  height: 40px;
-  border-radius: 13px;
-  background: transparent;
-  border: 1px solid #666;
-  position: absolute;
-  z-index: 0;
-}
-
-.card__reader--risk-one {
-  transform: translate(37px, 15px);
-}
-
-.card__reader--risk-two {
-  transform: translate(15px, 30px);
-}
-
-.card__reader--risk-three {
-  transform: translate(-37px, -15px);
-}
-
-.card__reader--risk-four {
-  transform: translate(-15px, -30px);
-}
-
-.card__number {
-  font-family: var(--font);
-  font-size: 1rem;
-  font-weight: normal;
-  color: var(--white);
-  letter-spacing: 1.5px;
-  margin-left: 33px;
-  margin-top: 115px;
-  z-index: 1;
-  position: relative;
-  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
-}
-
-.card__name {
-  font-family: var(--font);
-  font-size: .9em;
-  font-weight: normal;
-  color: var(--white);
-  letter-spacing: 2.5px;
-  transform: translate(33px, -10px);
-  position: relative;
-  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.3));
 }
