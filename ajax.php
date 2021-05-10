@@ -119,6 +119,31 @@ else :
 		 
 		$data[$i][] = '<a data-bs-toggle="modal" data-bs-target="#node" data-bs-ip="'.$node['ip'].'">'.$node['ip'].'</a>';
 		
+		switch($node['syncState']):
+			
+			case 'PERSIST FINISHED':
+				$node['syncState'] = 'Mining';
+			break;
+			
+			case 'WAIT FOR SYNCING':
+				$node['syncState'] = 'Waiting for sync.';
+			break;
+			
+			case 'SYNC STARTED':
+				$node['syncState'] = 'Sync. started';
+			break;
+			
+			case 'SYNC FINISHED':
+				$node['syncState'] = 'Sync. finished';
+			break;
+			
+			case 'OFFLINE':
+				$node['syncState'] = 'Offline';
+			break;
+			
+		endswitch;
+		
+		
 		if(isset($node['remain'])) : 
 			$data[$i][] = '<img src="'.$node['style']['img'].'" class="float-start me-1" height="25"><span class="d-none d-md-inline">'.$node['syncState'].' <small>('.$node['remain'].'%)</small></span>';
 		else :

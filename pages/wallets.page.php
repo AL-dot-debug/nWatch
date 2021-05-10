@@ -15,41 +15,46 @@
 			$values 	= $coingecko['0x5cf04716ba20127f1e2297addcf4b5035000c9eb']; 			
 			$wallets 	= get_wallets();
 			
+			if(substr($values[strtolower($currency_int_symbol).'_24h_change'],0, 1) == '-'):
+				$change_class = 'red';
+			else:
+				$change_class = 'green';
+			endif;
 			
 			?>
 			
 			<div class="col-md-6 mb-3">
 				
-				<div class="row p-3 nodes_status">
+				<div class="row p-3 wallets_status">
 					
 					<div class="col-6 p-3 mb-3 border-bottom">
 						<h6>NKN value</h6>
-						<span class="ext-stats"><?= number_format_locale($values[strtolower($currency_int_symbol)],4) ?> <?= $currency_symbol ?></span>
+						<span class="stats"><?= number_format_locale($values[strtolower($currency_int_symbol)],4) ?> <?= $currency_symbol ?></span>
 					</div>
 					
 					<div class="col-6 p-3 mb-3 border-bottom">
 						<h6>Value change <small>(last 24h)</small></h6>
-						<span class="ext-stats"><?= number_format_locale($values[strtolower($currency_int_symbol).'_24h_change'],2) ?>%</span>
+						<span class="stats <?= $change_class ?>"><?= number_format_locale($values[strtolower($currency_int_symbol).'_24h_change'],2) ?>%</span>
 					</div>
 					
 					<div class="col-6 p-3 mb-3 border-bottom">
 						<h6>Wallet(s) value</h6>
-						<span class="ext-stats"><?= number_format_locale(nknValue($wallets['stats']['total_nkn']), 4) ?> NKN</span>
+						<span class="stats"><?= number_format_locale(nknValue($wallets['stats']['total_nkn']), 4) ?> NKN</span>
 					</div>
 					
 					<div class="col-6 p-3 mb-3 border-bottom">
 						<h6>Wallet(s) value in <?= $currency_symbol ?></h6>
-						<span class="ext-stats"><?= number_format_locale(nknValue($wallets['stats']['total_nkn'])*$values[strtolower($currency_int_symbol)], 2) ?> <?= $currency_symbol ?></span>
+						<span class="stats"><?= number_format_locale(nknValue($wallets['stats']['total_nkn'])*$values[strtolower($currency_int_symbol)], 2) ?> <?= $currency_symbol ?></span>
 					</div>
 					
 					<div class="col-6 p-3 mb-3 border-bottom">
 						<h6>Market cap</h6>
-						<span class="ext-stats"><?= number_format_locale($values[strtolower($currency_int_symbol).'_market_cap'],0) ?> <?= $currency_symbol ?></span>
+						<span class="stats"><?= number_format_locale($values[strtolower($currency_int_symbol).'_market_cap'],0) ?> <?= $currency_symbol ?></span>
 					</div>
 					
 					<div class="col-6 p-3 mb-3 border-bottom">
 						<h6>Last transaction</h6>
-						<span class="ext-stats"><?= date('d M Y H:i', strtotime($wallets['stats']['last_transaction'])) ?></span>
+						<span class="stats"><?= date('d M Y H:i', strtotime($wallets['stats']['last_transaction'])) ?></span>
 					</div>
 					
 				</div>

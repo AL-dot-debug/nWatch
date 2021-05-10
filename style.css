@@ -153,7 +153,9 @@ table td {
 table.dataTable tbody tr{
 	background-color: transparent !important;
 }
-
+#nodes table{
+	text-align: center;
+}
 #nodes thead th{
 	color: #6A6A6A; 
 	font-size: 1.1rem;
@@ -166,6 +168,16 @@ table.dataTable tbody tr{
 
 
 /* Wallet */ 
+.wallets_status{}
+.wallets_status span.stats{
+	font-size: 2rem; 
+}
+.wallets_status .red{
+	color: red;
+}
+.wallets_status .green{
+	color: green;
+}
 
 .single-transaction{
 	background-color: rgba(255,255,255,.75);

@@ -12,19 +12,19 @@ $(document).ready(function() {
 		"aoColumnDefs": [ {
 			"aTargets": [2],
 			"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-				if ( sData.indexOf('WAIT FOR SYNCING') > -1 ) {
+				if ( sData.indexOf('Waiting for sync.') > -1 ) {
 					$(nTd).addClass('bg-warning');
 				}
-				else if( sData.indexOf('SYNC STARTED') > -1 ){
+				else if( sData.indexOf('Sync. started') > -1 ){
 					$(nTd).addClass('bg-start');
 				}
-				else if( sData.indexOf('SYNC FINISHED') > -1 ){
+				else if( sData.indexOf('Sync. finished') > -1 ){
 					$(nTd).addClass('bg-success');	
 				}
-				else if( sData.indexOf('PERSIST FINISHED') > -1 ){
+				else if( sData.indexOf('Mining') > -1 ){
 					$(nTd).addClass('bg-success');	
 				}
-				else if( sData.indexOf('OFFLINE') > -1 ){
+				else if( sData.indexOf('Offline') > -1 ){
 					$(nTd).addClass('bg-alert');	
 				}
 				else{
