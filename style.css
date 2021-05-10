@@ -145,7 +145,7 @@ table td {
 /* Nodes page */ 
 
 .nodes_status{}
-.nodes_status span.nodes-stats, .nodes_status span.ext-stats{
+.nodes_status span.nodes-stats, .nodes_status span.ext-stats, .nodes_status span.stats{
 	font-size: clamp(1.5rem, 5vw, 2rem); 
 }
 
@@ -166,6 +166,25 @@ table.dataTable tbody tr{
 	color: #253A7E; 
 }
 
+/* Node Modal */ 
+
+.modal .explain h5{
+	font-size: 1rem; 
+}
+.modal .explain p{
+	color: #4E4E4E;
+	font-style: italic;
+	font-weight: .8rem;
+}
+
+/* Modal Datatable */ 
+
+#neighborstab_length{
+	display: none;
+}
+#neighborstab_info, #neighborstab_paginate{
+	margin: 1rem; 
+}
 
 
 /* Wallet */ 
@@ -214,19 +233,6 @@ table.dataTable tbody tr{
 	background-image: url('core/img/nWatch.svg'),linear-gradient(90.78deg,#0b163c 17.75%,#303159 84.46%);
 	background-repeat: no-repeat;
 	background-position: center;
-}
-
-
-
-/* Modal */ 
-
-.modal .explain h5{
-	font-size: 1rem; 
-}
-.modal .explain p{
-	color: #4E4E4E;
-	font-style: italic;
-	font-weight: .9rem;
 }
 
 

@@ -98,6 +98,33 @@ if(isset($_POST['form_type'])) :
 	
 else : 	
 
+	if(isset($_GET['n_ip'])){
+		
+		$neigbors = get_node_neighbors($_GET['n_ip']); 
+		
+		$i=0; 
+		
+		foreach($neigbors['result'] as $neigbor):
+			
+			preg_match("/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/", $neigbor['addr'], $ip);
+			
+			$return[$i][] 	= $ip[0];
+			$return[$i][]	= $neigbor['id']; 
+			$return[$i][]	= $neigbor['roundTripTime']; 
+			$return[$i][] 	= $neigbor['syncState']; 
+			
+			$i++; 
+			
+		endforeach;
+		
+		$array['data'] 	= $return;
+		$json 			= json_encode($array); 
+		
+		echo $json; 
+		
+		exit(); 
+		
+	}
 
 	// Table update 
 	

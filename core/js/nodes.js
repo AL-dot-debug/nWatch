@@ -35,6 +35,8 @@ $(document).ready(function() {
 		
 	});
 	
+		
+	
 	// Refresh every minutes 
 	setInterval( function () {				
 		table.ajax.reload();
@@ -150,6 +152,11 @@ $(document).ready(function() {
 	
 	var BSModal = document.getElementById('node')
 	
+	BSModal.addEventListener('hide.bs.modal', function (event) {
+		$('#neighborstab').dataTable().fnDestroy();
+	})
+	
+	
 	BSModal.addEventListener('show.bs.modal', function (event) {
 		var button 		= event.relatedTarget
 		var NodeIP 		= button.getAttribute('data-bs-ip')
@@ -178,8 +185,35 @@ $(document).ready(function() {
 				
 			}
 		});
+		
+		// if ( $.fn.DataTable.isDataTable( '#neighborstab' ) ) {
+		// //	$.fn.DataTable( '#neighborstab' ).destroy();
+		// 	$('#neighborstab').empty();
+		// }
+		
+		var n_table = $('#neighborstab').DataTable({
+			"paging":   true,
+			"responsive": true,
+			"searching": false,
+			"render": function(data){
+				console.log(data);
+				if(data){
+					return (data.length > 16)?data.substring(0, 16)+'...':data;
+				} else {
+					return '';
+				}
+			},
+			"ajax": 'ajax.php?n_ip='+NodeIP
+		});
+		
+		//n_table.destroy(); 
 	
 	})
+	
+	
+	
+	
+	
 	
 	function nl2br (str, is_xhtml) {   
 		var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    

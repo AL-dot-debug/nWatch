@@ -347,6 +347,27 @@ function get_nodes($blockCount = 1){
 }
 
 
+function get_node_neighbors($ip){
+	
+	$url = 'http://'.preg_replace("/\s+/", "",$ip).':30003/';
+	
+	$ch = curl_init($url);
+		
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS,'{"jsonrpc":"2.0","method":"getneighbor","params":{},"id":1}');
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1); 
+	curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+	
+	$server_output = curl_exec($ch);
+		
+	curl_close ($ch);
+	
+	$json = json_decode($server_output, true); 
+		
+	return $json;
+	
+}
+
 function get_json($url){
 	
 	$headers = [
@@ -379,7 +400,7 @@ function get_json($url){
 
 function get_node_status($ip){
 	
-	$url = 'http://'.$ip.':30003/';
+	$url = 'http://'.preg_replace("/\s+/", "",$ip).':30003/';
 	
 	$ch = curl_init($url);
 		
