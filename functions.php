@@ -228,7 +228,7 @@ function get_nodes($blockCount = 1){
 							break;
 						
 							case '-45024':
-								$return['nodes'][$ip]['syncState'] = "Database is unavailable <br> (lighten might be in progress)"; 
+								$return['nodes'][$ip]['syncState'] = "Database is unavailable <br> <small>(database optimization might be in progress)</small>"; 
 							break;
 							
 							default : 
