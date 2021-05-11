@@ -254,7 +254,7 @@ function get_nodes($blockCount = 1){
 						
 						
 						if($node['result']['proposalSubmitted'] != 0):
-							$return['total_proposals']++;
+							$return['total_proposals'] = $return['total_proposals'] + $node['result']['proposalSubmitted'];
 						endif;
 						
 						$return['stats'][$node['result']['syncState']]++; 
