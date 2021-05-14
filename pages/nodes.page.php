@@ -159,7 +159,7 @@
 							<div class="col-lg-4 pt-4 explain">
 								
 								<h5 class="m-0 p-0">addr</h5>
-								<p class="mb-2">TCP connexion address of your node</p>
+								<p class="mb-2">TCP connection address of your node</p>
 								
 								<h5 class="m-0 p-0">currTimeStamp</h5>
 								<p class="mb-2">Server date (in sec)</p>

@@ -165,6 +165,13 @@ table.dataTable tbody tr{
 #nodes thead th.sorting_asc, #nodes thead th.sorting_desc{
 	color: #253A7E; 
 }
+.dataTables_wrapper .dataTables_filter{
+	float: none !important;
+	text-align: left !important;
+	margin-bottom: 1rem;
+	margin-top: -.5rem;
+}
+.dataTables_wrapper .dataTables_filter label input{}
 
 /* Node Modal */ 
 
