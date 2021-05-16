@@ -26,7 +26,7 @@
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
-					<h6>Rewards</h6>
+					<h6>Proposal(s)</h6>
 					<span class="nodes-stats" data-prop="proposals"><?= $nodes['total_proposals'] ?></span>
 				</div>
 				
@@ -108,7 +108,7 @@
 					<th scope="col">Relayed Messages</th>
 					<th scope="col">Relay / hour</th>
 					<th scope="col">Version</th>
-					<th scope="col" data-priority="2">Reward</th>
+					<th scope="col" data-priority="2">Proposal(s)</th>
 					<th scope="col">Uptime</th>
 				</tr>
 			</thead>
