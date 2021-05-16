@@ -154,6 +154,12 @@ table td {
 table.dataTable tbody tr{
 	background-color: transparent !important;
 }
+#nodes_length{
+	float: right;
+}
+#nodes_paginate, #nodes_info{
+	margin: 1rem 0;
+}
 #nodes table{
 	text-align: center;
 }

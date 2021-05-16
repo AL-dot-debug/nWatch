@@ -4,7 +4,8 @@ $(document).ready(function() {
 	// Node table management 
 	
 	var table = $('#nodes').DataTable({
-		"paging":   false,
+		"paging":   true,
+		"lengthMenu": [[100, 250, 500, -1], [100, 250, 500, "All"]],
 		"responsive": true,
 		"ajax": 'ajax.php',
 		"language": { search: '', searchPlaceholder: "Search..." },
