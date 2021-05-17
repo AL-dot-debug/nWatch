@@ -108,7 +108,7 @@
 					<th scope="col">Relayed Messages</th>
 					<th scope="col">Relay / hour</th>
 					<th scope="col">Version</th>
-					<th scope="col" data-priority="2">Proposal(s)</th>
+					<th scope="col" data-priority="2">Reward(s)</th>
 					<th scope="col">Uptime</th>
 				</tr>
 			</thead>

@@ -181,7 +181,7 @@ else :
 		$data[$i][] = number_format_locale($node['relayMessageCount'], 0); 
 		$data[$i][] = number_format_locale($node['relayperhour'], 0); 
 		$data[$i][] = $node['version']; 
-		$data[$i][] = $node['proposalSubmitted']; 
+		$data[$i][] = $node['rewards'];
 		$data[$i][] = $node['uptime']; 
 		
 		$i++; 
