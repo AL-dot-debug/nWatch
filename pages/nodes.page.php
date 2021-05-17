@@ -26,8 +26,8 @@
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
-					<h6>Proposal(s)</h6>
-					<span class="nodes-stats" data-prop="proposals"><?= $nodes['total_proposals'] ?></span>
+					<h6>Reward(s)</h6>
+					<span class="nodes-stats" data-prop="proposals"><?= $nodes['total_rewards'] ?></span>
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
