@@ -3,7 +3,7 @@
 // session 
 session_start(); 
 
-$nWatch_version = '2.5.3'; 
+$nWatch_version = '2.5.4'; 
 
 
 // includes 
@@ -118,6 +118,10 @@ endif;
 				
 							<li class="nav-item">
 								<a class="<?php echo ($_GET['page'] == 'wallets' ? 'nav-link active' : 'nav-link') ?>" href="?page=wallets">Wallets</a>
+							</li>
+							
+							<li class="nav-item">
+								<a class="<?php echo ($_GET['page'] == 'stats' ? 'nav-link active' : 'nav-link') ?>" href="?page=stats">Stats</a>
 							</li>
 							
 							<li class="nav-item">
