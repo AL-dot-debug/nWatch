@@ -1,5 +1,7 @@
 <?php 
 
+header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + (60 * 60))); // 1 hour
+
 session_start(); 
 
 if(!isset($_SESSION['user'])):
@@ -52,6 +54,7 @@ if(isset($_POST['form_type'])) :
 			$json['proposals'] 	= $nodes['total_proposals']; 
 			$json['relay']		= $nodes['max_relay']; 
 			$json['stats']		= $nodes['stats']; 
+			$json['rewards']	= $nodes['total_rewards']; 
 			
 			foreach($nodes['stats'] as $key => $value):
 				$json['stats.'.$key] 	= $value; 

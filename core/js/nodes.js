@@ -42,7 +42,7 @@ $(document).ready(function() {
 	setInterval( function () {				
 		table.ajax.reload();
 		refresh_value('ext_stats','ext'); 
-	}, 60000 );
+	}, 120000 );
 	
 	// To differ the requests from the table 
 	setInterval( function () {				

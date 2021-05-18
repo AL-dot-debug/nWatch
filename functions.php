@@ -249,9 +249,10 @@ function get_nodes($blockCount = 1){
 						$pubkey = $node['result']['publicKey']; 
 						// API Call 
 						$url 			= 'https://api.my-nkn.cloud/rewards/pubkey/'.$pubkey; 
-						$jsonrewards 	= file_get_contents($url); 
-						$rewards 		= json_decode($jsonrewards, true); 
-					
+						// $jsonrewards 	= file_get_contents($url); 
+						// $rewards 		= json_decode($jsonrewards, true); 
+						
+						$rewards = get_json($url); 
 						
 						
 						$return['nodes'][$ip]['syncState'] 			= strip_tags(str_replace('_', ' ', $node['result']['syncState']));
