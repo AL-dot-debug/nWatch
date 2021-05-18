@@ -246,13 +246,9 @@ function get_nodes($blockCount = 1){
 					else : 
 						
 						// Get node rewards from pubkey 
-						$pubkey = $node['result']['publicKey']; 
-						// API Call 
-						$url 			= 'https://api.my-nkn.cloud/rewards/pubkey/'.$pubkey; 
-						// $jsonrewards 	= file_get_contents($url); 
-						// $rewards 		= json_decode($jsonrewards, true); 
-						
-						$rewards = get_json($url); 
+						$pubkey 	= $node['result']['publicKey']; 
+						$url 		= 'https://api.my-nkn.cloud/rewards/pubkey/'.$pubkey; 
+						$rewards 	= get_json($url); 
 						
 						
 						$return['nodes'][$ip]['syncState'] 			= strip_tags(str_replace('_', ' ', $node['result']['syncState']));
@@ -262,12 +258,22 @@ function get_nodes($blockCount = 1){
 						$return['nodes'][$ip]['proposalSubmitted'] 	= strip_tags($node['result']['proposalSubmitted']);
 						$return['nodes'][$ip]['uptime'] 			= secondsToTime($node['result']['uptime']);
 						$return['nodes'][$ip]['id']					= strip_tags($node['result']['id']); 
-						$return['nodes'][$ip]['rewards']			= $rewards['count']; 
+						
+						if(isset($rewards)):
+							
+							$return['nodes'][$ip]['rewards'] = $rewards['count']; 
+							
+							if($rewards['count'] != 0):
+								$return['total_rewards'] = $return['total_rewards'] + $rewards['count'];
+							endif;
+							
+						else: 
+						
+							$return['nodes'][$ip]['rewards'] = 0; 
+						
+						endif; 
 						
 						
-						if($rewards['count'] != 0):
-							$return['total_rewards'] = $return['total_rewards'] + $rewards['count'];
-						endif;
 						
 						if($node['result']['proposalSubmitted'] != 0):
 							$return['total_proposals'] = $return['total_proposals'] + $node['result']['proposalSubmitted'];
