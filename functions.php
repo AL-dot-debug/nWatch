@@ -259,7 +259,7 @@ function get_nodes($blockCount = 1){
 						$return['nodes'][$ip]['uptime'] 			= secondsToTime($node['result']['uptime']);
 						$return['nodes'][$ip]['id']					= strip_tags($node['result']['id']); 
 						
-						if(isset($rewards)):
+						if(isset($rewards) AND is_array($rewards)):
 							
 							$return['nodes'][$ip]['rewards'] = $rewards['count']; 
 							
