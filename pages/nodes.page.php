@@ -5,6 +5,7 @@
 	$block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts'); 
 	$netStats 	= nkn_GeoStat(); 
 	$github 	= get_json('https://api.github.com/repos/nknorg/nkn/releases'); 
+	$nodes 		= get_nodes_list(); 
 		
 	?>
 		
@@ -15,18 +16,18 @@
 			<div class="row mt-2 p-3 nodes_status">
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
-					<h6>Your nodes</h6>
-					<span class="stats">0</span>
+					<h6>Your control of the network</h6>
+					<span class="stats"><?= number_format_locale(count($nodes)/$netStats['stats']['total'],4) ?>%</span>
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Max relay</h6>
-					<span class="nodes-stats" data-prop="relay">0</span>
+					<span class="nodes-stats" data-prop="relay"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Reward(s)</h6>
-					<span class="nodes-stats" data-prop="rewards">0</span>
+					<span class="nodes-stats" data-prop="rewards"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
@@ -54,32 +55,32 @@
 				
 				<div class="col-4 p-3 mb-3 border-success">
 					<h6>Mining</h6>
-					<span class="nodes-stats" data-prop="stats.PERSIST_FINISHED">0</span>
+					<span class="nodes-stats" data-prop="stats.PERSIST_FINISHED"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				
 				<div class="col-4 p-3 mb-3 border-start">
 					<h6>Sync started</h6>
-					<span class="nodes-stats" data-prop="stats.SYNC_STARTED">0</span>
+					<span class="nodes-stats" data-prop="stats.SYNC_STARTED"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				
 				<div class="col-4 p-3 mb-3 border-start">
 					<h6>Sync finished</h6>
-					<span class="nodes-stats" data-prop="stats.SYNC_FINISHED">0</span>
+					<span class="nodes-stats" data-prop="stats.SYNC_FINISHED"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				
 				<div class="col-4 p-3 mb-3 border-warning">
 					<h6>Waiting for sync</h6>
-					<span class="nodes-stats" data-prop="stats.WAIT_FOR_SYNCING">0</span>
+					<span class="nodes-stats" data-prop="stats.WAIT_FOR_SYNCING"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				
 				<div class="col-4 p-3 mb-3 border-alert">
 					<h6>Error</h6>
-					<span class="nodes-stats" data-prop="stats.ERROR">0</span>
+					<span class="nodes-stats" data-prop="stats.ERROR"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				
 				<div class="col-4 p-3 mb-3 border-alert">
 					<h6>Offline</h6>
-					<span class="nodes-stats" data-prop="stats.OFFLINE">0</span>
+					<span class="nodes-stats" data-prop="stats.OFFLINE"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				
 			</div>

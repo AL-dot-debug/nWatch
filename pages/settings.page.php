@@ -3,8 +3,6 @@
 	<div class="row mt-5">
 		
 		<div class="col-12 mb-3">
-			
-		
 		
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">

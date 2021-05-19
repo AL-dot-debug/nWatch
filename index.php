@@ -3,7 +3,7 @@
 // session 
 session_start(); 
 
-$nWatch_version = '2.5.4'; 
+$nWatch_version = '2.5.5'; 
 
 
 // includes 
@@ -101,7 +101,7 @@ endif;
 				
 				<div class="container-fluid">
 					
-					<a class="navbar-brand" href="/">
+					<a class="navbar-brand" href="<?= HOST_URL; ?>">
 						 <img src="core/img/nWatch.svg" alt="" width="30" height="30"> nWatch
 					</a>
 					
