@@ -3,7 +3,7 @@
 // session 
 session_start(); 
 
-$nWatch_version = '2.5.5'; 
+$nWatch_version = '2.5.6'; 
 
 
 // includes 
