@@ -17,7 +17,7 @@
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Your control of the network</h6>
-					<span class="stats"><?= number_format_locale(count($nodes)/$netStats['stats']['total'],4) ?>%</span>
+					<span class="stats"><?= number_format_locale(count($nodes)*100/$netStats['stats']['total'],4) ?>%</span>
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
