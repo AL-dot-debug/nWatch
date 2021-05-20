@@ -16,7 +16,7 @@
 		</div>
 		
 		<div class="col-lg-6 mb-3">
-			<iframe style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="100%" height="480" src="https://charts.mongodb.com/charts-nodes-monitoring-sclqe/embed/charts?id=e6411438-108a-491b-80f7-9726b79c69e1&theme=light"></iframe>
+			<iframe style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="100%" height="480" src="https://charts.mongodb.com/charts-nkn-rewards-unjkn/embed/charts?id=0238b03e-645e-44f1-bd22-d3f4de48227d&theme=light"></iframe>
 		</div>
 		
 		<div class="col-lg-6 mb-3">
