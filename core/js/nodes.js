@@ -1,55 +1,69 @@
 $(document).ready(function() {
 	
+	// First load 
+	refresh_value('nodes_stats','nodes');
 	
-	// Node table management 
 	
-	var table = $('#nodes').DataTable({
-		"paging":   true,
-		"lengthMenu": [[100, 250, 500, -1], [100, 250, 500, "All"]],
-		"responsive": true,
-		"ajax": 'ajax.php',
-		"language": { search: '', searchPlaceholder: "Search..." },
-		
-		"aoColumnDefs": [ {
-			"aTargets": [2],
-			"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-				if ( sData.indexOf('Waiting for sync.') > -1 ) {
-					$(nTd).addClass('bg-warning');
-				}
-				else if( sData.indexOf('Sync. started') > -1 ){
-					$(nTd).addClass('bg-start');
-				}
-				else if( sData.indexOf('Sync. finished') > -1 ){
-					$(nTd).addClass('bg-success');	
-				}
-				else if( sData.indexOf('Mining') > -1 ){
-					$(nTd).addClass('bg-success');	
-				}
-				else if( sData.indexOf('Offline') > -1 ){
-					$(nTd).addClass('bg-alert');	
-				}
-				else{
-					$(nTd).addClass('bg-alert');	
-				}
-			}
-		} ]
-		
-	});
-	
-		
-	
-	// Refresh every minutes 
+	// Refresh every 2 minutes 
 	setInterval( function () {				
 		table.ajax.reload();
 		refresh_value('ext_stats','ext'); 
 	}, 120000 );
 	
+	
 	// To differ the requests from the table 
 	setInterval( function () {				
 		refresh_value('nodes_stats','nodes'); 
-	}, 50000 );
+	}, 77777 );
 	
 	
+	
+	
+	
+		
+	sleep(5000).then(() => {
+	
+		// Node table management 
+
+		table = $('#nodes').DataTable({
+			"paging":   true,
+			"lengthMenu": [[100, 250, 500, -1], [100, 250, 500, "All"]],
+			"responsive": true,
+			"ajax": 'ajax.php',
+			"language": { search: '', searchPlaceholder: "Search..." },
+			
+			"aoColumnDefs": [ {
+				"aTargets": [2],
+				"fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+					if ( sData.indexOf('Waiting for sync.') > -1 ) {
+						$(nTd).addClass('bg-warning');
+					}
+					else if( sData.indexOf('Sync. started') > -1 ){
+						$(nTd).addClass('bg-start');
+					}
+					else if( sData.indexOf('Sync. finished') > -1 ){
+						$(nTd).addClass('bg-success');	
+					}
+					else if( sData.indexOf('Mining') > -1 ){
+						$(nTd).addClass('bg-success');	
+					}
+					else if( sData.indexOf('Offline') > -1 ){
+						$(nTd).addClass('bg-alert');	
+					}
+					else{
+						$(nTd).addClass('bg-alert');	
+					}
+				}
+			} ]
+			
+		});
+	
+	});
+	
+	
+	function sleep (time) {
+		return new Promise((resolve) => setTimeout(resolve, time));
+	}
 	
 	
 	// Refresh dashboard values 
@@ -187,10 +201,6 @@ $(document).ready(function() {
 			}
 		});
 		
-		// if ( $.fn.DataTable.isDataTable( '#neighborstab' ) ) {
-		// //	$.fn.DataTable( '#neighborstab' ).destroy();
-		// 	$('#neighborstab').empty();
-		// }
 		
 		var n_table = $('#neighborstab').DataTable({
 			"paging":   true,

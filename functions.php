@@ -177,6 +177,8 @@ function get_nodes($blockCount = 1){
 		$return['total_proposals'] 	= 0;
 		$return['total_rewards'] 	= 0;
 		$return['max_relay'] 		= 0;
+		$return['min_relay'] 		= 999999999999;
+		$return['average_relay'] 	= 0;  
 		
 		$return['stats']						= []; 
 		$return['stats']['ERROR']				= 0; 
@@ -333,6 +335,10 @@ function get_nodes($blockCount = 1){
 							$return['max_relay'] = $true_relay; 
 						endif;
 						
+						if($true_relay < $return['min_relay']):
+							$return['min_relay'] = $true_relay; 
+						endif;
+						
 					endif;
 				
 				else : 
@@ -355,7 +361,10 @@ function get_nodes($blockCount = 1){
 				
 			endif; 
 		
-		endforeach; 
+		endforeach;
+		
+		// Quick math 
+		$return['average_relay'] = ($return['min_relay'] + $return['max_relay'])/2; 
 		
 		return $return; 
 	

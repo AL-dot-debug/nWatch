@@ -6,7 +6,7 @@
 	$netStats 	= nkn_GeoStat(); 
 	$github 	= get_json('https://api.github.com/repos/nknorg/nkn/releases'); 
 	$nodes 		= get_nodes_list(); 
-		
+	
 	?>
 		
 	<div class="row pb-5">
@@ -21,7 +21,7 @@
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
-					<h6>Max relay</h6>
+					<h6>Average relays</h6>
 					<span class="nodes-stats" data-prop="relay"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				

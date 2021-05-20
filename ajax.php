@@ -52,7 +52,7 @@ if(isset($_POST['form_type'])) :
 			
 			$nodes 	= get_nodes(1);
 			$json['proposals'] 	= $nodes['total_proposals']; 
-			$json['relay']		= $nodes['max_relay']; 
+			$json['relay']		= $nodes['average_relay']; 
 			$json['stats']		= $nodes['stats']; 
 			$json['rewards']	= $nodes['total_rewards']; 
 			
