@@ -1,6 +1,120 @@
 <?php
 
 
+
+function use_node_api($method,$params = ''){
+	
+	$postfields['jsonrpc'] 	= '2.0';
+	$postfields['id'] 		= '1';
+	$postfields['method']	= $method; 
+	
+	if(empty($params)):
+		$postfields['params'] = new ArrayObject();
+	else:
+		$postfields['params']	= $params; 
+	endif;
+
+	$postfield  = json_encode($postfields); 
+		
+	$api_host 	= random_select_node(); 
+	$url 		= 'http://'.$api_host.':30003/';	
+			
+	$ch = curl_init($url);
+	
+	curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $postfield);
+	
+	$server_output = curl_exec($ch);
+		
+	curl_close ($ch);
+	
+	if(!empty($server_output)):
+	
+		$return = json_decode($server_output, true); 
+		return $return; 
+		
+	
+	else: 
+		
+		use_node_api($method,$params);
+	
+	endif; 	
+	
+}
+
+function random_select_node(){
+	
+	if($nodes = get_nodes_list()):
+		
+		$max 	= count($nodes)-1; 
+		$node 	= explode(',', $nodes[rand(0,$max)]); 
+		
+		if(check_node_status($node[0])):
+			
+			return $node[0]; 
+			
+		else:
+		
+			random_select_node(); 
+		
+		endif; 
+	
+	else:
+	
+		return false; 
+	
+	endif;
+	
+	
+}
+
+function get_nodes_list(){
+	
+	if(file_exists('nodes.txt')):
+		
+		$nodes_file = file_get_contents(dirname(__FILE__).'/nodes.txt'); 
+		$nodes 		= explode("\n", $nodes_file);
+		
+		return $nodes; 
+		
+	else : 
+	
+		return false; 
+	
+	endif; 
+	
+}
+
+function check_node_status($ip){
+	
+	
+	$ch = curl_init('http://'.$ip.':30003/');
+	
+	curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	
+	$data 		= curl_exec($ch);
+	$httpcode 	= curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	
+	curl_close($ch);
+	
+	if($httpcode !== 0):
+	   
+	   return true; 
+	
+	else :
+	  
+	  return false; 
+	
+	endif; 
+	
+	
+}
+
+
 function canIWriteHere(){
 	
 	$dir = dirname(__FILE__);
@@ -34,26 +148,20 @@ function get_wallets(){
 			$wallet_data['wallets'][$i]['nw']['address'] 	= strip_tags($address); 
 			$wallet_data['wallets'][$i]['nw']['name'] 		= strip_tags($name);
 			$wallet_data['wallets'][$i]['nw']['ip'] 		= strip_tags($ip);
+						
+			$method 		= 'getbalancebyaddr'; 
+			$params 		= ['address' => $address];
+			$wallet_balance = use_node_api($method,$params); 
 			
-			$url = 'https://openapi.nkn.org/api/v1/addresses/'.$address; 
-			$wallet_data['wallets'][$i]['nkn'] = get_json($url);  
+			$wallet_data['wallets'][$i]['nkn']['balance'] = $wallet_balance['result']['amount'];
+			
 			
 			// Total wallets 
 			$wallet_data['stats']['total_nkn'] = $wallet_data['stats']['total_nkn'] + $wallet_data['wallets'][$i]['nkn']['balance']; 
-			
-			// Last transaction 
-			$last_transaction_date = date('U',strtotime($wallet_data['wallets'][$i]['nkn']['last_transaction'])); 
-				
-			if($wallet_data['stats']['last_transaction'] < $last_transaction_date): 
-				$wallet_data['stats']['last_transaction'] = $last_transaction_date; 
-			endif; 
-			
-			
+						
 			$i++; 
 		endforeach; 
-		
-		$wallet_data['stats']['last_transaction'] = date('d-m-Y H:i:s', $wallet_data['stats']['last_transaction']);
-		
+				
 		return $wallet_data; 
 	
 	else : 
@@ -67,6 +175,17 @@ function get_wallets(){
 
 
 function get_transactions($wallet){
+	
+	$method = 'getblocktxsbyheight'; 
+	$params = ['height' => 2670969]; 
+	
+	$data 	= use_node_api($method, $params);
+	
+	echo '<pre>';
+	print_r($data); 
+echo '</pre>';
+
+exit(); 
 	
 	$url 	= 'https://openapi.nkn.org/api/v1/addresses/'.preg_replace("/\s+/", "",$wallet).'/transactions';
 	$data 	= get_json($url);
@@ -149,22 +268,7 @@ function display_transaction($transaction, $wallet){
 }
 
 
-function get_nodes_list(){
-	
-	if(file_exists('nodes.txt')):
-		
-		$nodes_file = file_get_contents(dirname(__FILE__).'/nodes.txt'); 
-		$nodes 		= explode("\n", $nodes_file);
-		
-		return $nodes; 
-		
-	else : 
-	
-		return false; 
-	
-	endif; 
-	
-}
+
 
 function get_nodes($blockCount = 1){
 	

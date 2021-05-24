@@ -2,10 +2,13 @@
 	
 	<?php  
 	
-	$block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts'); 
-	$netStats 	= nkn_GeoStat(); 
-	$github 	= get_json('https://api.github.com/repos/nknorg/nkn/releases'); 
-	$nodes 		= get_nodes_list(); 
+	$method 		= 'getblockcount';
+	$blocHeight 	= use_node_api($method); 
+	$block 			= $blocHeight['result']; 
+	
+	$netStats 		= nkn_GeoStat(); 
+	$github 		= get_json('https://api.github.com/repos/nknorg/nkn/releases'); 
+	$nodes 			= get_nodes_list(); 
 	
 	?>
 		
@@ -32,7 +35,7 @@
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Latest block</h6>
-					<span class="ext-stats" data-prop="blocksize"><?= number_format_locale($block['blockCount'],0) ?></span>
+					<span class="ext-stats" data-prop="blocksize"><?= number_format_locale($block,0) ?></span>
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">

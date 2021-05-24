@@ -90,7 +90,8 @@ $(document).ready(function() {
 							
 							const prop 	= $(this).data("prop"); 
 							const Start = $(this).text().replace(/\s/g,'').replace(/,/g,'');
-															
+							
+								
 							$(this).prop('Counter', Start).animate(
 								{
 									Counter: data[prop]

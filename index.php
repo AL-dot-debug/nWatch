@@ -3,13 +3,13 @@
 // session 
 session_start(); 
 
-$nWatch_version = '2.5.9'; 
+$nWatch_version = '2.6.0'; 
 
 
 // includes 
 include_once('functions.php');
 include_once('data.processor.php');
- 
+
 
 // Locale definition 
 if(!isset($_COOKIE['nW_locale'])):
