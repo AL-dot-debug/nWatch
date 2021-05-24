@@ -176,17 +176,7 @@ function get_wallets(){
 
 function get_transactions($wallet){
 	
-	$method = 'getblocktxsbyheight'; 
-	$params = ['height' => 2670969]; 
-	
-	$data 	= use_node_api($method, $params);
-	
-	echo '<pre>';
-	print_r($data); 
-echo '</pre>';
 
-exit(); 
-	
 	$url 	= 'https://openapi.nkn.org/api/v1/addresses/'.preg_replace("/\s+/", "",$wallet).'/transactions';
 	$data 	= get_json($url);
 	
