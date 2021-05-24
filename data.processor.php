@@ -98,11 +98,24 @@ if(isset($_POST['form_type']) AND !empty($_POST['form_type'])) :
 		case 'wallets':
 	
 			$wallet_list 	= nl2br($_POST['walletstxt']); 
-			$clean_list 	= strip_tags($wallet_list);			
-			$node_file 		= fopen(dirname(__FILE__)."/wallets.txt", "w+");
+			$clean_list 	= strip_tags($wallet_list);		
 			
-			fwrite($node_file, $clean_list);
-			fclose($node_file);
+			$lines_arr 		= preg_split('/\n|\r/',$clean_list);
+			
+			if(count($lines_arr) > 10):
+				
+				$form_error = "Please don't add more than 10 wallets";
+				
+			else:
+			
+				$node_file 		= fopen(dirname(__FILE__)."/wallets.txt", "w+");
+				
+				fwrite($node_file, $clean_list);
+				fclose($node_file);
+			
+			endif; 
+				
+			
 		
 		break; 
 		

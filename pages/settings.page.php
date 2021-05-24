@@ -2,6 +2,15 @@
 	
 	<div class="row mt-5">
 		
+		<?php if(isset($form_error)): ?>
+
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			<strong>Holy guacamole!</strong> <?= $form_error ?>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>		
+		
+		<?php endif; ?>
+		
 		<div class="col-12 mb-3">
 		
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -88,10 +97,14 @@
 						<h2>Wallets settings</h2>
 						
 						<p>
-							Add your wallets in the following box. <strong>Please use the following format on each line:</strong> <br> <code>Wallet address (mandatory, start with the NKN letters), Wallet name (optional), IP (optional, if you want to associate wallets and nodes)</code> <br> <br>
+							Add your wallets in the following box (limited to 10 wallets) <br>
+							<strong>Please use the following format on each line:</strong> <br> 
+							<code>Wallet address (mandatory, start with the NKN letters), Wallet name (optional), IP (optional, if you want to associate wallets and nodes)</code> <br> <br>
 							Example: <br>
 							<code>NKNQUttrQxNcY6cT9EmaKBT6ijshV1UZt4x2, Donate to support nWatch, 1.1.1.1</code> 
 						</p>
+						
+						<h5><strong>Do not add your nodes wallets, they will stay empty with no transactions, overloading the NKN openapi.</strong></h5>
 						
 						<form method="post" autocomplete="off">
 							

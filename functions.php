@@ -160,6 +160,9 @@ function get_wallets(){
 			$wallet_data['stats']['total_nkn'] = $wallet_data['stats']['total_nkn'] + $wallet_data['wallets'][$i]['nkn']['balance']; 
 						
 			$i++; 
+			
+			if($i == 9): break; endif; 
+			
 		endforeach; 
 				
 		return $wallet_data; 
