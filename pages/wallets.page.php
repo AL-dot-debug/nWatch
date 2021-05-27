@@ -88,6 +88,59 @@
 	
 </div>
 
+
+<?php 
+
+$nodes = get_nodes_list();
+$i=0; 
+
+foreach($nodes as $node): 
+				
+	$nodeData 		= explode(',',$node); 
+	$url 			= 'https://api.my-nkn.cloud/rewards/ip/'.$nodeData[0]; 
+	$nodeRewards 	= get_json($url); 
+		
+	$dataRewards[$i]['ip'] = $nodeData[0]; 
+	
+	if(isset($nodeData[1])):
+		$dataRewards[$i]['name'] = $nodeData[1]; 
+	else:
+		$dataRewards[$i]['name'] = 'Node Doe '.$i; 
+	endif; 
+	
+	if($nodeRewards['data']): 
+		
+		$dataRewards[$i]['rewards'] = $nodeRewards['data'];	
+		
+		foreach($nodeRewards['data'] as $rewardsData):
+			
+			$jsTab[date('W',strtotime($rewardsData['date']))] = $jsTab[date('W',strtotime($rewardsData['date']))]+1; 
+		
+		endforeach;
+		
+	else: 
+		$dataRewards[$i]['rewards'] = []; 				
+	endif; 
+	
+	$i++; 
+
+endforeach; 
+
+ksort($jsTab); 
+
+
+foreach($jsTab as $week => $rewards):
+	
+	$jsweeks[] 		= $week; 
+	$jsrewards[] 	= $rewards; 
+	
+endforeach;
+
+echo '<div class="jsweek" data-values="['.implode(',', $jsweeks).']"></div> ';
+echo '<div class="jsrewards" data-values="['.implode(',', $jsrewards).']"></div> ';
+				
+?>
+
 <div class="container">
 	
 	<div class="row my-5">
@@ -98,97 +151,89 @@
 		
 		<div class="col-12">
 			
-			<?php 
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<button class="nav-link active" id="graph-tab" data-bs-toggle="tab" data-bs-target="#tabgraph" type="button" role="tab" aria-controls="graph" aria-selected="true">Graph</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="details-tab" data-bs-toggle="tab" data-bs-target="#tabdetails" type="button" role="tab" aria-controls="tabdetails" aria-selected="false">Details</button>
+				</li>
+			</ul>
 			
-			$nodes = get_nodes_list();
-			$i=0; 
 			
-			foreach($nodes as $node): 
-							
-				$nodeData 		= explode(',',$node); 
-				$url 			= 'https://api.my-nkn.cloud/rewards/ip/'.$nodeData[0]; 
-				$nodeRewards 	= get_json($url); 
+			<div class="tab-content mt-5" id="myTabContent">
+				<!-- Graph --> 
+				<div class="tab-pane fade show active" id="tabgraph" role="tabpanel" aria-labelledby="graph">
 					
-				$rewards[$i]['ip'] = $nodeData[0]; 
+					<div id="myChart"></div>
+					
+				</div>
 				
-				if(isset($nodeData[1])):
-					$rewards[$i]['name'] = $nodeData[1]; 
-				else:
-					$rewards[$i]['name'] = 'Node Doe '.$i; 
-				endif; 
-				
-				if($nodeRewards['data']): 
-					$rewards[$i]['rewards'] = $nodeRewards['data'];	
-				else: 
-					$rewards[$i]['rewards'] = []; 				
-				endif; 
-				
-				$i++; 
-			
-			endforeach; 
-			
-			// echo '<pre>';
-			// 	print_r($rewards); 
-			// echo '</pre>';
-			
-			
-			?>
-			
-			<table class="table" id="rewards">
-				<thead>
-
-					<tr>
-						<th scope="col">Node</th>
-						<th scope="col">IP</th>
-						<th scope="col">Total rewards</th>
-					</tr>
-
-				</thead>
-				<tbody>
+				<!-- Details --> 
 					
-					<?php foreach($rewards as $node) : ?>
+				<div class="tab-pane fade" id="tabdetails" role="tabpanel" aria-labelledby="tabdetails">
 					
-					
-					<tr>
-						<th scope="row"><?= $node['name'] ?></th>
-						<td><?= $node['ip'] ?></td>
-						<td><?= count($node['rewards']) ?></td>
-					</tr>
-					
-						<?php if(!empty($node['rewards'])) :  ?>
+					<div class="table-responsive">
 						
-						<tr>
-							<td colspan="3">
-								<table class="table inertable mb-4">
-									<thead>
-										<th scope="col">Date</th>
-										<th scope="col">Block</th>
-										<th scope="col">Recipient</th>
-									</thead>
-									<tbody>
-										<?php foreach($node['rewards'] as $reward): ?>
-										<tr>
-											<th scope="row"><?= date('d M Y H:i', strtotime($reward['date'])) ?></th>
-											<td><?= $reward['block'] ?></td>
-											<td><?= $reward['recipientWallet'] ?></td>
-										</tr>
-										<?php endforeach;  ?>
-									</tbody>
-								</table>
-							</td>
-						</tr>
-						
-						<?php endif; ?>
-					
-					<?php endforeach; ?>
-					
-				</tbody>
-			</table>
-				
+						<table class="table" id="rewards">
+							<thead>
 			
+								<tr>
+									<th scope="col">Node</th>
+									<th scope="col">IP</th>
+									<th scope="col">Total rewards</th>
+								</tr>
+			
+							</thead>
+							<tbody>
+								
+								<?php foreach($dataRewards as $node) : ?>
+								
+								
+								<tr>
+									<th scope="row"><?= $node['name'] ?></th>
+									<td><?= $node['ip'] ?></td>
+									<td><?= count($node['rewards']) ?></td>
+								</tr>
+								
+									<?php if(!empty($node['rewards'])) :  ?>
+									
+									<tr>
+										<td colspan="3">
+											<table class="table inertable mb-4">
+												<thead>
+													<th scope="col">Date</th>
+													<th scope="col">Block</th>
+													<th scope="col">Recipient</th>
+												</thead>
+												<tbody>
+													<?php foreach($node['rewards'] as $reward): ?>
+													<tr>
+														<th scope="row"><?= date('d M Y H:i', strtotime($reward['date'])) ?></th>
+														<td><?= $reward['block'] ?></td>
+														<td><?= $reward['recipientWallet'] ?></td>
+													</tr>
+													<?php endforeach;  ?>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+									
+									<?php endif; ?>
+								
+								<?php endforeach; ?>
+								
+							</tbody>
+						</table>
+						
+					</div>
+					
+				</div>
+			
+			</div>
 			
 		</div>
-		
-	</div>
 	
+	</div>
+		
 </div>
