@@ -7,11 +7,10 @@ function copyToClipboard(element) {
 	$temp.remove();
 }
 
-
-const DATA_COUNT = 7;
-const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
-
 const labels = $('.jsweek').data('values');
+
+console.log(labels);
+
 const data = {
   labels: labels,
   datasets: [
@@ -29,13 +28,18 @@ const config = {
 	  data: data,
 	  options: {
 		responsive: true,
+		scales: {
+			y: {
+				beginAtZero: true
+			}
+		},
 		plugins: {
 		  legend: {
 			display: false
 		  },
 		  title: {
 			display: true,
-			text: 'Reward distribution per week'
+			text: 'Your rewards distribution per week'
 		  }
 		}
 	  },
