@@ -88,78 +88,107 @@
 	
 </div>
 
-<div class="container my-5">
+<div class="container">
 	
-	<div class="row">
+	<div class="row my-5">
 		
-		<?php foreach($wallets['wallets'] as $wallet) : ?>
+		<div class="col-12 mb-5">
+			<h2>Mining history</h2>
+		</div>
 		
-		<div class="col-lg-4 mb-3">
+		<div class="col-12">
 			
-			<div class="nkn-card">
-				<figure class="card__figure">
-					<img src="core/img/nkn.svg" class="card__figure--logo"></img>
-				</figure>
+			<?php 
+			
+			$nodes = get_nodes_list();
+			$i=0; 
+			
+			foreach($nodes as $node): 
+							
+				$nodeData 		= explode(',',$node); 
+				$url 			= 'https://api.my-nkn.cloud/rewards/ip/'.$nodeData[0]; 
+				$nodeRewards 	= get_json($url); 
+					
+				$rewards[$i]['ip'] = $nodeData[0]; 
 				
-				<div class="card__reader">
-					<div class="card__reader--risk card__reader--risk-one"></div>
-					<div class="card__reader--risk card__reader--risk-two"></div>
-					<div class="card__reader--risk card__reader--risk-three"></div>
-					<div class="card__reader--risk card__reader--risk-four"></div>
-				</div>
-				
-				<p class="card__number"><a data-bs-toggle="modal" data-bs-target="#wallet" data-bs-id="<?= $wallet['nw']['address'] ?>"><?= $wallet['nw']['address'] ?></a></p>
-				
-				<?php 
-				
-				if(!empty($wallet['nw']['name']) AND !empty($wallet['nw']['ip'])):
-					$title = $wallet['nw']['name'].'<br><small>('.$wallet['nw']['ip'].')</small>';
-				elseif(!empty($wallet['nw']['name'])):
-					$title = $wallet['nw']['name']; 
-				elseif(!empty($wallet['nw']['ip'])):
-					$title = $wallet['nw']['ip']; 
-				else :
-					$title = 'No title'; 
+				if(isset($nodeData[1])):
+					$rewards[$i]['name'] = $nodeData[1]; 
+				else:
+					$rewards[$i]['name'] = 'Node Doe '.$i; 
 				endif; 
 				
-				?>
+				if($nodeRewards['data']): 
+					$rewards[$i]['rewards'] = $nodeRewards['data'];	
+				else: 
+					$rewards[$i]['rewards'] = []; 				
+				endif; 
 				
-				<p class="card__name"><?= $title ?> - <strong><?= number_format_locale(nknValue($wallet['nkn']['balance']),0) ?> NKN</strong> <p>
+				$i++; 
+			
+			endforeach; 
+			
+			// echo '<pre>';
+			// 	print_r($rewards); 
+			// echo '</pre>';
+			
+			
+			?>
+			
+			<table class="table" id="rewards">
+				<thead>
+
+					<tr>
+						<th scope="col">Node</th>
+						<th scope="col">IP</th>
+						<th scope="col">Total rewards</th>
+					</tr>
+
+				</thead>
+				<tbody>
+					
+					<?php foreach($rewards as $node) : ?>
+					
+					
+					<tr>
+						<th scope="row"><?= $node['name'] ?></th>
+						<td><?= $node['ip'] ?></td>
+						<td><?= count($node['rewards']) ?></td>
+					</tr>
+					
+						<?php if(!empty($node['rewards'])) :  ?>
+						
+						<tr>
+							<td colspan="3">
+								<table class="table inertable mb-4">
+									<thead>
+										<th scope="col">Date</th>
+										<th scope="col">Block</th>
+										<th scope="col">Recipient</th>
+									</thead>
+									<tbody>
+										<?php foreach($node['rewards'] as $reward): ?>
+										<tr>
+											<th scope="row"><?= date('d M Y H:i', strtotime($reward['date'])) ?></th>
+											<td><?= $reward['block'] ?></td>
+											<td><?= $reward['recipientWallet'] ?></td>
+										</tr>
+										<?php endforeach;  ?>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						
+						<?php endif; ?>
+					
+					<?php endforeach; ?>
+					
+				</tbody>
+			</table>
 				
-			</div>
 			
-			
-		</div>
-			
-		<?php endforeach; ?>
 			
 		</div>
 		
 	</div>
 	
 </div>
-
-
-<!-- Modal -->
-	<div class="modal fade" id="wallet" tabindex="-1" aria-labelledby="wallet" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Loading your wallet</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				
-				<div class="modal-body">
-					
-					
-					
-					
-				</div>
-				
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				</div>
-				
-			</div>
-		</div>
-	</div>

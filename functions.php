@@ -183,7 +183,6 @@ function get_transactions($wallet){
 	$url 	= 'https://openapi.nkn.org/api/v1/addresses/'.preg_replace("/\s+/", "",$wallet).'/transactions';
 	$data 	= get_json($url);
 	
-		
 	return $data['data']; 
 		
 }
