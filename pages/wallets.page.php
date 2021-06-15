@@ -114,7 +114,11 @@ foreach($nodes as $node):
 		
 		foreach($nodeRewards['data'] as $rewardsData):
 			
-			$jsTab[date('W',strtotime($rewardsData['date']))] = $jsTab[date('W',strtotime($rewardsData['date']))]+1; 
+			if(isset($jsTab[date('W',strtotime($rewardsData['date']))])):
+				$jsTab[date('W',strtotime($rewardsData['date']))] = $jsTab[date('W',strtotime($rewardsData['date']))]+1; 
+			else:
+				$jsTab[date('W',strtotime($rewardsData['date']))] = 1; 
+			endif;
 		
 		endforeach;
 		
@@ -128,7 +132,6 @@ endforeach;
 
 ksort($jsTab); 
 
-
 foreach($jsTab as $week => $rewards):
 	
 	$jsweeks[] 		= $week; 
@@ -136,10 +139,11 @@ foreach($jsTab as $week => $rewards):
 	
 endforeach;
 
-echo '<div class="jsweek" data-values="['.implode(',', $jsweeks).']"></div> ';
-echo '<div class="jsrewards" data-values="['.implode(',', $jsrewards).']"></div> ';
 				
 ?>
+
+<div class="jsrewards" data-values="<?= json_encode($jsrewards) ?>" ></div>
+<div class="jsweek" data-values="<?= json_encode($jsweeks) ?>"></div>
 
 <div class="container">
 	

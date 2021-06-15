@@ -4,22 +4,18 @@ $(document).ready(function() {
 	refresh_value('nodes_stats','nodes');
 	
 	
-	// Refresh every 2 minutes 
+	//Refresh every 2 minutes 
 	setInterval( function () {				
 		table.ajax.reload();
 		refresh_value('ext_stats','ext'); 
 	}, 120000 );
 	
 	
-	// To differ the requests from the table 
+	//To differ the requests from the table 
 	setInterval( function () {				
 		refresh_value('nodes_stats','nodes'); 
-	}, 77777 );
-	
-	
-	
-	
-	
+	}, 240000 );
+		
 		
 	sleep(5000).then(() => {
 	
@@ -163,94 +159,6 @@ $(document).ready(function() {
 		}
 		return null;
 	}
-	
-	
-	
-	var BSModal = document.getElementById('node')
-	
-	BSModal.addEventListener('hide.bs.modal', function (event) {
-		$('#neighborstab').dataTable().fnDestroy();
-	})
-	
-	
-	BSModal.addEventListener('show.bs.modal', function (event) {
-		var button 		= event.relatedTarget
-		var NodeIP 		= button.getAttribute('data-bs-ip')
-		var modalTitle 	= BSModal.querySelector('.modal-title')
-		var modalBody 	= BSModal.querySelector('.modal-body pre')
-	    
-		var time_stamp 	= new Date().getTime();
-		var myurl 		= "ajax.php?timestamp=" + time_stamp;
-		
-		$.ajax({
-			url:myurl,
-			method:"POST",
-			data:{form_type:'node_infos', ip: NodeIP},
-			success:function(data){
-				
-				//var str = JSON.stringify(data, undefined, 4);
-				
-				modalTitle.textContent 	= 'Node ' + NodeIP
-				
-				obj 		= JSON.parse(data);
-				jsonData 	= JSON.stringify(obj, undefined, 2);
-				
-				HTMLContent = nl2br(syntaxHighlight(jsonData))
-				
-				$(modalBody).html(HTMLContent); 
-				
-			}
-		});
-		
-		
-		var n_table = $('#neighborstab').DataTable({
-			"paging":   true,
-			"responsive": true,
-			"searching": false,
-			"render": function(data){
-				console.log(data);
-				if(data){
-					return (data.length > 16)?data.substring(0, 16)+'...':data;
-				} else {
-					return '';
-				}
-			},
-			"ajax": 'ajax.php?n_ip='+NodeIP
-		});
-		
-		//n_table.destroy(); 
-	
-	})
-	
-	
-	
-	
-	
-	
-	function nl2br (str, is_xhtml) {   
-		var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';    
-		return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
-	}
-	
-	function syntaxHighlight(json) {
-		json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-		return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-			var cls = 'number';
-			if (/^"/.test(match)) {
-				if (/:$/.test(match)) {
-					cls = 'key';
-				} else {
-					cls = 'string';
-				}
-			} else if (/true|false/.test(match)) {
-				cls = 'boolean';
-			} else if (/null/.test(match)) {
-				cls = 'null';
-			}
-			return '<span class="' + cls + '">' + match + '</span>';
-		});
-	}
-	
 	
 	
 	

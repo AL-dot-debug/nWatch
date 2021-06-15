@@ -1,8 +1,7 @@
 <?php 
 
-header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + (60 * 60))); // 1 hour
-
 session_start(); 
+header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + (60 * 60))); // 1 hour
 
 if(!isset($_SESSION['user'])):
 	echo 'Auth required';
@@ -36,10 +35,10 @@ if(isset($_POST['form_type'])) :
 		
 		case 'ext_stats': 
 			
-			$block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts'); 
-			$netStats 	= nkn_GeoStat(); 
+			$blocHeight 	= use_node_api('getblockcount'); 			
+			$netStats 		= nkn_GeoStat(); 
 			
-			$json['blocksize'] 	= $block['blockCount'];
+			$json['blocksize'] 	= $blocHeight['result'];
 			$json['netstats'] 	= $netStats['stats']['total']; 
 			
 			echo json_encode($json);
@@ -50,7 +49,7 @@ if(isset($_POST['form_type'])) :
 		
 		case 'nodes_stats': 
 			
-			$nodes 	= get_nodes(1);
+			$nodes 				= get_nodes(1);
 			$json['proposals'] 	= $nodes['total_proposals']; 
 			$json['relay']		= $nodes['average_relay']; 
 			$json['stats']		= $nodes['stats']; 
@@ -59,12 +58,11 @@ if(isset($_POST['form_type'])) :
 			foreach($nodes['stats'] as $key => $value):
 				$json['stats.'.$key] 	= $value; 
 			endforeach; 
-			
-			//$json['stats']		= $stats; 
 				
 			echo json_encode($json); 
 			
 			exit(); 
+
 		break; 
 		
 		case 'node_infos': 
@@ -101,42 +99,16 @@ if(isset($_POST['form_type'])) :
 	
 else : 	
 
-	if(isset($_GET['n_ip'])){
-		
-		$neigbors = get_node_neighbors($_GET['n_ip']); 
-		
-		$i=0; 
-		
-		foreach($neigbors['result'] as $neigbor):
-			
-			preg_match("/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/", $neigbor['addr'], $ip);
-			
-			$return[$i][] 	= $ip[0];
-			$return[$i][]	= $neigbor['id']; 
-			$return[$i][]	= $neigbor['roundTripTime']; 
-			$return[$i][] 	= $neigbor['syncState']; 
-			
-			$i++; 
-			
-		endforeach;
-		
-		$array['data'] 	= $return;
-		$json 			= json_encode($array); 
-		
-		echo $json; 
-		
-		exit(); 
-		
-	}
-
+	
 	// Table update 
 	
-	$block 		= get_json('https://openapi.nkn.org/api/v1/statistics/counts');
-	$nodes 		= get_nodes($block['blockCount']); 
+	$blocHeight 	= use_node_api('getblockcount'); 
+	$block 			= $blocHeight['result'];
 	
+	$nodes 			= get_nodes($block); 
 		
-	$data 		= [];
-	$i			= 0; 
+	$data 			= [];
+	$i				= 0; 
 	
 	foreach($nodes['nodes'] as $node): 
 		
@@ -147,7 +119,7 @@ else :
 		endif; 
 		
 		 
-		$data[$i][] = '<a data-bs-toggle="modal" data-bs-target="#node" data-bs-ip="'.$node['ip'].'">'.$node['ip'].'</a>';
+		$data[$i][] = '<a href="http://nstatus.org/?ip='.$node['ip'].'" target="_blank"><img src="core/img/open.svg" height="20" alt="check on nstatus" /> '.$node['ip'].'</a>';
 		
 		switch($node['syncState']):
 			

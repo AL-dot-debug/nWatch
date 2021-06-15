@@ -1,5 +1,81 @@
 <?php
 
+// Required 
+require 'vendor/autoload.php';
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
+
+
+// uri can be array or string 
+// params must be array 
+function API_request($uri='', $method='GET', $params=''){
+	
+	$client = new Client(['timeout' => 2000, 'headers' => ['user-agent' => 'nWatch 3.0'] ]);
+	
+	if(is_array($uri)):
+		
+		switch($method):
+		
+			case 'GET':
+			
+				foreach($uri as $endpoint):
+				
+					$promises[] = $client->getAsync($endpoint);
+				
+				endforeach; 
+			
+			break;
+			case 'POST':
+				
+				foreach($uri as $endpoint):
+			
+					$promises[] = $client->postAsync($endpoint, $params);
+				
+				endforeach; 
+				
+			break; 
+		
+		endswitch;
+	
+		// Wait for the requests to complete, even if some of them fail
+		$responses = Promise\Utils::settle($promises)->wait(true);
+				
+		foreach($responses as $response):
+			
+			if(isset($response['value'])) : 
+				$content[] = (string) $response['value']->getBody();
+			endif; 
+		
+		endforeach; 
+	
+	
+	else: 
+		
+		switch($method):
+	
+			case 'GET':
+				
+				$response = $client->get($uri);
+				
+			break;
+			case 'POST':
+				
+				$response = $client->post($uri, $params);
+				
+			break; 
+			
+		endswitch; 
+		
+		$content = (string) $response->getBody();
+	
+	endif; 
+		
+	return $content; 
+	
+	
+}
+
 
 
 function use_node_api($method,$params = ''){
@@ -14,33 +90,24 @@ function use_node_api($method,$params = ''){
 		$postfields['params']	= $params; 
 	endif;
 
-	$postfield  = json_encode($postfields); 
-		
-	$api_host 	= random_select_node(); 
-	$url 		= 'http://'.$api_host.':30003/';	
+	$post 		= ['json' => $postfields];  
 			
-	$ch = curl_init($url);
+	$api_host 	= random_select_node(); 
+	$url 		= 'http://'.preg_replace("/\s+/", "",$api_host).':30003/';
+				
+	$return 	= API_request($url, 'POST', $post);
 	
-	curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $postfield);
+	if(!empty($return)): 
 	
-	$server_output = curl_exec($ch);
+		$data 	= json_decode($return, true);
+		return $data; 
+	
+	else : 
 		
-	curl_close ($ch);
+		use_node_api($method,$params); 
 	
-	if(!empty($server_output)):
+	endif; 
 	
-		$return = json_decode($server_output, true); 
-		return $return; 
-		
-	
-	else: 
-		
-		use_node_api($method,$params);
-	
-	endif; 	
 	
 }
 
@@ -89,25 +156,33 @@ function get_nodes_list(){
 
 function check_node_status($ip){
 	
+	$url = 'http://'.preg_replace("/\s+/", "",$ip).':30003/';
 	
-	$ch = curl_init('http://'.$ip.':30003/');
+	$postfields['jsonrpc'] 	= '2.0';
+	$postfields['id'] 		= '1';
+	$postfields['method']	= 'getnodestate'; 
+	$postfields['params'] 	= new ArrayObject();
 	
-	curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	$post 					= ['json' => $postfields];
+	$return 				= API_request($url, 'POST', $post);
 	
-	$data 		= curl_exec($ch);
-	$httpcode 	= curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	if(!empty($return)): 
 	
-	curl_close($ch);
+		$data 	= json_decode($return, true);
+		
+		if( isset($data['result']['syncState']) AND $data['result']['syncState'] == 'PERSIST_FINISHED' ) : 
+			
+			return true; 
+			
+		else : 
+		
+			return false; 
+		
+		endif; 
 	
-	if($httpcode !== 0):
-	   
-	   return true; 
-	
-	else :
-	  
-	  return false; 
+	else : 
+		
+		return false;  
 	
 	endif; 
 	
@@ -181,10 +256,11 @@ function get_transactions($wallet){
 	
 
 	$url 	= 'https://openapi.nkn.org/api/v1/addresses/'.preg_replace("/\s+/", "",$wallet).'/transactions';
-	$data 	= get_json($url);
+	$json 	= API_request($url, 'GET');
+	$data 	= json_decode($json, true);
 	
 	return $data['data']; 
-		
+
 }
 
 function display_transaction($transaction, $wallet){
@@ -266,8 +342,8 @@ function get_nodes($blockCount = 1){
 	
 	if(file_exists('nodes.txt')): 
 	
-		$nodes_file = file_get_contents(dirname(__FILE__).'/nodes.txt'); 
-		$nodes 		= explode("\n", $nodes_file);
+		$nodes_file 	= file_get_contents(dirname(__FILE__).'/nodes.txt'); 
+		$nodes 			= explode("\n", $nodes_file);
 		
 		$return['total_nodes'] 		= 0;
 		$return['total_proposals'] 	= 0;
@@ -285,18 +361,67 @@ function get_nodes($blockCount = 1){
 		$return['stats']['OFFLINE']				= 0;
 		
 		
-		foreach($nodes as $nodel) :
+		if(is_array($nodes)) : 
+			
+			foreach($nodes as $nodel) :
+					
+				// Whitelines .. 
+				if(isset($nodel) AND !empty($nodel)) : 
+					
+					$data 	= explode(',', $nodel); 
+					$uris[] = 'http://'.preg_replace("/\s+/", "",$data[0]).':30003/';
+					
+					$nodeTab[preg_replace("/\s+/", "",$data[0])] = @$data[1]; 
+					
+				endif;
 				
-			// Whitelines .. 
-			if(isset($nodel) AND !empty($nodel)) : 
+			endforeach;
+			
+			$nodes = []; 
+			
+			$postfields['jsonrpc'] 	= '2.0';
+			$postfields['id'] 		= '1';
+			$postfields['method']	= 'getnodestate';
+			$postfields['params']  	= new ArrayObject(); 
+			
+			$post 					= ['json' => $postfields];
+			
+			$data = API_request($uris,'POST', $post);
+			
+			if(is_array($data)): 
 				
-				$data 	= explode(',', $nodel); 
-				$ip 	= $data[0]; 
+				foreach($data as $json):
+					
+					$nodeData = json_decode($json, true); 
+					
+					if(preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $nodeData['result']['addr'], $ip_match)): 
+						
+												
+						if(array_key_exists($ip_match[0], $nodeTab)):
+						
+							$nodes[$ip_match[0]]['name'] = @$nodeTab[$ip_match[0]];
+							$nodes[$ip_match[0]]['data'] = $nodeData; 
+							
+						endif; 
+					 
+					endif; 
+					
+				endforeach; 
+			
+			endif; 
+		
+		endif; 
+		
+			
+		if(is_array($nodes)) : 
+		
+			foreach($nodes as $ip => $nodeData) :
+										
 				
-				if(!isset($data[1])) : 
+				if(empty($nodeData['name'])) : 
 					$name = "Server Doe"; 
 				else : 
-					$name = strip_tags($data[1]);
+					$name = strip_tags($nodeData['name']);
 				endif; 
 				
 				// Common 
@@ -304,9 +429,11 @@ function get_nodes($blockCount = 1){
 				$return['nodes'][$ip]['ip'] 	= $ip;
 				$return['nodes'][$ip]['name'] 	= $name;
 				
-				$node 	= get_node_status(preg_replace("/\s+/", "",$ip));
+				//$node 	= get_node_status(preg_replace("/\s+/", "",$ip));
 					
-				if(!empty($node)) : 
+				if(!empty($nodeData['data'])) :
+				
+					$node = $nodeData['data'];  
 					
 					// Error 
 						
@@ -346,7 +473,8 @@ function get_nodes($blockCount = 1){
 						// Get node rewards from pubkey 
 						$pubkey 	= $node['result']['publicKey']; 
 						$url 		= 'https://api.my-nkn.cloud/rewards/pubkey/'.$pubkey; 
-						$rewards 	= get_json($url); 
+						$data 		= API_request($url, 'GET'); 
+						$rewards 	= json_decode($data, true); 
 						
 						
 						$return['nodes'][$ip]['syncState'] 			= strip_tags(str_replace('_', ' ', $node['result']['syncState']));
@@ -454,13 +582,14 @@ function get_nodes($blockCount = 1){
 				
 				
 				$return['total_nodes']++; 
-				
-			endif; 
-		
-		endforeach;
-		
-		// Quick math 
-		$return['average_relay'] = ($return['min_relay'] + $return['max_relay'])/2; 
+					
+			
+			endforeach;
+			
+			// Quick math 
+			$return['average_relay'] = ($return['min_relay'] + $return['max_relay'])/2; 
+			
+		endif; 
 		
 		return $return; 
 	
@@ -526,35 +655,34 @@ function get_json($url){
 }
 
 function get_node_status($ip){
-	
+
 	$url = 'http://'.preg_replace("/\s+/", "",$ip).':30003/';
 	
-	$ch = curl_init($url);
-		
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS,'{"jsonrpc":"2.0","method":"getnodestate","params":{},"id":1}');
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1); 
-	curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+	$postfields['jsonrpc'] 	= '2.0';
+	$postfields['id'] 		= '1';
+	$postfields['method']	= 'getnodestate';
+	$postfields['params']  	= new ArrayObject(); 
 	
-	$server_output = curl_exec($ch);
+	$post 					= ['json' => $postfields];
 	
-	curl_close ($ch);
+	$json = API_request($url,'POST', $post);
+	$data = json_decode($json, true); 
 	
-	$json = json_decode($server_output, true); 
-		
-	return $json; 
+	return $data; 
 	
 }
 
 
 function nkn_GeoStat(){
 	
-	$geoStats						= get_json('https://api.nkn.org/v1/geo/summary'); 
+	$geoStats 	= API_request('https://api.nkn.org/v1/geo/summary', 'GET');
+	$data 		= json_decode($geoStats, true); 
+	
 	$countries['stats']['total'] 	= 0; 
 	
-	if(isset($geoStats['Payload']['summary']) AND !empty($geoStats['Payload']['summary'])) : 
+	if(isset($data['Payload']['summary']) AND !empty($data['Payload']['summary'])) : 
 		
-		foreach($geoStats['Payload']['summary'] as $country): 
+		foreach($data['Payload']['summary'] as $country): 
 			
 			$countries['stats']['total'] 					= $countries['stats']['total'] + $country['Count']; 
 			$countries['countries'][$country['Country']] 	= strip_tags($country['Count']); 

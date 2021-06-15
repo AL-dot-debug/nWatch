@@ -2,14 +2,12 @@
 	
 	<?php  
 	
-	$method 		= 'getblockcount';
-	$blocHeight 	= use_node_api($method); 
+	$blocHeight 	= use_node_api('getblockcount'); 
 	$block 			= $blocHeight['result']; 
-	
-	$netStats 		= nkn_GeoStat(); 
+		
 	$github 		= get_json('https://api.github.com/repos/nknorg/nkn/releases'); 
 	$nodes 			= get_nodes_list(); 
-	
+		
 	?>
 		
 	<div class="row pb-5">
@@ -19,8 +17,8 @@
 			<div class="row mt-2 p-3 nodes_status">
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
-					<h6>Your control of the network</h6>
-					<span class="stats"><?= number_format_locale(count($nodes)*100/$netStats['stats']['total'],4) ?>%</span>
+					<h6>Your nodes</h6>
+					<span class="stats"><?= number_format_locale(count($nodes),0) ?></span>
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
@@ -40,7 +38,7 @@
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
 					<h6>Total nodes</h6>
-					<span class="ext-stats" data-prop="netstats"><?= number_format_locale($netStats['stats']['total'],0) ?></span>
+					<span class="ext-stats" data-prop="netstats"><span style="font-size:1.2rem">Loading values...</span></span>
 				</div>
 				
 				<div class="col-6 col-lg-4 p-3 mb-3 border-bottom">
@@ -124,137 +122,4 @@
 	
 	</div>
 		
-</div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="node" tabindex="-1" aria-labelledby="node" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Loading your node</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			
-			<div class="modal-body">
-				
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="status-tab" data-bs-toggle="tab" data-bs-target="#status" type="button" role="tab" aria-controls="status" aria-selected="true">Node Status</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="neighbors-tab" data-bs-toggle="tab" data-bs-target="#neighbors" type="button" role="tab" aria-controls="neighbors" aria-selected="false">Neighbors</button>
-					</li>
-				</ul>
-				
-				
-				<div class="tab-content" id="myTabContent">
-					<!-- nWatch --> 
-					<div class="tab-pane fade show active" id="status" role="tabpanel" aria-labelledby="status">
-						
-						<div class="row">
-							
-							<div class="col-lg-8 pt-4">
-								<pre></pre>
-							</div>
-							
-							<div class="col-lg-4 pt-4 explain">
-								
-								<h5 class="m-0 p-0">addr</h5>
-								<p class="mb-2">TCP connection address of your node</p>
-								
-								<h5 class="m-0 p-0">currTimeStamp</h5>
-								<p class="mb-2">Server date (in sec)</p>
-								
-								<h5 class="m-0 p-0">height</h5>
-								<p class="mb-2">Node mining current block</p>
-								
-								<h5 class="m-0 p-0">id</h5>
-								<p class="mb-2">Unique identifier of your node</p>
-								
-								<h5 class="m-0 p-0">jsonRpcPort</h5>
-								<p class="mb-2">Port used by your node</p>
-								
-								<h5 class="m-0 p-0">proposalSubmitted</h5>
-								<p class="mb-2">Amount of reward generated since last restart</p>
-								
-								<h5 class="m-0 p-0">protocolVersion</h5>
-								<p class="mb-2">Current version of the NKN consensus protocol</p>
-								
-								<h5 class="m-0 p-0">publicKey</h5>
-								<p class="mb-2">Node's public key from the node wallet which is used to sign sigchain transactions</p>
-								
-								<h5 class="m-0 p-0">relayMessageCount</h5>
-								<p class="mb-2">Amount of relayed messages by your node</p>
-								
-								<h5 class="m-0 p-0">syncState</h5>
-								<p class="mb-2">Node status</p>
-								
-								<h5 class="m-0 p-0">tlsJsonRpcDomain</h5>
-								<p class="mb-2">HTTPS domain name where the node is reachable through secure RPC-Requests</p>
-								
-								<h5 class="m-0 p-0">tlsJsonRpcPort</h5>
-								<p class="mb-2">Port which is used for secure RPC-Requests to communicate through HTTPS</p>
-								
-								<h5 class="m-0 p-0">tlsWebsocketDomain</h5>
-								<p class="mb-2">HTTPS domain name where the node is reachable through secure websocket connections</p>
-								
-								<h5 class="m-0 p-0">tlsWebsocketPort</h5>
-								<p class="mb-2">Port which is used for regular websocket-Requests to communicate through HTTPS</p>
-								
-								<h5 class="m-0 p-0">uptime</h5>
-								<p class="mb-2">Server uptime (in sec)</p>
-								
-								<h5 class="m-0 p-0">version</h5>
-								<p class="mb-2">Actual version of your node</p>
-								
-								<h5 class="m-0 p-0">websocketPort</h5>
-								<p class="mb-2">Port used for websocket communication</p>
-								
-							</div>
-							
-							
-						</div>
-						
-					</div>
-					
-					<!-- Nodes -->
-					<div class="tab-pane fade" id="neighbors" role="tabpanel" aria-labelledby="neighbors">
-						
-						<div class="w-100 pt-2">
-						
-							<table id="neighborstab" class="table pt-2">
-								
-								<thead>
-									<tr>
-										<th scope="col">Address</th>
-										<th scope="col">ID</th>
-										<th scope="col">Ping</th>
-										<th scope="col">State</th>
-									</tr>
-								</thead>
-								
-								<tbody>
-									
-								</tbody>
-								
-							</table>
-						
-						</div>
-						
-						
-					</div>
-					
-				</div>
-	
-				
-			</div>
-			
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			</div>
-			
-		</div>
-	</div>
 </div>

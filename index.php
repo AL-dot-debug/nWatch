@@ -3,7 +3,7 @@
 // session 
 session_start(); 
 
-$nWatch_version = '2.6.2'; 
+$nWatch_version = '2.7.0'; 
 
 
 // includes 
@@ -51,8 +51,6 @@ if(!canIWriteHere()):
 	$config_error = true; 
 endif; 
 
-
-
 // Logout 
 if(isset($_GET['logout'])):
 	session_destroy(); 
@@ -60,6 +58,9 @@ if(isset($_GET['logout'])):
 	exit(); 
 endif; 
 
+if(!isset($_GET['page'])):
+	$_GET['page'] = 'nodes';
+endif; 
 
 
 ?>
@@ -89,6 +90,7 @@ endif;
 		
 		<base href="<?= HOST_URL; ?>">
 		<meta name="robots" content="noindex">
+		<meta name="referrer" content="no-referrer" />
 		
 		
 	</head>
@@ -154,7 +156,7 @@ endif;
 			
 			
 			<?php
-			
+				
 			if (!isset($_GET['page'])) : 
 				$page = 'pages/nodes.page.php';
 			else : 
@@ -168,7 +170,7 @@ endif;
 			endif; 
 			
 			include_once($page); 
-			
+	
 			?>
 			
 			
