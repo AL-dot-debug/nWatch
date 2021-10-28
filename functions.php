@@ -545,11 +545,11 @@ function get_nodes($blockCount = 1){
 						
 						// Relay calculation
 						
-						$node_uptime = secondsToHours($node['result']['uptime']);
+						$node_uptime = $node['result']['uptime'];
 							
 						if($node_uptime > 0) : 
-							$return['nodes'][$ip]['relayperhour'] = perso_round(($node['result']['relayMessageCount']/$node_uptime), 0 ); 
-							$true_relay = $node['result']['relayMessageCount']/$node_uptime; 
+							$return['nodes'][$ip]['relayperhour'] = perso_round(($node['result']['relayMessageCount']*3600/$node_uptime), 0 );
+							$true_relay = $node['result']['relayMessageCount']*3600/$node_uptime;
 						else : 
 							$return['nodes'][$ip]['relayperhour'] = perso_round($node['result']['relayMessageCount'], 0 );
 							$true_relay = $node['result']['relayMessageCount']; 
