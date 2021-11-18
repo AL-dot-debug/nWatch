@@ -1,7 +1,7 @@
 <div class="container-fluid header">
 	
 	<?php  
-	
+		
 	$blocHeight 	= use_node_api('getblockcount'); 
 	$block 			= $blocHeight['result']; 
 		
@@ -106,7 +106,7 @@
 					<th scope="col" data-priority="1">IP</th>
 					<th scope="col" data-priority="1">Status</th>
 					<th scope="col">Current block</th>
-					<th scope="col">Relayed Messages</th>
+					<th scope="col">Average ping</th>
 					<th scope="col">Relay / hour</th>
 					<th scope="col">Version</th>
 					<th scope="col" data-priority="2">Reward(s)</th>

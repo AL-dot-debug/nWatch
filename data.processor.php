@@ -2,7 +2,7 @@
 
 // Protect the form is a password is set
 
-if( check_security() > 1 AND isset($_POST['form_type']) AND  $_POST['form_type'] != 'login'):
+if( check_security() < 1 AND isset($_POST['form_type']) AND $_POST['form_type'] != 'login'):
 	exit('nope');
 endif; 
  

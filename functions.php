@@ -56,18 +56,26 @@ function API_request($uri='', $method='GET', $params=''){
 	
 			case 'GET':
 				
-				$response = $client->get($uri);
+				try {
+					$response = $client->get($uri);
+				} catch(GuzzleHttp\Exception\GuzzleException $e) {}
 				
 			break;
 			case 'POST':
 				
-				$response = $client->post($uri, $params);
+				try {
+					$response = $client->post($uri, $params);
+				} catch(GuzzleHttp\Exception\GuzzleException $e) {}
 				
 			break; 
 			
 		endswitch; 
 		
-		$content = (string) $response->getBody();
+		if($response): 
+			$content = (string) $response->getBody();
+		else: 
+			$content = '';
+		endif; 
 	
 	endif; 
 		
@@ -336,6 +344,55 @@ function display_transaction($transaction, $wallet){
 }
 
 
+function get_node_ping($ip){
+	
+	$url = 'http://'.$ip.':30003/';
+	
+	$postfields['jsonrpc'] 	= '2.0';
+	$postfields['id'] 		= '1';
+	$postfields['method']	= 'getneighbor';
+	$postfields['params']  	= new ArrayObject(); 
+	
+	$post 					= ['json' => $postfields];
+	
+	$data 	= API_request($url,'POST', $post);
+	
+			
+	$ping['total'] 	= 0;
+	$ping['sum'] 	= 0; 
+	$ping['max'] 	= 0; 
+	$ping['min']	= 99999999; 
+	
+	if(isset($data)): 
+	
+		$array 	= json_decode($data, true); 
+		
+		foreach($array['result'] as $neighbor):
+			
+			$ping['total'] = $ping['total'] + 1;
+			$ping['sum'] 	= $ping['sum'] + $neighbor['roundTripTime']; 
+			
+			if($neighbor['roundTripTime'] > $ping['max']):
+				$ping['max'] = $neighbor['roundTripTime']; 
+			endif;
+			
+			if($neighbor['roundTripTime'] < $ping['min']):
+				$ping['min'] = $neighbor['roundTripTime']; 
+			endif;
+				
+		endforeach;
+		
+		if($ping['total'] > 0):
+			$ping['average'] = $ping['sum'] / $ping['total']; 
+		else:
+			$ping['average'] = 0; 
+		endif; 
+		
+		return $ping; 
+		
+	endif; 
+	
+}
 
 
 function get_nodes($blockCount = 1){
@@ -396,12 +453,12 @@ function get_nodes($blockCount = 1){
 					
 					if(preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $nodeData['result']['addr'], $ip_match)): 
 						
-												
 						if(array_key_exists($ip_match[0], $nodeTab)):
-						
-							$nodes[$ip_match[0]]['name'] = @$nodeTab[$ip_match[0]];
-							$nodes[$ip_match[0]]['data'] = $nodeData; 
 							
+							$nodes[$ip_match[0]]['name'] 	= @$nodeTab[$ip_match[0]];
+							$nodes[$ip_match[0]]['data'] 	= $nodeData; 
+							$nodes[$ip_match[0]]['ping'] 	= get_node_ping($ip_match[0]); 
+														
 						endif; 
 					 
 					endif; 
@@ -411,7 +468,6 @@ function get_nodes($blockCount = 1){
 			endif; 
 		
 		endif; 
-		
 			
 		if(is_array($nodes)) : 
 		
@@ -428,6 +484,7 @@ function get_nodes($blockCount = 1){
 				
 				$return['nodes'][$ip]['ip'] 	= $ip;
 				$return['nodes'][$ip]['name'] 	= $name;
+				$return['nodes'][$ip]['ping']	= $nodeData['ping']['average']; 
 				
 				//$node 	= get_node_status(preg_replace("/\s+/", "",$ip));
 					

@@ -119,7 +119,7 @@ else :
 		endif; 
 		
 		 
-		$data[$i][] = '<a href="http://nstatus.org/?ip='.$node['ip'].'" target="_blank"><img src="core/img/open.svg" height="20" alt="check on nstatus" /> '.$node['ip'].'</a>';
+		$data[$i][] = '<a class="ms-2" href="http://nstatus.org/?ip='.$node['ip'].'" target="_blank"><img src="core/img/open.svg" height="20" alt="check on nstatus" /> '.$node['ip'].'</a>';
 		
 		switch($node['syncState']):
 			
@@ -153,7 +153,7 @@ else :
 		endif; 
 		
 		$data[$i][] = number_format_locale($node['height'], 0); 
-		$data[$i][] = number_format_locale($node['relayMessageCount'], 0); 
+		$data[$i][] = number_format_locale($node['ping'],0).' ms'; 
 		$data[$i][] = number_format_locale($node['relayperhour'], 0); 
 		$data[$i][] = $node['version']; 
 		$data[$i][] = $node['rewards'];
