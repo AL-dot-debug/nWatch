@@ -52,29 +52,35 @@ function API_request($uri='', $method='GET', $params=''){
 	
 	else: 
 		
-		switch($method):
-	
-			case 'GET':
-				
-				try {
-					$response = $client->get($uri);
-				} catch(GuzzleHttp\Exception\GuzzleException $e) {}
-				
-			break;
-			case 'POST':
-				
-				try {
-					$response = $client->post($uri, $params);
-				} catch(GuzzleHttp\Exception\GuzzleException $e) {}
-				
-			break; 
-			
-		endswitch; 
+		if(!empty($uri)):
 		
-		if($response): 
-			$content = (string) $response->getBody();
-		else: 
-			$content = '';
+			switch($method):
+		
+				case 'GET':
+					
+					try {
+						$response = $client->get($uri);
+					} catch(GuzzleHttp\Exception\GuzzleException $e) {}
+					
+				break;
+				case 'POST':
+					
+					try {
+						$response = $client->post($uri, $params);
+					} catch(GuzzleHttp\Exception\GuzzleException $e) {}
+					
+				break; 
+				
+			endswitch; 
+			
+			if($response): 
+				$content = (string) $response->getBody();
+			else: 
+				$content = [];
+			endif; 
+			
+		else : 
+			$content = [];
 		endif; 
 	
 	endif; 
@@ -101,21 +107,29 @@ function use_node_api($method,$params = ''){
 	$post 		= ['json' => $postfields];  
 			
 	$api_host 	= random_select_node(); 
-	$url 		= 'http://'.preg_replace("/\s+/", "",$api_host).':30003/';
-				
-	$return 	= API_request($url, 'POST', $post);
 	
-	if(!empty($return)): 
+	if($api_host != ''):
 	
-		$data 	= json_decode($return, true);
-		return $data; 
-	
+		$url 		= 'http://'.preg_replace("/\s+/", "",$api_host).':30003/';
+					
+		$return 	= API_request($url, 'POST', $post);
+		
+		if(!empty($return)): 
+		
+			$data 	= json_decode($return, true);
+			return $data; 
+		
+		else : 
+			
+			use_node_api($method,$params); 
+		
+		endif; 
+		
 	else : 
 		
-		use_node_api($method,$params); 
+		use_node_api($method,$params);
 	
 	endif; 
-	
 	
 }
 
@@ -602,11 +616,11 @@ function get_nodes($blockCount = 1){
 						
 						// Relay calculation
 						
-						$node_uptime = $node['result']['uptime'];
+						$node_uptime = secondsToHours($node['result']['uptime']);
 							
 						if($node_uptime > 0) : 
-							$return['nodes'][$ip]['relayperhour'] = perso_round(($node['result']['relayMessageCount']*3600/$node_uptime), 0 );
-							$true_relay = $node['result']['relayMessageCount']*3600/$node_uptime;
+							$return['nodes'][$ip]['relayperhour'] = perso_round(($node['result']['relayMessageCount']/$node_uptime), 0 ); 
+							$true_relay = $node['result']['relayMessageCount']/$node_uptime; 
 						else : 
 							$return['nodes'][$ip]['relayperhour'] = perso_round($node['result']['relayMessageCount'], 0 );
 							$true_relay = $node['result']['relayMessageCount']; 
